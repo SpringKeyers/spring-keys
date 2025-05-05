@@ -1,0 +1,9 @@
+[package]
+name = "spring-keys"
+version = "0.1.0"
+edition = "2021"
+authors = ["SpringKeys Team"]
+description = "A typing tutor with spring-based physics and mini-games"
+
+[dependencies]
+crossterm = "0.27.0" 
