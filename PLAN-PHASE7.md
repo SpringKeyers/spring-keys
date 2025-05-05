@@ -215,3 +215,50 @@ const COLORS: &[(u8, u8, u8)] = &[
 - Implement alternative patterns for different sizes
 - Consider terminal capability detection
 - Add configuration options for size preferences 
+
+# Phase 7: Adaptive Terminal Size Support
+
+## Latest Implementation
+Added dynamic terminal size adaptation while maintaining minimum size requirements:
+
+### Dynamic Sizing
+- Box size automatically expands to fill available terminal space
+- Maintains minimum size of 4x4 for compatibility
+- Preserves aspect ratio for visual consistency
+- Adds size display in title (e.g., "VGA 20x20")
+
+### Technical Implementation
+```rust
+const MIN_BOX_SIZE: u16 = 4;
+const BORDER_SPACE: u16 = 2;
+
+fn calculate_box_size(term_width: u16, term_height: u16) -> u16 {
+    let max_width = term_width.saturating_sub(BORDER_SPACE);
+    let max_height = term_height.saturating_sub(BORDER_SPACE);
+    let size = max_width.min(max_height);
+    size.max(MIN_BOX_SIZE)
+}
+```
+
+### Improvements
+1. Automatic size calculation based on terminal dimensions
+2. Pattern scaling to match box size
+3. Border adjustment for different sizes
+4. Dynamic title with current dimensions
+5. Optimized animation speed for all sizes
+
+### Benefits
+- Better space utilization
+- Enhanced visual impact in larger terminals
+- Maintains functionality in small terminals
+- Clear size feedback to users
+- Smooth scaling of patterns and colors
+
+## Future Enhancements
+- Add size-specific pattern variations
+- Implement responsive layout options
+- Consider split-screen modes for large terminals
+- Add size transition animations
+- Support custom size preferences
+
+// ... rest of the existing content ... 
