@@ -1,56 +1,49 @@
 use colored::*;
 
 pub fn print_help() {
-    println!("{}", "SpringKeys - A Modern Terminal-based Typing Tutor".bright_cyan().bold());
-    println!("{}", format!("Version {}", env!("CARGO_PKG_VERSION")).bright_black());
+    println!("SpringKeys - Typing Tutor with Spring-based Physics");
+    println!("====================================================");
     println!();
-    
-    println!("{}", "DESCRIPTION:".yellow());
-    println!("  A modern typing tutor with real-time feedback, statistics tracking,");
-    println!("  and mini-games to help improve your typing speed and accuracy.");
-    println!();
-    
-    println!("{}", "USAGE:".yellow());
+    println!("USAGE:");
     println!("  spring-keys [OPTIONS] [COMMAND]");
     println!();
-    
-    println!("{}", "OPTIONS:".yellow());
-    println!("  -h, --help        Print this help message");
-    println!("  -v, --version     Print version information");
-    println!("  -d, --difficulty  Set difficulty level (easy|medium|hard)");
-    println!("  -q, --quiet       Suppress non-error output");
+    println!("COMMANDS:");
+    println!("  practice              Practice typing with quotes");
+    println!("  game                  Play typing mini-games");
+    println!("  stats                 View your typing statistics");
+    println!("  config                Edit configuration");
+    println!("  test                  Display test pattern (VGA-style test)");
+    println!("  single [QUOTE]        Run a single quote test with automated exit");
     println!();
-    
-    println!("{}", "COMMANDS:".yellow());
-    println!("  practice          Start a typing practice session");
-    println!("  stats            View your typing statistics");
-    println!("  config           Edit configuration settings");
-    println!("  game             Start a typing mini-game");
-    println!("  test             Run VGA-style test screen");
+    println!("OPTIONS:");
+    println!("  -h, --help            Show this help message");
+    println!("  -v, --version         Show version information");
+    println!("  -d, --difficulty      Set difficulty level (easy, medium, hard)");
+    println!("  -q, --quiet           Quiet mode (minimal logging)");
     println!();
-    
-    println!("{}", "EXAMPLES:".yellow());
-    println!("  spring-keys                    Start practice mode");
-    println!("  spring-keys practice           Start a practice session");
-    println!("  spring-keys -d easy practice   Practice with easy difficulty");
-    println!("  spring-keys stats              View your statistics");
-    println!("  spring-keys game               Start a typing mini-game");
-    println!("  spring-keys test               Run VGA test screen");
+    println!("SINGLE MODE OPTIONS:");
+    println!("  --preset=NAME         Use a preset quote (e.g., \"foxjump\")");
+    println!("  --input=TEXT          Input sequence for automation");
+    println!("  --timeout=MS          Timeout in milliseconds (default: 1000)");
     println!();
-    
-    println!("{}", "KEYBOARD SHORTCUTS:".yellow());
-    println!("  ESC              Exit the current session");
-    println!("  F5               Get a new random quote");
-    println!("  Ctrl+C           Force quit the application");
-    println!("  Any key          Skip VGA test animation");
+    println!("ENVIRONMENT VARIABLES:");
+    println!("  SPRING_KEYS_TEST_MODE Set to '1' or 'true' to enable single mode for automated testing");
+    println!("  SPRING_KEYS_ENV_INFO  Set to '1' or 'true' to display environment information");
     println!();
-    
-    println!("{}", "AUTHOR:".yellow());
-    println!("  {}", env!("CARGO_PKG_AUTHORS"));
+    println!("HEADLESS DETECTION:");
+    println!("  SpringKeys automatically detects headless environments (CI systems, non-interactive");
+    println!("  terminals) and enables test mode automatically. This can be overridden by explicitly");
+    println!("  setting SPRING_KEYS_TEST_MODE=0 if needed.");
     println!();
-    
-    println!("{}", "LICENSE:".yellow());
-    println!("{}", MIT_LICENSE.bright_black());
+    println!("EXAMPLES:");
+    println!("  spring-keys practice -d medium");
+    println!("  spring-keys game");
+    println!("  spring-keys test");
+    println!("  spring-keys single \"Custom test quote.\"");
+    println!("  spring-keys single --preset=foxjump");
+    println!("  SPRING_KEYS_TEST_MODE=1 spring-keys --input \"T h e <space> q u i c k\"");
+    println!();
+    println!("For more information, see the documentation.");
 }
 
 const MIT_LICENSE: &str = r#"MIT License
