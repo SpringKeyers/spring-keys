@@ -21,8 +21,6 @@ mod heatmap;
 pub struct TerminalUI {
     terminal: Terminal<CrosstermBackend<Stdout>>,
     should_quit: bool,
-    width: u16,
-    height: u16,
 }
 
 impl TerminalUI {
@@ -30,13 +28,10 @@ impl TerminalUI {
         // Set up terminal
         let backend = CrosstermBackend::new(io::stdout());
         let terminal = Terminal::new(backend)?;
-        let (width, height) = terminal::size()?;
         
         Ok(Self {
             terminal,
             should_quit: false,
-            width,
-            height,
         })
     }
 
@@ -362,7 +357,7 @@ fn render_detailed_metrics(frame: &mut tui::Frame<CrosstermBackend<Stdout>>, app
             }
             
             // Get inner area of the block
-            let finger_inner = finger_block.inner(chunks[0]);
+            let finger_inner = finger_block.inner(CustomMargin { vertical: 0, horizontal: 0 });
             let finger_chunks = Layout::default()
                 .direction(Direction::Horizontal)
                 .constraints([
@@ -388,7 +383,7 @@ fn render_detailed_metrics(frame: &mut tui::Frame<CrosstermBackend<Stdout>>, app
         }
         
         // Render row performance data
-        let row_inner = row_block.inner(chunks[1]);
+        let row_inner = row_block.inner(CustomMargin { vertical: 0, horizontal: 0 });
         let row_para = Paragraph::new(vec![
             Spans::from(format!("Top Row: {:.1}ms", session.metrics.top_row_metrics.avg_time_ms)),
             Spans::from(format!("Home Row: {:.1}ms", session.metrics.home_row_metrics.avg_time_ms)),

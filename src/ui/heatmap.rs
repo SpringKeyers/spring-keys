@@ -1,3 +1,4 @@
+#[cfg(test)]
 use std::io::{self, Write};
 use std::collections::HashMap;
 use crossterm::{

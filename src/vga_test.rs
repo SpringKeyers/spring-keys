@@ -2,17 +2,12 @@ use std::io::{self, Write, stdout};
 use std::time::Duration;
 use crossterm::{
     execute,
-    terminal::{Clear, ClearType, size, enable_raw_mode, disable_raw_mode},
+    terminal::{Clear, ClearType, enable_raw_mode, disable_raw_mode},
     cursor::{Hide, Show, MoveTo},
     style::{Color, SetForegroundColor, SetBackgroundColor, ResetColor},
     event::{poll, read, Event},
 };
 
-// Terminal size constants
-const MIN_BOX_SIZE: u16 = 4;
-const MIN_TERM_WIDTH: u16 = 4;
-const MIN_TERM_HEIGHT: u16 = 4;
-const BORDER_SPACE: u16 = 2; // Space for borders and padding
 const FRAME_TIME: u64 = 10; // Animation frame time in milliseconds
 
 // Reduced symbol set that works well at any size
@@ -34,9 +29,6 @@ const COLORS: &[(u8, u8, u8)] = &[
 #[derive(Copy, Clone)]
 enum Direction {
     Left,
-    Up,
-    Down,
-    Right,
 }
 
 struct Pattern {
@@ -46,23 +38,13 @@ struct Pattern {
     speed: f64,
 }
 
-fn calculate_box_size(term_width: u16, term_height: u16) -> u16 {
-    // Calculate maximum possible box size while maintaining aspect ratio
-    let max_width = term_width.saturating_sub(BORDER_SPACE);
-    let max_height = term_height.saturating_sub(BORDER_SPACE);
-    let size = max_width.min(max_height);
-    
-    // Ensure size is at least MIN_BOX_SIZE
-    size.max(MIN_BOX_SIZE)
-}
-
 impl Pattern {
     fn new(_box_size: u16) -> Self {
         Self {
             x_offset: 0.0,
             y_offset: 0.0,
-            direction: Direction::Left,  // Always start moving left
-            speed: 1.0,                 // Move 1 block per frame
+            direction: Direction::Left,
+            speed: 1.0,
         }
     }
 
@@ -71,15 +53,6 @@ impl Pattern {
         match self.direction {
             Direction::Left => {
                 self.x_offset = (self.x_offset - self.speed).rem_euclid(max_offset)
-            },
-            Direction::Up => {
-                self.y_offset = (self.y_offset - self.speed).rem_euclid(max_offset)
-            },
-            Direction::Down => {
-                self.y_offset = (self.y_offset + self.speed).rem_euclid(max_offset)
-            },
-            Direction::Right => {
-                self.x_offset = (self.x_offset + self.speed).rem_euclid(max_offset)
             },
         }
     }

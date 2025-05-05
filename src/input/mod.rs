@@ -5,9 +5,6 @@ use crate::core::TypingSession;
 mod event_queue;
 pub use event_queue::{EventQueue, KeyboardEvent};
 
-const KEY_REPEAT_DELAY: Duration = Duration::from_millis(500);
-const KEY_REPEAT_RATE: Duration = Duration::from_millis(33);
-
 #[derive(Debug)]
 pub struct InputProcessor {
     pub current_text: String,
