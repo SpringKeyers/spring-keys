@@ -159,4 +159,59 @@ Debug: Required size: 80x24
 Exiting due to insufficient terminal size (138x20, need 80x24)
 ```
 
-This output clearly shows the terminal dimensions mismatch, making it easier to diagnose and fix terminal size issues. 
+This output clearly shows the terminal dimensions mismatch, making it easier to diagnose and fix terminal size issues.
+
+# Phase 7: Minimal Terminal Size Support
+
+## Implementation
+Successfully reduced minimum terminal size requirements to 4x4 while maintaining visual appeal:
+
+### Size Optimization
+- Reduced minimum dimensions from 80x24 to 4x4
+- Adjusted box size to fit minimal terminal
+- Simplified border drawing for small spaces
+- Optimized pattern movement for tiny displays
+
+### Visual Improvements
+- Reduced symbol set to essential characters
+- Optimized color transitions for small areas
+- Adjusted animation speed for better visibility
+- Maintained smooth pattern movement
+
+### Technical Enhancements
+- Added saturating arithmetic for overflow prevention
+- Simplified coordinate calculations
+- Removed complex border drawing
+- Optimized refresh rate for small displays
+
+### Code Example
+```rust
+// Minimal size constants
+const BOX_SIZE: u16 = 4;
+const MIN_TERM_WIDTH: u16 = 4;
+const MIN_TERM_HEIGHT: u16 = 4;
+
+// Optimized symbol set
+const SYMBOLS: &[char] = &['█', '▀', '▄', '▌'];
+
+// Core colors for minimal display
+const COLORS: &[(u8, u8, u8)] = &[
+    (255, 0, 0),   // Red
+    (0, 255, 0),   // Green
+    (0, 0, 255),   // Blue
+    (255, 255, 0), // Yellow
+];
+```
+
+## Benefits
+1. Works in extremely constrained terminal environments
+2. Maintains visual appeal even at minimal size
+3. Prevents arithmetic overflow issues
+4. Provides clear error messages
+5. Graceful degradation in limited space
+
+## Future Considerations
+- Add adaptive sizing based on terminal dimensions
+- Implement alternative patterns for different sizes
+- Consider terminal capability detection
+- Add configuration options for size preferences 
