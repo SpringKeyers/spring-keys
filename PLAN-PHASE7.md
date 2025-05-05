@@ -315,3 +315,182 @@ enum Direction {
 2. Evaluate need for dynamic terminal sizing
 3. Review other unused components for potential removal
 4. Consider adding more test coverage for core functionality 
+
+# Phase 7: Code Implementation Details
+
+## UI Module Structure
+The UI implementation consists of three main components:
+
+### 1. Terminal UI (`src/ui/mod.rs`)
+```rust
+pub struct TerminalUI {
+    terminal: Terminal<CrosstermBackend<Stdout>>,
+    should_quit: bool,
+}
+```
+Key features:
+- Terminal initialization and cleanup
+- Event handling (keyboard input)
+- Main rendering loop
+- Layout management with tui-rs
+- Detailed metrics visualization
+- Color-coded performance indicators
+- Real-time WPM and accuracy tracking
+
+### 2. Heatmap Visualization (`src/ui/heatmap.rs`)
+```rust
+pub struct KeyboardHeatmap;
+```
+Features:
+- Keyboard layout visualization
+- Heat-based color coding
+- Performance metrics by key
+- Row-based performance bars
+- Finger performance tracking
+- Dynamic color transitions
+- Custom rendering for small terminals
+
+### 3. Input Processing (`src/input/mod.rs`)
+```rust
+pub struct InputProcessor {
+    pub current_text: String,
+    pub cursor_position: usize,
+    pub event_queue: EventQueue,
+    pub last_error: Option<bool>,
+    pub caps_lock_enabled: bool,
+    pub last_key_time: Option<Instant>,
+}
+```
+Features:
+- Real-time input validation
+- Cursor movement handling
+- CapsLock state management
+- Event queueing system
+- Error tracking
+- Performance timing
+- Backspace handling
+
+## Technical Implementation Details
+
+### Terminal UI Features
+1. Layout Management:
+   ```rust
+   let chunks = Layout::default()
+       .direction(Direction::Vertical)
+       .constraints([
+           Constraint::Length(1),  // Status bar
+           Constraint::Length(2),  // Title
+           // ... more constraints ...
+           Constraint::Min(0),     // Rest of screen
+       ].as_ref())
+       .split(frame.size());
+   ```
+
+2. Performance Metrics:
+   ```rust
+   fn colorize_metric(value: f64) -> Span<'static> {
+       let color = if value <= 150.0 {
+           Color::Green // Fast
+       } else if value <= 250.0 {
+           Color::Yellow // Medium
+       } else {
+           Color::Red // Slow
+       };
+       Span::styled(format!("{:.0}", value), Style::default().fg(color))
+   }
+   ```
+
+### Heatmap Visualization
+1. Keyboard Layout:
+   ```rust
+   let rows = [
+       "1234567890-=",     // Numbers row
+       "qwertyuiop[]\\",   // Top letter row
+       "asdfghjkl;'",      // Home row
+       "zxcvbnm,./",       // Bottom row
+       "       ",          // Space bar
+   ];
+   ```
+
+2. Performance Colors:
+   ```rust
+   let bg_color = if heat_value < 0.25 {
+       Color::DarkBlue      // Very fast (cold)
+   } else if heat_value < 0.5 {
+       Color::Blue          // Fast
+   } else if heat_value < 0.75 {
+       Color::DarkYellow    // Medium
+   } else {
+       Color::DarkRed       // Slow (hot)
+   };
+   ```
+
+### Input Processing
+1. Event Handling:
+   ```rust
+   pub fn process_key_event(&mut self, key: KeyCode, modifiers: KeyModifiers, typing_session: Option<&mut TypingSession>) {
+       let event = KeyboardEvent::new(key, modifiers);
+       self.event_queue.push(event);
+       self.process_modifiers(key, modifiers);
+       // ... event processing ...
+   }
+   ```
+
+2. Input Validation:
+   ```rust
+   pub fn validate_input(&self, expected: &str) -> ValidationResult {
+       let current = self.current_text.as_str();
+       let mut is_valid = true;
+       let mut error = None;
+       let mut error_position = 0;
+       
+       // Character by character validation
+       for (i, (actual, expected)) in current.chars().zip(expected.chars()).enumerate() {
+           if actual != expected {
+               is_valid = false;
+               error = Some(true);
+               error_position = i;
+               break;
+           }
+       }
+       // ... additional validation ...
+   }
+   ```
+
+## Benefits
+1. Real-time Performance Tracking
+   - Immediate feedback on typing speed
+   - Visual indicators for accuracy
+   - Per-finger performance metrics
+
+2. Responsive UI
+   - Efficient event handling
+   - Smooth updates
+   - Clear visual hierarchy
+
+3. Detailed Analytics
+   - Heat-based visualization
+   - Row-by-row performance
+   - Finger-by-finger metrics
+
+4. User Experience
+   - Color-coded feedback
+   - Intuitive layout
+   - Clear error indicators
+
+## Future Improvements
+1. Performance Optimization
+   - Buffer keyboard events
+   - Optimize rendering loops
+   - Reduce memory allocations
+
+2. Enhanced Visualization
+   - 3D heatmap effects
+   - Animated transitions
+   - Custom color schemes
+
+3. Additional Features
+   - Custom keyboard layouts
+   - Performance history
+   - Progress tracking
+   - Achievement system 
