@@ -1,5 +1,3 @@
-use colored::*;
-
 pub fn print_help() {
     println!("SpringKeys - Typing Tutor with Spring-based Physics");
     println!("====================================================");
@@ -46,6 +44,8 @@ pub fn print_help() {
     println!("For more information, see the documentation.");
 }
 
+// Commented out as it's not currently used
+/*
 const MIT_LICENSE: &str = r#"MIT License
 
 Copyright (c) 2024 microuser
@@ -67,3 +67,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE."#; 
+*/ 

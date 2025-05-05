@@ -12,7 +12,6 @@ use std::path::PathBuf;
 use std::env;
 use log::{info, LevelFilter};
 use std::collections::HashMap;
-use std::time::{Duration, Instant};
 use std::io::IsTerminal;
 
 pub use core::{TypingSession, TypingError};
@@ -268,7 +267,7 @@ fn main() -> std::io::Result<()> {
     
     // Auto-enable test mode if headless
     let mut is_single_mode = false;
-    let mut auto_detected_headless = false;
+    let mut _auto_detected_headless = false;
     
     // Check for explicit test mode via environment variable
     if let Ok(test_mode) = env::var("SPRING_KEYS_TEST_MODE") {
@@ -279,7 +278,7 @@ fn main() -> std::io::Result<()> {
     } else if headless {
         // Auto-enable test mode if headless and no explicit variable
         is_single_mode = true;
-        auto_detected_headless = true;
+        _auto_detected_headless = true;
         info!("Test mode auto-enabled due to headless environment detection");
     }
     
