@@ -1,0 +1,102 @@
+{
+  "quote_text": "To be, or not to be, that is the question.",
+  "wpm": 109.23517033771168,
+  "accuracy": 62.7906976744186,
+  "total_keystrokes": 129,
+  "correct_keystrokes": 81,
+  "error_count": 48,
+  "number_row_avg": 0.0,
+  "top_row_avg": 216.65714285714284,
+  "home_row_avg": 117.0,
+  "bottom_row_avg": 159.5185185185185,
+  "finger_stats": {
+    "RightRing": {
+      "current": 181.0,
+      "avg_10s": 143.4,
+      "avg_60s": 183.41666666666666,
+      "fastest": 44.0,
+      "slowest": 585.0
+    },
+    "LeftRing": {
+      "current": 115.0,
+      "avg_10s": 109.0,
+      "avg_60s": 116.28571428571429,
+      "fastest": 59.0,
+      "slowest": 180.0
+    },
+    "LeftMiddle": {
+      "current": 140.0,
+      "avg_10s": 100.0,
+      "avg_60s": 76.83333333333333,
+      "fastest": 30.0,
+      "slowest": 140.0
+    },
+    "LeftIndex": {
+      "current": 45.0,
+      "avg_10s": 132.375,
+      "avg_60s": 246.22222222222223,
+      "fastest": 45.0,
+      "slowest": 1111.0
+    },
+    "RightMiddle": {
+      "current": 106.0,
+      "avg_10s": 236.0,
+      "avg_60s": 167.0,
+      "fastest": 57.0,
+      "slowest": 538.0
+    },
+    "Thumb": {
+      "current": 93.0,
+      "avg_10s": 89.125,
+      "avg_60s": 116.61538461538461,
+      "fastest": 32.0,
+      "slowest": 313.0
+    },
+    "RightPinky": {
+      "current": 300.0,
+      "avg_10s": 300.0,
+      "avg_60s": 300.0,
+      "fastest": 300.0,
+      "slowest": 300.0
+    },
+    "RightIndex": {
+      "current": 150.0,
+      "avg_10s": 119.4,
+      "avg_60s": 204.75,
+      "fastest": 74.0,
+      "slowest": 1048.0
+    },
+    "LeftPinky": {
+      "current": 133.0,
+      "avg_10s": 95.0,
+      "avg_60s": 98.66666666666667,
+      "fastest": 57.0,
+      "slowest": 133.0
+    }
+  },
+  "key_geometric_averages": {
+    ",": 289.3333333333333,
+    "q": 133.0,
+    "b": 202.0,
+    "g": 74.0,
+    "i": 93.6,
+    "o": 190.42857142857142,
+    ".": 220.0,
+    "l": 142.66666666666666,
+    "n": 144.33333333333334,
+    "e": 160.6237840420901,
+    "h": 106.25,
+    "u": 118.0,
+    " ": 116.61538461538461,
+    "r": 600.0,
+    "f": 330.0,
+    "y": 1048.0,
+    "s": 116.33333333333333,
+    "v": 213.0,
+    "w": 116.0,
+    "a": 81.5,
+    "t": 253.19952606590715,
+    "d": 31.0
+  },
+  "timestamp": "20250505194749"
+}

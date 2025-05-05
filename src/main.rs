@@ -11,9 +11,11 @@ mod vga_test;
 use std::path::PathBuf;
 use std::env;
 use log::{info, LevelFilter};
+use std::collections::HashMap;
 
 pub use core::{TypingSession, TypingError};
 pub use core::metrics::{TypingMetrics, CharacterMetrics, KeyboardRow, Finger};
+pub use core::metrics::ExtendedStats;
 pub use input::{InputProcessor, ValidationResult};
 pub use core::state::{GameState, GameType, GameStatus};
 pub use ui::TerminalUI;
@@ -74,7 +76,13 @@ impl SpringKeys {
         };
         
         info!("Starting typing session with text: {}", quote_text);
-        self.typing_session = Some(TypingSession::new(quote_text));
+        if let Some(session) = &mut self.typing_session {
+            // If we already have a session, just load the new quote
+            session.load_new_quote(quote_text);
+        } else {
+            // Create a new session if we don't have one
+            self.typing_session = Some(TypingSession::new(quote_text));
+        }
         self.input_processor.clear();
     }
 
@@ -88,6 +96,14 @@ impl SpringKeys {
             let result = self.input_processor.validate_input(&session.text);
             self.input_processor.update_error_state(result);
             session.calculate_metrics();
+
+            // Check if the quote is completed and ends with a period
+            if self.input_processor.is_quote_completed(&session.text) {
+                if session.check_completion() {
+                    // Start a new typing session with a new quote
+                    self.start_typing_session(None);
+                }
+            }
         }
     }
 
@@ -98,12 +114,16 @@ impl SpringKeys {
         self.input_processor.clear();
     }
     
-    pub fn get_heat_map(&self) -> Option<std::collections::HashMap<char, f64>> {
+    pub fn get_heat_map(&self) -> Option<std::collections::HashMap<char, (f64, u64)>> {
         self.typing_session.as_ref().map(|session| session.metrics.generate_heat_map())
     }
     
-    pub fn get_finger_performance(&self) -> Option<std::collections::HashMap<Finger, f64>> {
+    pub fn get_finger_performance(&self) -> Option<&HashMap<Finger, ExtendedStats>> {
         self.typing_session.as_ref().map(|session| session.metrics.finger_performance())
+    }
+
+    pub fn get_averages(&self) -> Option<(f64, f64)> {
+        self.typing_session.as_ref().map(|session| session.get_averages())
     }
 }
 
@@ -166,11 +186,6 @@ fn main() -> std::io::Result<()> {
     
     info!("Starting SpringKeys application");
     
-    // If no command is provided, run the VGA test screen
-    if command.is_none() {
-        return vga_test::run_test_screen();
-    }
-    
     // Initialize application
     let mut app = SpringKeys::new();
     
@@ -183,30 +198,35 @@ fn main() -> std::io::Result<()> {
         };
     }
     
-    // Handle specific commands
-    let cmd = command.unwrap();
-    match cmd.as_str() {
-        "practice" => {
+    // Handle specific commands or default to practice mode
+    match command {
+        Some(cmd) => match cmd.as_str() {
+            "practice" => {
+                app.change_game(GameType::Practice);
+            },
+            "game" => {
+                app.change_game(GameType::Minesweeper);
+            },
+            "stats" => {
+                println!("Statistics viewing not yet implemented");
+                return Ok(());
+            },
+            "config" => {
+                println!("Configuration editing not yet implemented");
+                return Ok(());
+            },
+            "test" => {
+                return vga_test::run_test_screen();
+            },
+            _ => {
+                eprintln!("Unknown command: {}", cmd);
+                help::print_help();
+                return Ok(());
+            }
+        },
+        None => {
+            // Default to practice mode instead of VGA test
             app.change_game(GameType::Practice);
-        },
-        "game" => {
-            app.change_game(GameType::Minesweeper);
-        },
-        "stats" => {
-            println!("Statistics viewing not yet implemented");
-            return Ok(());
-        },
-        "config" => {
-            println!("Configuration editing not yet implemented");
-            return Ok(());
-        },
-        "test" => {
-            return vga_test::run_test_screen();
-        },
-        _ => {
-            eprintln!("Unknown command: {}", cmd);
-            help::print_help();
-            return Ok(());
         }
     }
     

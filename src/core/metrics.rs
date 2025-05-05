@@ -1,6 +1,10 @@
 use std::collections::HashMap;
 use std::time::Instant;
 use serde::{Serialize, Deserialize};
+use chrono::Utc;
+use std::fs;
+use std::path::PathBuf;
+use crate::core::histogram::HistogramStats;
 
 /// Represents keyboard rows for metrics tracking
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -20,6 +24,7 @@ pub enum Finger {
     LeftRing,
     LeftMiddle,
     LeftIndex,
+    Thumb,
     RightIndex,
     RightMiddle,
     RightRing,
@@ -37,6 +42,65 @@ pub struct TypingError {
     pub position: usize,
     /// The time when the error occurred
     pub timestamp: Instant,
+}
+
+/// Extended statistics for tracking performance over time
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ExtendedStats {
+    pub current: f64,
+    pub avg_10s: f64,
+    pub avg_60s: f64,
+    pub avg_quote: f64,
+    pub slowest: f64,
+    pub fastest: f64,
+    #[serde(skip)]
+    pub times_10s: Vec<(Instant, f64)>,
+    #[serde(skip)]
+    pub times_60s: Vec<(Instant, f64)>,
+    pub quote_times: Vec<f64>,
+}
+
+impl ExtendedStats {
+    pub fn new() -> Self {
+        Self {
+            current: 0.0,
+            avg_10s: 0.0,
+            avg_60s: 0.0,
+            avg_quote: 0.0,
+            slowest: 0.0,
+            fastest: 0.0,
+            times_10s: Vec::new(),
+            times_60s: Vec::new(),
+            quote_times: Vec::new(),
+        }
+    }
+
+    pub fn update(&mut self, value: f64, now: Instant) {
+        self.current = value;
+        
+        // Update slowest/fastest
+        self.slowest = self.slowest.max(value);
+        self.fastest = if self.fastest == 0.0 {
+            value
+        } else {
+            self.fastest.min(value)
+        };
+        
+        // Update 10s average
+        self.times_10s.retain(|(time, _)| now.duration_since(*time).as_secs() <= 10);
+        self.times_10s.push((now, value));
+        self.avg_10s = self.times_10s.iter().map(|(_, v)| v).sum::<f64>() / self.times_10s.len() as f64;
+        
+        // Update 60s average
+        self.times_60s.retain(|(time, _)| now.duration_since(*time).as_secs() <= 60);
+        self.times_60s.push((now, value));
+        self.avg_60s = self.times_60s.iter().map(|(_, v)| v).sum::<f64>() / self.times_60s.len() as f64;
+    }
+
+    pub fn update_quote_stats(&mut self, value: f64) {
+        self.quote_times.push(value);
+        self.avg_quote = self.quote_times.iter().sum::<f64>() / self.quote_times.len() as f64;
+    }
 }
 
 /// Per-character typing statistics
@@ -58,10 +122,13 @@ pub struct CharacterMetrics {
     pub short_term_avg_ms: f64,
     /// Recent typing times for this character (for short-term average calculation)
     pub recent_times_ms: Vec<u64>,
+    /// Last recorded delay for this character (in milliseconds)
+    pub last_delay_ms: u64,
     /// Keyboard row this character belongs to
     pub row: KeyboardRow,
     /// Finger typically used to type this character
     pub finger: Finger,
+    pub extended_stats: ExtendedStats,
 }
 
 impl CharacterMetrics {
@@ -76,8 +143,10 @@ impl CharacterMetrics {
             avg_time_ms: 0.0,
             short_term_avg_ms: 0.0,
             recent_times_ms: Vec::with_capacity(10),
+            last_delay_ms: 0,
             row,
             finger,
+            extended_stats: ExtendedStats::new(),
         }
     }
     
@@ -86,25 +155,28 @@ impl CharacterMetrics {
         self.count += 1;
         if correct {
             self.correct_count += 1;
-        }
-        
-        self.total_time_ms += time_ms;
-        self.min_time_ms = self.min_time_ms.min(time_ms);
-        self.max_time_ms = self.max_time_ms.max(time_ms);
-        
-        // Update running average
-        self.avg_time_ms = self.total_time_ms as f64 / self.count as f64;
-        
-        // Update recent times for short-term average
-        if self.recent_times_ms.len() >= 10 {
-            self.recent_times_ms.remove(0);
-        }
-        self.recent_times_ms.push(time_ms);
-        
-        // Calculate short-term average
-        if !self.recent_times_ms.is_empty() {
-            let sum: u64 = self.recent_times_ms.iter().sum();
-            self.short_term_avg_ms = sum as f64 / self.recent_times_ms.len() as f64;
+            self.last_delay_ms = time_ms;
+            
+            self.total_time_ms += time_ms;
+            self.min_time_ms = self.min_time_ms.min(time_ms);
+            self.max_time_ms = self.max_time_ms.max(time_ms);
+            
+            // Update running average
+            self.avg_time_ms = self.total_time_ms as f64 / self.correct_count as f64;
+            
+            // Update recent times for short-term average
+            if self.recent_times_ms.len() >= 10 {
+                self.recent_times_ms.remove(0);
+            }
+            self.recent_times_ms.push(time_ms);
+            
+            // Calculate short-term average
+            if !self.recent_times_ms.is_empty() {
+                let sum: u64 = self.recent_times_ms.iter().sum();
+                self.short_term_avg_ms = sum as f64 / self.recent_times_ms.len() as f64;
+            }
+            
+            self.extended_stats.update(time_ms as f64, Instant::now());
         }
     }
     
@@ -114,6 +186,13 @@ impl CharacterMetrics {
             0.0
         } else {
             (self.correct_count as f64 / self.count as f64) * 100.0
+        }
+    }
+
+    pub fn update_quote_stats(&mut self) {
+        if !self.recent_times_ms.is_empty() {
+            let avg = self.recent_times_ms.iter().sum::<u64>() as f64 / self.recent_times_ms.len() as f64;
+            self.extended_stats.update_quote_stats(avg);
         }
     }
 }
@@ -153,23 +232,23 @@ impl CategoryMetrics {
         self.count += 1;
         if correct {
             self.correct_count += 1;
-        }
-        
-        self.total_time_ms += time_ms;
-        
-        // Update running average
-        self.avg_time_ms = self.total_time_ms as f64 / self.count as f64;
-        
-        // Update recent times for short-term average
-        if self.recent_times_ms.len() >= 20 {
-            self.recent_times_ms.remove(0);
-        }
-        self.recent_times_ms.push(time_ms);
-        
-        // Calculate short-term average
-        if !self.recent_times_ms.is_empty() {
-            let sum: u64 = self.recent_times_ms.iter().sum();
-            self.short_term_avg_ms = sum as f64 / self.recent_times_ms.len() as f64;
+            
+            self.total_time_ms += time_ms;
+            
+            // Update running average
+            self.avg_time_ms = self.total_time_ms as f64 / self.correct_count as f64;
+            
+            // Update recent times for short-term average
+            if self.recent_times_ms.len() >= 20 {
+                self.recent_times_ms.remove(0);
+            }
+            self.recent_times_ms.push(time_ms);
+            
+            // Calculate short-term average
+            if !self.recent_times_ms.is_empty() {
+                let sum: u64 = self.recent_times_ms.iter().sum();
+                self.short_term_avg_ms = sum as f64 / self.recent_times_ms.len() as f64;
+            }
         }
     }
     
@@ -181,6 +260,34 @@ impl CategoryMetrics {
             (self.correct_count as f64 / self.count as f64) * 100.0
         }
     }
+}
+
+/// Stats collected for a completed quote
+#[derive(Serialize, Deserialize)]
+pub struct QuoteStats {
+    pub quote_text: String,
+    pub wpm: f64,
+    pub accuracy: f64,
+    pub total_keystrokes: usize,
+    pub correct_keystrokes: usize,
+    pub error_count: usize,
+    pub number_row_avg: f64,
+    pub top_row_avg: f64,
+    pub home_row_avg: f64,
+    pub bottom_row_avg: f64,
+    pub finger_stats: HashMap<Finger, FingerStats>,
+    pub key_geometric_averages: HashMap<char, f64>,
+    pub timestamp: String,
+}
+
+/// Individual finger statistics for serialization
+#[derive(Serialize, Deserialize)]
+pub struct FingerStats {
+    pub current: f64,
+    pub avg_10s: f64,
+    pub avg_60s: f64,
+    pub fastest: f64,
+    pub slowest: f64,
 }
 
 /// Detailed typing metrics with per-character statistics
@@ -213,9 +320,13 @@ pub struct TypingMetrics {
     /// Metrics for bottom row keys
     pub bottom_row_metrics: CategoryMetrics,
     /// Metrics per finger
-    pub finger_metrics: HashMap<Finger, CategoryMetrics>,
+    pub finger_metrics: HashMap<Finger, ExtendedStats>,
     /// Last keystroke time
     pub last_keystroke_time: Option<Instant>,
+    /// Key speed histogram
+    pub key_histogram: HistogramStats,
+    /// WPM histogram
+    pub wpm_histogram: HistogramStats,
 }
 
 impl TypingMetrics {
@@ -237,17 +348,20 @@ impl TypingMetrics {
             bottom_row_metrics: CategoryMetrics::new(),
             finger_metrics: HashMap::new(),
             last_keystroke_time: None,
+            key_histogram: HistogramStats::new_key_speed(),
+            wpm_histogram: HistogramStats::new_wpm(),
         };
         
         // Initialize finger metrics for all fingers
-        metrics.finger_metrics.insert(Finger::LeftPinky, CategoryMetrics::new());
-        metrics.finger_metrics.insert(Finger::LeftRing, CategoryMetrics::new());
-        metrics.finger_metrics.insert(Finger::LeftMiddle, CategoryMetrics::new());
-        metrics.finger_metrics.insert(Finger::LeftIndex, CategoryMetrics::new());
-        metrics.finger_metrics.insert(Finger::RightIndex, CategoryMetrics::new());
-        metrics.finger_metrics.insert(Finger::RightMiddle, CategoryMetrics::new());
-        metrics.finger_metrics.insert(Finger::RightRing, CategoryMetrics::new());
-        metrics.finger_metrics.insert(Finger::RightPinky, CategoryMetrics::new());
+        metrics.finger_metrics.insert(Finger::LeftPinky, ExtendedStats::new());
+        metrics.finger_metrics.insert(Finger::LeftRing, ExtendedStats::new());
+        metrics.finger_metrics.insert(Finger::LeftMiddle, ExtendedStats::new());
+        metrics.finger_metrics.insert(Finger::LeftIndex, ExtendedStats::new());
+        metrics.finger_metrics.insert(Finger::Thumb, ExtendedStats::new());
+        metrics.finger_metrics.insert(Finger::RightIndex, ExtendedStats::new());
+        metrics.finger_metrics.insert(Finger::RightMiddle, ExtendedStats::new());
+        metrics.finger_metrics.insert(Finger::RightRing, ExtendedStats::new());
+        metrics.finger_metrics.insert(Finger::RightPinky, ExtendedStats::new());
         
         // Initialize character metrics for standard keyboard
         metrics.initialize_keyboard_mapping();
@@ -322,7 +436,7 @@ impl TypingMetrics {
         }
         
         // Space bar
-        self.char_metrics.insert(' ', CharacterMetrics::new(KeyboardRow::Bottom, Finger::RightIndex));
+        self.char_metrics.insert(' ', CharacterMetrics::new(KeyboardRow::Bottom, Finger::Thumb));
     }
     
     /// Record a keystroke
@@ -359,25 +473,36 @@ impl TypingMetrics {
         if let Some(metrics) = self.char_metrics.get_mut(&c) {
             metrics.update(time_ms, is_correct);
             
-            // Update category metrics
-            if c.is_ascii_digit() {
-                self.number_metrics.update(time_ms, is_correct);
-            }
-            
-            if c.is_alphabetic() {
-                self.letter_metrics.update(time_ms, is_correct);
-            }
-            
-            // Update row metrics
-            match metrics.row {
-                KeyboardRow::Top => self.top_row_metrics.update(time_ms, is_correct),
-                KeyboardRow::Home => self.home_row_metrics.update(time_ms, is_correct),
-                KeyboardRow::Bottom => self.bottom_row_metrics.update(time_ms, is_correct),
-            }
-            
-            // Update finger metrics
-            if let Some(finger_metrics) = self.finger_metrics.get_mut(&metrics.finger) {
-                finger_metrics.update(time_ms, is_correct);
+            // Only update category and finger metrics for correct keystrokes
+            if is_correct {
+                // Update category metrics
+                if c.is_ascii_digit() {
+                    self.number_metrics.update(time_ms, is_correct);
+                }
+                
+                if c.is_alphabetic() {
+                    self.letter_metrics.update(time_ms, is_correct);
+                }
+                
+                // Update row metrics
+                match metrics.row {
+                    KeyboardRow::Top => self.top_row_metrics.update(time_ms, is_correct),
+                    KeyboardRow::Home => self.home_row_metrics.update(time_ms, is_correct),
+                    KeyboardRow::Bottom => self.bottom_row_metrics.update(time_ms, is_correct),
+                }
+                
+                // Update finger metrics with extended stats
+                if let Some(finger_stats) = self.finger_metrics.get_mut(&metrics.finger) {
+                    finger_stats.update(time_ms as f64, self.current_time);
+                }
+
+                // Record timing in histogram for any correct keystroke
+                let ms = time_ms as f64;
+                self.key_histogram.record_value(ms);
+                
+                // Convert to WPM and record
+                let wpm = HistogramStats::ms_to_wpm(ms);
+                self.wpm_histogram.record_value(wpm);
             }
         }
         
@@ -389,15 +514,11 @@ impl TypingMetrics {
     }
     
     /// Calculate overall metrics like WPM and accuracy
-    fn calculate_overall_metrics(&mut self) {
-        // Calculate elapsed time in minutes
-        let elapsed = self.current_time.duration_since(self.start_time);
-        let minutes = elapsed.as_secs_f64() / 60.0;
-        
-        // Calculate WPM (standard 5 chars per word)
-        if minutes > 0.0 {
-            self.wpm = (self.keystrokes as f64 / 5.0) / minutes;
-        }
+    pub fn calculate_overall_metrics(&mut self) {
+        // Calculate words per minute
+        let elapsed = self.current_time.duration_since(self.start_time).as_secs_f64();
+        let words = self.keystrokes as f64 / 5.0; // Standard: 5 keystrokes = 1 word
+        self.wpm = if elapsed > 0.0 { (words * 60.0) / elapsed } else { 0.0 };
         
         // Calculate accuracy
         if self.keystrokes > 0 {
@@ -406,7 +527,7 @@ impl TypingMetrics {
     }
     
     /// Generate a heat map for key speed
-    pub fn generate_heat_map(&self) -> HashMap<char, f64> {
+    pub fn generate_heat_map(&self) -> HashMap<char, (f64, u64)> {
         let mut heat_map = HashMap::new();
         
         for (c, metrics) in &self.char_metrics {
@@ -421,23 +542,144 @@ impl TypingMetrics {
                     (metrics.avg_time_ms - 100.0) / 400.0 // Linear scaling between 100-500ms
                 };
                 
-                heat_map.insert(*c, avg_normalized);
+                heat_map.insert(*c, (avg_normalized, metrics.last_delay_ms));
             }
         }
         
         heat_map
     }
     
-    /// Get finger performance summary
-    pub fn finger_performance(&self) -> HashMap<Finger, f64> {
-        let mut performance = HashMap::new();
+    /// Get finger performance summary with extended stats
+    pub fn finger_performance(&self) -> &HashMap<Finger, ExtendedStats> {
+        &self.finger_metrics
+    }
+
+    /// Calculate geometric average for a key (combining upper and lowercase stats)
+    fn get_key_geometric_avg(&self, key: char) -> f64 {
+        let lowercase = key.to_ascii_lowercase();
+        let uppercase = key.to_ascii_uppercase();
         
-        for (finger, metrics) in &self.finger_metrics {
+        let mut values = Vec::new();
+        
+        // Collect stats for both cases if they exist
+        if let Some(metrics) = self.char_metrics.get(&lowercase) {
             if metrics.count > 0 {
-                performance.insert(*finger, metrics.avg_time_ms);
+                values.push(metrics.avg_time_ms);
+            }
+        }
+        if let Some(metrics) = self.char_metrics.get(&uppercase) {
+            if metrics.count > 0 {
+                values.push(metrics.avg_time_ms);
             }
         }
         
-        performance
+        // Calculate geometric mean if we have values
+        if values.is_empty() {
+            0.0
+        } else {
+            let product: f64 = values.iter().product();
+            product.powf(1.0 / values.len() as f64)
+        }
+    }
+
+    /// Get geometric averages for all typable keys
+    pub fn get_key_geometric_averages(&self) -> HashMap<char, f64> {
+        let mut averages = HashMap::new();
+        
+        // Letters (a-z, store as lowercase)
+        for c in 'a'..='z' {
+            let avg = self.get_key_geometric_avg(c);
+            if avg > 0.0 {
+                averages.insert(c, avg);
+            }
+        }
+        
+        // Numbers
+        for c in '0'..='9' {
+            let avg = self.get_key_geometric_avg(c);
+            if avg > 0.0 {
+                averages.insert(c, avg);
+            }
+        }
+        
+        // Special characters
+        for c in ['-', '=', '[', ']', '\\', ';', '\'', ',', '.', '/', ' '] {
+            let avg = self.get_key_geometric_avg(c);
+            if avg > 0.0 {
+                averages.insert(c, avg);
+            }
+        }
+        
+        averages
+    }
+
+    /// Save the current stats to a JSON file
+    pub fn save_to_json(&self, quote_text: &str) -> std::io::Result<()> {
+        // Get key geometric averages
+        let key_geometric_averages = self.get_key_geometric_averages();
+
+        // Create stats directory if it doesn't exist
+        let stats_dir = PathBuf::from("stats");
+        fs::create_dir_all(&stats_dir)?;
+
+        // Generate timestamp-based filename
+        let timestamp = Utc::now().format("%Y%m%d%H%M%S").to_string();
+        let filename = stats_dir.join(format!("{}.json", timestamp));
+
+        // Create and save the stats object
+        let stats = QuoteStats {
+            quote_text: quote_text.to_string(),
+            wpm: self.wpm,
+            accuracy: self.accuracy,
+            total_keystrokes: self.keystrokes,
+            correct_keystrokes: self.correct_keystrokes,
+            error_count: self.errors.len(),
+            number_row_avg: self.number_metrics.avg_time_ms,
+            top_row_avg: self.top_row_metrics.avg_time_ms,
+            home_row_avg: self.home_row_metrics.avg_time_ms,
+            bottom_row_avg: self.bottom_row_metrics.avg_time_ms,
+            finger_stats: self.finger_metrics
+                .iter()
+                .map(|(finger, stats)| {
+                    (*finger, FingerStats {
+                        current: stats.current,
+                        avg_10s: stats.avg_10s,
+                        avg_60s: stats.avg_60s,
+                        fastest: stats.fastest,
+                        slowest: stats.slowest,
+                    })
+                })
+                .collect(),
+            key_geometric_averages,
+            timestamp: timestamp.clone(),
+        };
+
+        // Serialize and save to file
+        let json = serde_json::to_string_pretty(&stats)?;
+        fs::write(filename, json)?;
+
+        Ok(())
+    }
+
+    /// Reset quote-specific stats while maintaining overall metrics
+    pub fn prepare_for_new_quote(&mut self) {
+        // Clear errors for new quote
+        self.errors.clear();
+        
+        // Update quote stats for all characters before resetting
+        for metrics in self.char_metrics.values_mut() {
+            metrics.update_quote_stats();
+        }
+
+        // Reset last keystroke time
+        self.last_keystroke_time = None;
+
+        // Reset start time for WPM calculation
+        self.start_time = Instant::now();
+        self.current_time = self.start_time;
+
+        // Reset current quote histograms
+        self.key_histogram.reset_current();
+        self.wpm_histogram.reset_current();
     }
 } 

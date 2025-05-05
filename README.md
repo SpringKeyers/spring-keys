@@ -1,33 +1,114 @@
-# SpringKeys
-Typing Tutor program using graphical maddness while proving hard minigames designed for speed running spring loaded keyboard-wielding buccaneers!
-(DEVELOPMENT PROTOTYPE) 
+# SpringKeys - Typing Performance Visualizer
+
+A terminal-based typing tutor that provides real-time feedback on typing performance with visual keyboard heatmaps and finger performance metrics.
 
 ## Features
-- Graphical Chaos Simulator.
-- - Bad input leads to visual distractions and 'letter anger', where they get steamy mad and jumpy if you press them wrong.
-- - Spring like behavior. For example a line return to scroll the window would make the top row have ballistic launch. A launch uses a long spring normal distance.
-    
 
-TODO A typing tutor experience unlike any other! This project aims to reinvent the terminal-based typing practice by introducing dynamic character movement, fluid animations, and engaging visuals.
+### Keyboard Heatmap
+- Real-time visualization of typing speed per key
+- Color-coded performance indicators
+- Multi-line key display showing:
+  - Key character (centered)
+  - Average speed
+  - Last keystroke delay
 
-Key Features
-Characters with a Life of Their Own: Characters spring and drift within a network graph, creating a visually intriguing and interactive environment.
-Physics-Driven Interactions: Explore a unique way to engage with text through physics-based character behavior.
-Smooth Animations and Visual Feedback: Enjoy fluid transitions and subtle cues that enhance the typing experience.
-Typing Test Essentials: Track your WPM (words per minute), accuracy, and other metrics to track your progress.
-Rust at the Core: Built with Rust for performance, safety, and cross-platform compatibility.
-Graphics Exploration: Experimenting with visual techniques (wasm3 or three.js) to push the boundaries of terminal-based interfaces.
+### Finger Performance Chart
+Displays detailed metrics for each finger (excluding thumb) with color-coded speed indicators:
+
+| Color  | Speed Range | Performance Level |
+|--------|-------------|------------------|
+| Green  | < 80ms      | Ultra fast       |
+| Blue   | 80-120ms    | Very fast        |
+| Yellow | 120-200ms   | Medium           |
+| Red    | 200-350ms   | Slow            |
+| Magenta| > 350ms     | Needs practice   |
+
+Metrics shown per finger:
+- Current speed
+- 10-second average
+- 60-second average
+- Fastest time
+- Slowest time
+
+## Building from Source
+
+### Prerequisites
+- Rust toolchain (1.70.0 or newer)
+- Cargo package manager
+- Terminal with ANSI color support
+
+### Build Steps
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/spring-keys.git
+   cd spring-keys
+   ```
+
+2. Build the project:
+   ```bash
+   cargo build
+   ```
+
+3. Run in development mode:
+   ```bash
+   cargo run
+   ```
+
+4. Build for release:
+   ```bash
+   cargo build --release
+   ```
+
+The release binary will be available in `target/release/spring-keys`
+
+## Usage
+
+1. Launch the application:
+   ```bash
+   ./target/release/spring-keys
+   ```
+
+2. Start typing to see real-time performance metrics
+3. Watch the keyboard heatmap and finger performance chart update in real-time
+4. Press `Ctrl+C` to exit
+
+## Development Notes
+
+- The keyboard visualization uses a 3-row height for each key
+- Keys are 9 characters wide for better readability
+- Performance metrics are updated in real-time
+- Color coding is consistent across all visualizations
+
+## Command Line Interface
+```
+Usage: spring-keys [OPTIONS] [COMMAND]
+
+Options:
+  -h, --help        Print help information
+  -v, --version     Print version information
+  -d, --difficulty  Set difficulty level (easy|medium|hard)
+  -q, --quiet       Suppress non-error output
+
+Commands:
+  practice    Start typing practice (default)
+  game       Start a typing mini-game
+  stats      View typing statistics
+  config     Edit configuration
+  test       Run VGA test screen
+```
+
+## Mini Games
+A series of mini games to give typing entertainment:
+- Minesweeper: Type words to make choices
+- Tetris: Type words for position
+- Flappy Bird: Type letters at the correct rate
+- RC Championship: Steer using words
+- Fortune Teller: Zoltar-style dialogue choices
+- Hockey Fighting: Type to dodge and counter
+
 ## Main Feature
 Typing tutor program with heatmap and quickness statstics for trendlines and plotting.
-
-## Mini Games Within
-A series of mini games to give typing entertainment
- - Minesweeper style game, type the words to make a choice
- - Tetris style game, type the words for position
- - Flappy bird style game, type the letter at the correct rate to get through the verical pipee.
- - RC chapionship, steer a  panning overhead RC race car using words.
- - Fortune Teller, Zoltar type advise. Given a Fallout 4 style dialog choice of character dialog, have the user type out the discussion as if they were a telegraph operator.
- - No Holds Barred hockey fighting, type wods to avoid getting hit, perry back.
 
 ### Fun Terminology classifications peronas and titles.
 Helpful personas, type while being mindfull in the style of the hero...

@@ -1,0 +1,96 @@
+{
+  "quote_text": "Talk is cheap. Show me the code.",
+  "wpm": 54.069503706902736,
+  "accuracy": 100.0,
+  "total_keystrokes": 32,
+  "correct_keystrokes": 32,
+  "error_count": 0,
+  "number_row_avg": 0.0,
+  "top_row_avg": 145.08333333333334,
+  "home_row_avg": 102.33333333333333,
+  "bottom_row_avg": 130.1818181818182,
+  "finger_stats": {
+    "LeftPinky": {
+      "current": 58.0,
+      "avg_10s": 112.5,
+      "avg_60s": 112.5,
+      "fastest": 58.0,
+      "slowest": 167.0
+    },
+    "RightIndex": {
+      "current": 44.0,
+      "avg_10s": 99.0,
+      "avg_60s": 99.0,
+      "fastest": 44.0,
+      "slowest": 165.0
+    },
+    "Thumb": {
+      "current": 73.0,
+      "avg_10s": 108.33333333333333,
+      "avg_60s": 108.33333333333333,
+      "fastest": 73.0,
+      "slowest": 151.0
+    },
+    "RightPinky": {
+      "current": 235.0,
+      "avg_10s": 219.0,
+      "avg_60s": 219.0,
+      "fastest": 122.0,
+      "slowest": 300.0
+    },
+    "RightMiddle": {
+      "current": 148.0,
+      "avg_10s": 126.5,
+      "avg_60s": 126.5,
+      "fastest": 105.0,
+      "slowest": 148.0
+    },
+    "LeftIndex": {
+      "current": 120.0,
+      "avg_10s": 120.0,
+      "avg_60s": 120.0,
+      "fastest": 120.0,
+      "slowest": 120.0
+    },
+    "LeftMiddle": {
+      "current": 146.0,
+      "avg_10s": 128.0,
+      "avg_60s": 128.0,
+      "fastest": 103.0,
+      "slowest": 151.0
+    },
+    "RightRing": {
+      "current": 76.0,
+      "avg_10s": 125.6,
+      "avg_60s": 125.6,
+      "fastest": 74.0,
+      "slowest": 240.0
+    },
+    "LeftRing": {
+      "current": 148.0,
+      "avg_10s": 134.5,
+      "avg_60s": 134.5,
+      "fastest": 121.0,
+      "slowest": 148.0
+    }
+  },
+  "key_geometric_averages": {
+    "l": 133.0,
+    "o": 89.5,
+    ".": 158.0,
+    "s": 168.62680688431482,
+    "w": 148.0,
+    "c": 150.5,
+    " ": 108.33333333333333,
+    "e": 122.25,
+    "a": 112.5,
+    "i": 148.0,
+    "t": 189.73665961010275,
+    "p": 122.0,
+    "m": 165.0,
+    "h": 77.0,
+    "k": 105.0,
+    "d": 106.0
+  },
+  "timestamp": "20250505193728"
+}

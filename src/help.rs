@@ -26,11 +26,11 @@ pub fn print_help() {
     println!("  stats            View your typing statistics");
     println!("  config           Edit configuration settings");
     println!("  game             Start a typing mini-game");
-    println!("  test             Run VGA-style test screen (default if no command)");
+    println!("  test             Run VGA-style test screen");
     println!();
     
     println!("{}", "EXAMPLES:".yellow());
-    println!("  spring-keys                    Run VGA test screen");
+    println!("  spring-keys                    Start practice mode");
     println!("  spring-keys practice           Start a practice session");
     println!("  spring-keys -d easy practice   Practice with easy difficulty");
     println!("  spring-keys stats              View your statistics");

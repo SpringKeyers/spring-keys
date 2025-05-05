@@ -1,0 +1,79 @@
+{
+  "quote_text": "To be, or not to be, that is the question.",
+  "wpm": 0.0,
+  "accuracy": 0.0,
+  "total_keystrokes": 0,
+  "correct_keystrokes": 0,
+  "error_count": 0,
+  "number_row_avg": 0.0,
+  "top_row_avg": 0.0,
+  "home_row_avg": 0.0,
+  "bottom_row_avg": 0.0,
+  "finger_stats": {
+    "LeftIndex": {
+      "current": 0.0,
+      "avg_10s": 0.0,
+      "avg_60s": 0.0,
+      "fastest": 0.0,
+      "slowest": 0.0
+    },
+    "LeftMiddle": {
+      "current": 0.0,
+      "avg_10s": 0.0,
+      "avg_60s": 0.0,
+      "fastest": 0.0,
+      "slowest": 0.0
+    },
+    "RightMiddle": {
+      "current": 0.0,
+      "avg_10s": 0.0,
+      "avg_60s": 0.0,
+      "fastest": 0.0,
+      "slowest": 0.0
+    },
+    "LeftRing": {
+      "current": 0.0,
+      "avg_10s": 0.0,
+      "avg_60s": 0.0,
+      "fastest": 0.0,
+      "slowest": 0.0
+    },
+    "RightPinky": {
+      "current": 0.0,
+      "avg_10s": 0.0,
+      "avg_60s": 0.0,
+      "fastest": 0.0,
+      "slowest": 0.0
+    },
+    "Thumb": {
+      "current": 0.0,
+      "avg_10s": 0.0,
+      "avg_60s": 0.0,
+      "fastest": 0.0,
+      "slowest": 0.0
+    },
+    "RightIndex": {
+      "current": 0.0,
+      "avg_10s": 0.0,
+      "avg_60s": 0.0,
+      "fastest": 0.0,
+      "slowest": 0.0
+    },
+    "RightRing": {
+      "current": 0.0,
+      "avg_10s": 0.0,
+      "avg_60s": 0.0,
+      "fastest": 0.0,
+      "slowest": 0.0
+    },
+    "LeftPinky": {
+      "current": 0.0,
+      "avg_10s": 0.0,
+      "avg_60s": 0.0,
+      "fastest": 0.0,
+      "slowest": 0.0
+    }
+  },
+  "key_geometric_averages": {},
+  "timestamp": "20250505194927"
+}

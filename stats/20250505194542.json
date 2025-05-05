@@ -1,0 +1,96 @@
+{
+  "quote_text": "Talk is cheap. Show me the code.",
+  "wpm": 54.21391380665548,
+  "accuracy": 100.0,
+  "total_keystrokes": 32,
+  "correct_keystrokes": 32,
+  "error_count": 0,
+  "number_row_avg": 0.0,
+  "top_row_avg": 136.91666666666666,
+  "home_row_avg": 108.22222222222223,
+  "bottom_row_avg": 139.72727272727272,
+  "finger_stats": {
+    "RightMiddle": {
+      "current": 119.0,
+      "avg_10s": 102.5,
+      "avg_60s": 102.5,
+      "fastest": 86.0,
+      "slowest": 119.0
+    },
+    "RightPinky": {
+      "current": 390.0,
+      "avg_10s": 260.0,
+      "avg_60s": 260.0,
+      "fastest": 90.0,
+      "slowest": 390.0
+    },
+    "LeftRing": {
+      "current": 60.0,
+      "avg_10s": 90.0,
+      "avg_60s": 90.0,
+      "fastest": 60.0,
+      "slowest": 120.0
+    },
+    "LeftPinky": {
+      "current": 74.0,
+      "avg_10s": 105.5,
+      "avg_60s": 105.5,
+      "fastest": 74.0,
+      "slowest": 137.0
+    },
+    "RightRing": {
+      "current": 149.0,
+      "avg_10s": 138.6,
+      "avg_60s": 138.6,
+      "fastest": 105.0,
+      "slowest": 199.0
+    },
+    "LeftIndex": {
+      "current": 76.0,
+      "avg_10s": 76.0,
+      "avg_60s": 76.0,
+      "fastest": 76.0,
+      "slowest": 76.0
+    },
+    "Thumb": {
+      "current": 108.0,
+      "avg_10s": 113.66666666666667,
+      "avg_60s": 113.66666666666667,
+      "fastest": 45.0,
+      "slowest": 174.0
+    },
+    "RightIndex": {
+      "current": 85.0,
+      "avg_10s": 139.0,
+      "avg_60s": 139.0,
+      "fastest": 85.0,
+      "slowest": 226.0
+    },
+    "LeftMiddle": {
+      "current": 133.0,
+      "avg_10s": 110.14285714285714,
+      "avg_60s": 110.14285714285714,
+      "fastest": 85.0,
+      "slowest": 149.0
+    }
+  },
+  "key_geometric_averages": {
+    "m": 226.0,
+    "k": 86.0,
+    "a": 105.5,
+    "w": 60.0,
+    "c": 140.5,
+    "o": 105.5,
+    "i": 119.0,
+    "l": 134.0,
+    "e": 99.25,
+    "h": 110.0,
+    "t": 150.99668870541498,
+    "d": 93.0,
+    "s": 216.33307652783935,
+    "p": 90.0,
+    ".": 174.0,
+    " ": 113.66666666666667
+  },
+  "timestamp": "20250505194542"
+}

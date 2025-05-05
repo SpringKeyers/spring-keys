@@ -1,0 +1,72 @@
+[
+  {
+    "text": "Talk is cheap. Show me the code.",
+    "source": "Linus Torvalds",
+    "difficulty": "Easy",
+    "category": "Programming",
+    "origin": "Finnish/American"
+  },
+  {
+    "text": "Programming isn't about what you know; it's about what you can figure out.",
+    "source": "Chris Pine",
+    "difficulty": "Medium",
+    "category": "Programming",
+    "origin": "English"
+  },
+  {
+    "text": "The best error message is the one that never shows up.",
+    "source": "Thomas Fuchs",
+    "difficulty": "Easy",
+    "category": "Programming",
+    "origin": "German/American"
+  },
+  {
+    "text": "First, solve the problem. Then, write the code.",
+    "source": "John Johnson",
+    "difficulty": "Easy",
+    "category": "Programming",
+    "origin": "American"
+  },
+  {
+    "text": "Code is like humor. When you have to explain it, it's bad.",
+    "source": "Cory House",
+    "difficulty": "Easy",
+    "category": "Programming",
+    "origin": "American"
+  },
+  {
+    "text": "The function of good software is to make the complex appear to be simple.",
+    "source": "Grady Booch",
+    "difficulty": "Medium",
+    "category": "Programming",
+    "origin": "American"
+  },
+  {
+    "text": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+    "source": "Martin Fowler",
+    "difficulty": "Medium",
+    "category": "Programming",
+    "origin": "British"
+  },
+  {
+    "text": "It's not a bug, it's an undocumented feature.",
+    "source": "Anonymous",
+    "difficulty": "Easy",
+    "category": "Programming",
+    "origin": "Programming Folklore"
+  },
+  {
+    "text": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
+    "source": "Brian Kernighan",
+    "difficulty": "Hard",
+    "category": "Programming",
+    "origin": "Canadian"
+  },
+  {
+    "text": "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.",
+    "source": "Martin Golding",
+    "difficulty": "Medium",
+    "category": "Programming",
+    "origin": "Programming Humor"
+  }
+] 

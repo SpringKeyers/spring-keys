@@ -43,12 +43,19 @@ impl InputProcessor {
         if let Some(session) = typing_session {
             match key {
                 KeyCode::Char(c) => {
-                    let processed_char = self.handle_caps_lock(c);
+                    let processed_char = if modifiers.contains(KeyModifiers::SHIFT) {
+                        c.to_ascii_uppercase()
+                    } else {
+                        self.handle_caps_lock(c)
+                    };
                     session.record_keystroke(processed_char);
+                    
+                    // Check for quote completion if a period was typed
+                    if processed_char == '.' {
+                        session.check_completion();
+                    }
                 },
                 KeyCode::Backspace => {
-                    // For backspace, we could add a special tracking method
-                    // but for now we'll just record it as a special character
                     session.record_keystroke('\u{232B}'); // Unicode backspace symbol
                 },
                 _ => {} // Ignore other keys for metrics tracking
@@ -64,7 +71,11 @@ impl InputProcessor {
         while let Some(event) = self.event_queue.pop() {
             match event.key {
                 KeyCode::Char(c) => {
-                    let processed_char = self.handle_caps_lock(c);
+                    let processed_char = if event.modifiers.contains(KeyModifiers::SHIFT) {
+                        c.to_ascii_uppercase()
+                    } else {
+                        self.handle_caps_lock(c)
+                    };
                     self.insert_char(processed_char);
                 }
                 KeyCode::Backspace => self.handle_backspace(),
@@ -153,5 +164,14 @@ impl InputProcessor {
         self.event_queue.clear();
         self.last_error = None;
         self.last_key_time = None;
+    }
+
+    pub fn is_quote_completed(&self, expected: &str) -> bool {
+        if self.current_text.len() != expected.len() {
+            return false;
+        }
+        
+        // Check if the text matches exactly and ends with a period
+        self.current_text == expected && self.current_text.ends_with('.')
     }
 } 

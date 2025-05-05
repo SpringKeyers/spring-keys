@@ -1,7 +1,11 @@
 use rand::seq::SliceRandom;
 use rand::prelude::IteratorRandom;
+use rand::Rng;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::fs;
+use std::path::Path;
+use std::io;
 
 /// Difficulty levels for quotes
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -29,6 +33,39 @@ pub enum QuoteCategory {
     Humor,
     /// Multilingual quotes
     Multilingual,
+    /// Typewriter and printing technology quotes
+    Typewriters,
+}
+
+/// F-key category groups for cycling
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum CategoryCycle {
+    Typewriter,
+    Programming,
+    Literature,
+}
+
+impl CategoryCycle {
+    /// Get the categories associated with this cycle group
+    fn categories(&self) -> Vec<QuoteCategory> {
+        match self {
+            CategoryCycle::Typewriter => vec![
+                QuoteCategory::Typewriters,
+                QuoteCategory::TongueTwisters,
+                QuoteCategory::Multilingual,
+            ],
+            CategoryCycle::Programming => vec![
+                QuoteCategory::Programming,
+                QuoteCategory::Humor,
+                QuoteCategory::Proverbs,
+            ],
+            CategoryCycle::Literature => vec![
+                QuoteCategory::Literature,
+                QuoteCategory::Proverbs,
+                QuoteCategory::Multilingual,
+            ],
+        }
+    }
 }
 
 /// A typing quote with metadata
@@ -57,16 +94,25 @@ pub struct QuoteDatabase {
     quotes_by_difficulty: HashMap<QuoteDifficulty, Vec<usize>>,
     /// Current quote index
     current_index: usize,
+    /// Starting offset for quote cycling
+    starting_offset: usize,
     /// Random number generator
     rng: rand::rngs::ThreadRng,
+    /// Current category index for each cycle group
+    category_cycle_indices: HashMap<CategoryCycle, usize>,
 }
 
 impl QuoteDatabase {
-    /// Create a new quote database with default quotes
+    /// Create a new quote database with quotes loaded from JSON files
     pub fn new() -> Self {
-        let quotes = Self::default_quotes();
+        let quotes = Self::load_quotes_from_files().unwrap_or_else(|_| {
+            eprintln!("Error loading quotes from files, using default quotes");
+            Self::default_quotes()
+        });
+        
         let mut quotes_by_category = HashMap::new();
         let mut quotes_by_difficulty = HashMap::new();
+        let mut rng = rand::thread_rng();
         
         // Organize quotes by category and difficulty
         for (i, quote) in quotes.iter().enumerate() {
@@ -81,16 +127,92 @@ impl QuoteDatabase {
                 .push(i);
         }
         
+        // Generate random starting offset
+        let starting_offset = if !quotes.is_empty() {
+            rng.gen::<usize>() % quotes.len()
+        } else {
+            0
+        };
+
+        // Initialize category cycle indices
+        let mut category_cycle_indices = HashMap::new();
+        category_cycle_indices.insert(CategoryCycle::Typewriter, 0);
+        category_cycle_indices.insert(CategoryCycle::Programming, 0);
+        category_cycle_indices.insert(CategoryCycle::Literature, 0);
+        
         Self {
             quotes,
             quotes_by_category,
             quotes_by_difficulty,
-            current_index: 0,
-            rng: rand::thread_rng(),
+            current_index: starting_offset,
+            starting_offset,
+            rng,
+            category_cycle_indices,
         }
     }
     
-    /// Get the next random quote
+    /// Load quotes from JSON files in the quotes directory
+    fn load_quotes_from_files() -> io::Result<Vec<Quote>> {
+        let mut all_quotes = Vec::new();
+        let categories_dir = Path::new("quotes/categories");
+        
+        // Check if the directory exists
+        if !categories_dir.exists() {
+            eprintln!("Quotes directory not found, using default quotes");
+            return Ok(Self::default_quotes());
+        }
+        
+        for entry in fs::read_dir(categories_dir)? {
+            let entry = entry?;
+            let path = entry.path();
+            
+            if path.extension().and_then(|s| s.to_str()) == Some("json") {
+                let file_content = fs::read_to_string(&path)?;
+                match serde_json::from_str::<Vec<Quote>>(&file_content) {
+                    Ok(quotes) => {
+                        println!("Loaded {} quotes from {:?}", quotes.len(), path);
+                        all_quotes.extend(quotes);
+                    },
+                    Err(e) => {
+                        eprintln!("Error parsing quotes from {:?}: {}", path, e);
+                    }
+                }
+            }
+        }
+        
+        // If no quotes were loaded, return default quotes
+        if all_quotes.is_empty() {
+            eprintln!("No quotes found in JSON files, using default quotes");
+            Ok(Self::default_quotes())
+        } else {
+            println!("Successfully loaded {} quotes from JSON files", all_quotes.len());
+            Ok(all_quotes)
+        }
+    }
+    
+    /// Get the next quote in sequence
+    pub fn next_sequential(&mut self) -> &Quote {
+        if self.quotes.is_empty() {
+            panic!("No quotes available");
+        }
+        
+        self.current_index = (self.current_index + 1) % self.quotes.len();
+        &self.quotes[self.current_index]
+    }
+    
+    /// Jump to a new random starting point
+    pub fn jump_random(&mut self) -> &Quote {
+        if self.quotes.is_empty() {
+            panic!("No quotes available");
+        }
+        
+        // Generate new random offset
+        self.starting_offset = self.rng.gen::<usize>() % self.quotes.len();
+        self.current_index = self.starting_offset;
+        &self.quotes[self.current_index]
+    }
+    
+    /// Get the next random quote (completely random, not sequential)
     pub fn next_random(&mut self) -> &Quote {
         let index = (0..self.quotes.len())
             .choose(&mut self.rng)
@@ -156,6 +278,7 @@ impl QuoteDatabase {
     }
     
     /// Create default quotes collection
+    /// This is used as a fallback if JSON files fail to load
     fn default_quotes() -> Vec<Quote> {
         vec![
             Quote {
@@ -173,102 +296,11 @@ impl QuoteDatabase {
                 origin: "English".to_string(),
             },
             Quote {
-                text: "He who asks is a fool for five minutes, but he who does not ask remains a fool forever.".to_string(),
-                source: "Chinese proverb".to_string(),
-                difficulty: QuoteDifficulty::Medium,
-                category: QuoteCategory::Proverbs,
-                origin: "Chinese".to_string(),
-            },
-            Quote {
-                text: "A book is like a garden carried in the pocket.".to_string(),
-                source: "Arabic proverb".to_string(),
+                text: "Talk is cheap. Show me the code.".to_string(),
+                source: "Linus Torvalds".to_string(),
                 difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::Proverbs,
-                origin: "Arabic".to_string(),
-            },
-            Quote {
-                text: "The words of the tongue should have three gatekeepers: Is it true? Is it kind? Is it necessary?".to_string(),
-                source: "Arabian wisdom".to_string(),
-                difficulty: QuoteDifficulty::Medium,
-                category: QuoteCategory::Proverbs,
-                origin: "Arabic".to_string(),
-            },
-            Quote {
-                text: "If you chase two rabbits, you will catch neither.".to_string(),
-                source: "Russian proverb".to_string(),
-                difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::Proverbs,
-                origin: "Russian".to_string(),
-            },
-            Quote {
-                text: "Fireflies flash light signals, frightening frivolous frogs.".to_string(),
-                source: "Alliterative rhyme".to_string(),
-                difficulty: QuoteDifficulty::Hard,
-                category: QuoteCategory::TongueTwisters,
-                origin: "English".to_string(),
-            },
-            Quote {
-                text: "Everything flows, nothing stands still.".to_string(),
-                source: "Ancient Greek saying (Panta rhei, ouden menei)".to_string(),
-                difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::Proverbs,
-                origin: "Greek".to_string(),
-            },
-            Quote {
-                text: "When spider webs unite, they can tie up a lion.".to_string(),
-                source: "Ethiopian proverb".to_string(),
-                difficulty: QuoteDifficulty::Medium,
-                category: QuoteCategory::Proverbs,
-                origin: "Ethiopian".to_string(),
-            },
-            Quote {
-                text: "Whoever wants thorns should remember the flowers, whoever wants flowers should remember the thorns.".to_string(),
-                source: "Persian poem".to_string(),
-                difficulty: QuoteDifficulty::Medium,
-                category: QuoteCategory::Literature,
-                origin: "Persian".to_string(),
-            },
-            Quote {
-                text: "The nail that sticks out gets hammered down.".to_string(),
-                source: "Japanese proverb".to_string(),
-                difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::Proverbs,
-                origin: "Japanese".to_string(),
-            },
-            Quote {
-                text: "A rich man's joke is always funny, especially when you're the rich man.".to_string(),
-                source: "Russian humor".to_string(),
-                difficulty: QuoteDifficulty::Medium,
-                category: QuoteCategory::Humor,
-                origin: "Russian".to_string(),
-            },
-            Quote {
-                text: "Dance like the photo isn't being tagged, love like you've never been unfriended, and tweet like nobody is following.".to_string(),
-                source: "Modern proverb".to_string(),
-                difficulty: QuoteDifficulty::Hard,
-                category: QuoteCategory::Humor,
-                origin: "Internet culture".to_string(),
-            },
-            Quote {
-                text: "Fear not the person who has practiced 10,000 kicks once, but fear the person who has practiced one kick 10,000 times.".to_string(),
-                source: "Bruce Lee wisdom".to_string(),
-                difficulty: QuoteDifficulty::Hard,
-                category: QuoteCategory::Proverbs,
-                origin: "Chinese/American".to_string(),
-            },
-            Quote {
-                text: "Little frogs jumping high five fantastic floating fireflies flying freely.".to_string(),
-                source: "Alliterative practice".to_string(),
-                difficulty: QuoteDifficulty::Hard,
-                category: QuoteCategory::TongueTwisters,
-                origin: "English".to_string(),
-            },
-            Quote {
-                text: "The quick brown fox jumps over the lazy dog.".to_string(),
-                source: "Classic typing pangram".to_string(),
-                difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::TongueTwisters,
-                origin: "English".to_string(),
+                category: QuoteCategory::Programming,
+                origin: "Finnish/American".to_string(),
             },
             Quote {
                 text: "To be, or not to be, that is the question.".to_string(),
@@ -278,26 +310,33 @@ impl QuoteDatabase {
                 origin: "English".to_string(),
             },
             Quote {
-                text: "All that glitters is not gold.".to_string(),
-                source: "William Shakespeare, The Merchant of Venice".to_string(),
+                text: "A bird in the hand is worth two in the bush.".to_string(),
+                source: "English proverb".to_string(),
                 difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::Literature,
-                origin: "English".to_string(),
-            },
-            Quote {
-                text: "Talk is cheap. Show me the code.".to_string(),
-                source: "Linus Torvalds".to_string(),
-                difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::Programming,
-                origin: "Finnish/American".to_string(),
-            },
-            Quote {
-                text: "Programming isn't about what you know; it's about what you can figure out.".to_string(),
-                source: "Chris Pine".to_string(),
-                difficulty: QuoteDifficulty::Medium,
-                category: QuoteCategory::Programming,
+                category: QuoteCategory::Proverbs,
                 origin: "English".to_string(),
             },
         ]
+    }
+
+    /// Cycle to the next category for the given F-key group
+    pub fn cycle_category(&mut self, cycle_group: CategoryCycle) -> QuoteCategory {
+        let categories = cycle_group.categories();
+        let current_index = self.category_cycle_indices.entry(cycle_group).or_insert(0);
+        *current_index = (*current_index + 1) % categories.len();
+        categories[*current_index]
+    }
+
+    /// Get the currently active category for a cycle group
+    pub fn get_active_category(&self, cycle_group: CategoryCycle) -> QuoteCategory {
+        let categories = cycle_group.categories();
+        let current_index = self.category_cycle_indices.get(&cycle_group).unwrap_or(&0);
+        categories[*current_index]
+    }
+
+    /// Get the next quote from the active category of a cycle group
+    pub fn next_from_cycle_group(&mut self, cycle_group: CategoryCycle) -> Option<&Quote> {
+        let active_category = self.get_active_category(cycle_group);
+        self.next_by_category(active_category)
     }
 } 

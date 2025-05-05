@@ -2,6 +2,8 @@ pub mod minesweeper;
 
 use crate::core::state::GameType;
 
+/// Game trait defining common functionality for all game modes
+#[allow(dead_code)]
 pub trait Game {
     /// Initialize a new game
     fn new() -> Self;
@@ -33,6 +35,7 @@ pub enum GameResult {
 }
 
 /// Game status
+#[allow(dead_code)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum GameStatus {
     /// Game is starting

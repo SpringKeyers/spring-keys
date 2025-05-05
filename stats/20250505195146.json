@@ -1,0 +1,99 @@
+{
+  "quote_text": "If you chase two rabbits, you will catch neither.",
+  "wpm": 60.003847691627655,
+  "accuracy": 100.0,
+  "total_keystrokes": 49,
+  "correct_keystrokes": 49,
+  "error_count": 0,
+  "number_row_avg": 0.0,
+  "top_row_avg": 141.36363636363637,
+  "home_row_avg": 156.0,
+  "bottom_row_avg": 140.9375,
+  "finger_stats": {
+    "LeftIndex": {
+      "current": 58.0,
+      "avg_10s": 152.55555555555554,
+      "avg_60s": 152.55555555555554,
+      "fastest": 58.0,
+      "slowest": 330.0
+    },
+    "LeftPinky": {
+      "current": 106.0,
+      "avg_10s": 280.6666666666667,
+      "avg_60s": 280.6666666666667,
+      "fastest": 106.0,
+      "slowest": 629.0
+    },
+    "Thumb": {
+      "current": 148.0,
+      "avg_10s": 107.25,
+      "avg_60s": 107.25,
+      "fastest": 60.0,
+      "slowest": 149.0
+    },
+    "RightIndex": {
+      "current": 71.0,
+      "avg_10s": 108.75,
+      "avg_60s": 108.75,
+      "fastest": 71.0,
+      "slowest": 162.0
+    },
+    "RightRing": {
+      "current": 237.0,
+      "avg_10s": 144.66666666666666,
+      "avg_60s": 144.66666666666666,
+      "fastest": 90.0,
+      "slowest": 237.0
+    },
+    "RightMiddle": {
+      "current": 299.0,
+      "avg_10s": 142.5,
+      "avg_60s": 142.5,
+      "fastest": 74.0,
+      "slowest": 299.0
+    },
+    "LeftMiddle": {
+      "current": 106.0,
+      "avg_10s": 152.33333333333334,
+      "avg_60s": 152.33333333333334,
+      "fastest": 74.0,
+      "slowest": 236.0
+    },
+    "RightPinky": {
+      "current": 300.0,
+      "avg_10s": 300.0,
+      "avg_60s": 300.0,
+      "fastest": 300.0,
+      "slowest": 300.0
+    },
+    "LeftRing": {
+      "current": 147.0,
+      "avg_10s": 121.5,
+      "avg_60s": 121.5,
+      "fastest": 72.0,
+      "slowest": 150.0
+    }
+  },
+  "key_geometric_averages": {
+    ".": 237.0,
+    "w": 132.0,
+    "n": 160.0,
+    "t": 135.5,
+    "y": 148.0,
+    "l": 133.5,
+    "a": 280.6666666666667,
+    " ": 107.25,
+    "u": 80.5,
+    "s": 111.0,
+    "i": 222.03603311174518,
+    "c": 204.0,
+    "o": 121.33333333333333,
+    "r": 194.0,
+    "e": 100.66666666666667,
+    "f": 132.0,
+    "h": 84.33333333333333,
+    "b": 155.5,
+    ",": 77.0
+  },
+  "timestamp": "20250505195146"
+}

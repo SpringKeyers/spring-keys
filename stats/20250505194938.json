@@ -1,0 +1,95 @@
+{
+  "quote_text": "To be, or not to be, that is the question.",
+  "wpm": 63.02088800412017,
+  "accuracy": 91.30434782608695,
+  "total_keystrokes": 46,
+  "correct_keystrokes": 42,
+  "error_count": 4,
+  "number_row_avg": 0.0,
+  "top_row_avg": 131.47619047619048,
+  "home_row_avg": 82.4,
+  "bottom_row_avg": 139.8125,
+  "finger_stats": {
+    "LeftRing": {
+      "current": 119.0,
+      "avg_10s": 96.5,
+      "avg_60s": 96.5,
+      "fastest": 74.0,
+      "slowest": 119.0
+    },
+    "Thumb": {
+      "current": 92.0,
+      "avg_10s": 120.0,
+      "avg_60s": 120.0,
+      "fastest": 60.0,
+      "slowest": 299.0
+    },
+    "LeftPinky": {
+      "current": 120.0,
+      "avg_10s": 72.5,
+      "avg_60s": 72.5,
+      "fastest": 25.0,
+      "slowest": 120.0
+    },
+    "RightPinky": {
+      "current": 300.0,
+      "avg_10s": 300.0,
+      "avg_60s": 300.0,
+      "fastest": 300.0,
+      "slowest": 300.0
+    },
+    "LeftIndex": {
+      "current": 59.0,
+      "avg_10s": 111.88888888888889,
+      "avg_60s": 111.88888888888889,
+      "fastest": 30.0,
+      "slowest": 165.0
+    },
+    "LeftMiddle": {
+      "current": 223.0,
+      "avg_10s": 110.75,
+      "avg_60s": 110.75,
+      "fastest": 59.0,
+      "slowest": 223.0
+    },
+    "RightIndex": {
+      "current": 166.0,
+      "avg_10s": 164.8,
+      "avg_60s": 164.8,
+      "fastest": 86.0,
+      "slowest": 285.0
+    },
+    "RightMiddle": {
+      "current": 166.0,
+      "avg_10s": 153.5,
+      "avg_60s": 153.5,
+      "fastest": 105.0,
+      "slowest": 193.0
+    },
+    "RightRing": {
+      "current": 165.0,
+      "avg_10s": 134.0,
+      "avg_60s": 134.0,
+      "fastest": 58.0,
+      "slowest": 314.0
+    }
+  },
+  "key_geometric_averages": {
+    "a": 25.0,
+    "u": 285.0,
+    "b": 152.0,
+    ",": 171.5,
+    "s": 96.5,
+    " ": 120.0,
+    "h": 97.0,
+    "o": 127.8,
+    "t": 168.81943016134133,
+    ".": 165.0,
+    "i": 135.5,
+    "e": 110.75,
+    "r": 133.0,
+    "n": 172.5,
+    "q": 120.0
+  },
+  "timestamp": "20250505194938"
+}

@@ -1,0 +1,103 @@
+{
+  "quote_text": "Everything flows, nothing stands still.",
+  "wpm": 122.45702401181823,
+  "accuracy": 97.26027397260275,
+  "total_keystrokes": 73,
+  "correct_keystrokes": 71,
+  "error_count": 2,
+  "number_row_avg": 0.0,
+  "top_row_avg": 151.42307692307693,
+  "home_row_avg": 128.43478260869566,
+  "bottom_row_avg": 140.63636363636363,
+  "finger_stats": {
+    "Thumb": {
+      "current": 137.0,
+      "avg_10s": 113.4,
+      "avg_60s": 113.4,
+      "fastest": 73.0,
+      "slowest": 165.0
+    },
+    "RightRing": {
+      "current": 178.0,
+      "avg_10s": 169.72727272727272,
+      "avg_60s": 169.72727272727272,
+      "fastest": 32.0,
+      "slowest": 642.0
+    },
+    "LeftPinky": {
+      "current": 106.0,
+      "avg_10s": 110.33333333333333,
+      "avg_60s": 110.33333333333333,
+      "fastest": 58.0,
+      "slowest": 167.0
+    },
+    "RightIndex": {
+      "current": 133.0,
+      "avg_10s": 122.18181818181819,
+      "avg_60s": 122.18181818181819,
+      "fastest": 44.0,
+      "slowest": 300.0
+    },
+    "LeftMiddle": {
+      "current": 59.0,
+      "avg_10s": 119.77777777777777,
+      "avg_60s": 119.77777777777777,
+      "fastest": 59.0,
+      "slowest": 151.0
+    },
+    "LeftIndex": {
+      "current": 127.0,
+      "avg_10s": 171.8,
+      "avg_60s": 171.8,
+      "fastest": 29.0,
+      "slowest": 474.0
+    },
+    "RightPinky": {
+      "current": 300.0,
+      "avg_10s": 239.25,
+      "avg_60s": 239.25,
+      "fastest": 122.0,
+      "slowest": 300.0
+    },
+    "LeftRing": {
+      "current": 105.0,
+      "avg_10s": 125.71428571428571,
+      "avg_60s": 125.71428571428571,
+      "fastest": 88.0,
+      "slowest": 179.0
+    },
+    "RightMiddle": {
+      "current": 67.0,
+      "avg_10s": 112.66666666666667,
+      "avg_60s": 112.66666666666667,
+      "fastest": 67.0,
+      "slowest": 179.0
+    }
+  },
+  "key_geometric_averages": {
+    "a": 110.33333333333333,
+    ",": 179.0,
+    "p": 122.0,
+    "d": 82.5,
+    "y": 122.0,
+    "t": 268.2163305990148,
+    "m": 165.0,
+    "s": 167.64844168676308,
+    "w": 141.0,
+    " ": 113.4,
+    "l": 264.5,
+    "i": 98.0,
+    "o": 78.75,
+    "f": 151.0,
+    "r": 58.0,
+    "v": 209.0,
+    ".": 164.66666666666666,
+    "n": 153.0,
+    "e": 191.62463307205576,
+    "g": 50.5,
+    "c": 150.5,
+    "h": 89.0,
+    "k": 105.0
+  },
+  "timestamp": "20250505193735"
+}
