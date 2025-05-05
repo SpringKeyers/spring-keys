@@ -59,17 +59,25 @@ impl Pattern {
 
     fn update(&mut self) {
         match self.direction {
-            Direction::Left => self.x_offset -= self.speed,
-            Direction::Up => self.y_offset -= self.speed,
-            Direction::Down => self.y_offset += self.speed,
-            Direction::Right => self.x_offset += self.speed,
+            Direction::Left => {
+                self.x_offset = (self.x_offset - self.speed).rem_euclid(BOX_SIZE as f64)
+            },
+            Direction::Up => {
+                self.y_offset = (self.y_offset - self.speed).rem_euclid(BOX_SIZE as f64)
+            },
+            Direction::Down => {
+                self.y_offset = (self.y_offset + self.speed).rem_euclid(BOX_SIZE as f64)
+            },
+            Direction::Right => {
+                self.x_offset = (self.x_offset + self.speed).rem_euclid(BOX_SIZE as f64)
+            },
         }
     }
 
     fn get_offset(&self, x: u16, y: u16) -> (usize, usize) {
-        let offset_x = (x as f64 + self.x_offset).floor() as usize;
-        let offset_y = (y as f64 + self.y_offset).floor() as usize;
-        (offset_x, offset_y)
+        let x_pos = ((x as f64 + self.x_offset).rem_euclid(BOX_SIZE as f64)).max(0.0);
+        let y_pos = ((y as f64 + self.y_offset).rem_euclid(BOX_SIZE as f64)).max(0.0);
+        (x_pos.floor() as usize, y_pos.floor() as usize)
     }
 }
 
@@ -88,13 +96,17 @@ fn draw_pattern(
     
     // Draw title
     let title = "SpringKeys VGA Test";
-    let title_x = start_x + (BOX_SIZE - title.len() as u16) / 2;
-    execute!(stdout, MoveTo(title_x, start_y - 2), SetForegroundColor(border_color))?;
+    let title_x = if title.len() as u16 > BOX_SIZE {
+        start_x
+    } else {
+        start_x + ((BOX_SIZE - title.len() as u16) / 2)
+    };
+    execute!(stdout, MoveTo(title_x, start_y.saturating_sub(2)), SetForegroundColor(border_color))?;
     write!(stdout, "{}", title)?;
     
     // Top and bottom borders with double lines for better visibility
     for x in start_x..start_x + BOX_SIZE {
-        execute!(stdout, MoveTo(x, start_y - 1), SetForegroundColor(border_color))?;
+        execute!(stdout, MoveTo(x, start_y.saturating_sub(1)), SetForegroundColor(border_color))?;
         write!(stdout, "═")?;
         execute!(stdout, MoveTo(x, start_y + BOX_SIZE), SetForegroundColor(border_color))?;
         write!(stdout, "═")?;
@@ -102,18 +114,18 @@ fn draw_pattern(
     
     // Left and right borders with double lines
     for y in start_y..start_y + BOX_SIZE {
-        execute!(stdout, MoveTo(start_x - 1, y), SetForegroundColor(border_color))?;
+        execute!(stdout, MoveTo(start_x.saturating_sub(1), y), SetForegroundColor(border_color))?;
         write!(stdout, "║")?;
         execute!(stdout, MoveTo(start_x + BOX_SIZE, y), SetForegroundColor(border_color))?;
         write!(stdout, "║")?;
     }
     
     // Corners with double lines
-    execute!(stdout, MoveTo(start_x - 1, start_y - 1), SetForegroundColor(border_color))?;
+    execute!(stdout, MoveTo(start_x.saturating_sub(1), start_y.saturating_sub(1)), SetForegroundColor(border_color))?;
     write!(stdout, "╔")?;
-    execute!(stdout, MoveTo(start_x + BOX_SIZE, start_y - 1), SetForegroundColor(border_color))?;
+    execute!(stdout, MoveTo(start_x + BOX_SIZE, start_y.saturating_sub(1)), SetForegroundColor(border_color))?;
     write!(stdout, "╗")?;
-    execute!(stdout, MoveTo(start_x - 1, start_y + BOX_SIZE), SetForegroundColor(border_color))?;
+    execute!(stdout, MoveTo(start_x.saturating_sub(1), start_y + BOX_SIZE), SetForegroundColor(border_color))?;
     write!(stdout, "╚")?;
     execute!(stdout, MoveTo(start_x + BOX_SIZE, start_y + BOX_SIZE), SetForegroundColor(border_color))?;
     write!(stdout, "╝")?;
@@ -169,19 +181,35 @@ pub fn run_test_screen() -> io::Result<()> {
     enable_raw_mode()?;
     let mut stdout = stdout();
     
-    // Get terminal size
+    // Get terminal size immediately
     let (term_width, term_height) = size()?;
     
-    // Check if terminal is large enough
+    // Check terminal size and exit if too small
     if term_width < MIN_TERM_WIDTH || term_height < MIN_TERM_HEIGHT {
-        execute!(stdout, ResetColor)?;
-        println!("Terminal window too small. Minimum size: {}x{}", MIN_TERM_WIDTH, MIN_TERM_HEIGHT);
-        println!("Current size: {}x{}", term_width, term_height);
+        disable_raw_mode()?;
+        eprintln!("Debug: Terminal size check failed");
+        eprintln!("Debug: Current size: {}x{}", term_width, term_height);
+        eprintln!("Debug: Required size: {}x{}", MIN_TERM_WIDTH, MIN_TERM_HEIGHT);
+        println!("Exiting due to insufficient terminal size ({}x{}, need {}x{})",
+            term_width, term_height, MIN_TERM_WIDTH, MIN_TERM_HEIGHT);
         return Ok(());
     }
+
+    execute!(stdout, Hide)?;
+    execute!(stdout, Clear(ClearType::All))?;
     
-    // Hide cursor and clear screen
-    execute!(stdout, Hide, Clear(ClearType::All))?;
+    // Calculate safe starting positions
+    let start_x = (term_width.saturating_sub(BOX_SIZE)) / 2;
+    let start_y = (term_height.saturating_sub(BOX_SIZE)) / 2;
+    
+    // Ensure we have enough space for the box
+    if start_x == 0 || start_y == 0 {
+        execute!(stdout, Clear(ClearType::All), ResetColor, Show, MoveTo(0, 0))?;
+        disable_raw_mode()?;
+        println!("Error: Not enough space for the animation box!");
+        println!("Please make your terminal window larger.");
+        return Ok(());
+    }
     
     let mut pattern = Pattern::new();
     let mut color_phase = 0.0;

@@ -103,4 +103,60 @@
 - Keep performance impact minimal
 - Ensure graceful degradation on limited terminals
 - Maintain clean exit and terminal restoration
-- Keep code modular for easy extension 
+- Keep code modular for easy extension
+
+# Phase 7: VGA Test Screen Terminal Size Debugging
+
+## Issue
+The VGA test screen was experiencing terminal size detection issues, causing immediate exits or panics. Initial error messages were unclear and the program would attempt multiple retries before exiting.
+
+## Investigation
+1. Added detailed debug logging for terminal size detection
+2. Discovered terminal dimensions were being reported as 138x20 (width x height)
+3. Program requires 80x24 minimum dimensions
+4. Issue identified: Terminal height (20) is insufficient for required height (24)
+
+## Changes Made
+
+### Terminal Size Handling
+1. Removed retry loop for terminal resizing
+2. Added immediate exit on size check failure
+3. Improved error messaging with current and required dimensions
+4. Added proper terminal cleanup on exit
+
+### Code Improvements
+```rust
+// Before: Complex retry loop with multiple checks
+loop {
+    (term_width, term_height) = size()?;
+    if term_width >= MIN_TERM_WIDTH && term_height >= MIN_TERM_HEIGHT {
+        break;
+    }
+    // ... retry logic ...
+}
+
+// After: Simple immediate check and exit
+let (term_width, term_height) = size()?;
+if term_width < MIN_TERM_WIDTH || term_height < MIN_TERM_HEIGHT {
+    disable_raw_mode()?;
+    println!("Exiting due to insufficient terminal size ({}x{}, need {}x{})",
+        term_width, term_height, MIN_TERM_WIDTH, MIN_TERM_HEIGHT);
+    return Ok(());
+}
+```
+
+## Next Steps
+Options for resolution:
+1. Reduce minimum height requirement (currently 24 lines)
+2. Add configuration flag to override terminal size check
+3. Keep current behavior with enhanced error reporting
+
+## Debug Output Example
+```
+Debug: Terminal size check failed
+Debug: Current size: 138x20
+Debug: Required size: 80x24
+Exiting due to insufficient terminal size (138x20, need 80x24)
+```
+
+This output clearly shows the terminal dimensions mismatch, making it easier to diagnose and fix terminal size issues. 
