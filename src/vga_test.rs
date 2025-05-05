@@ -8,38 +8,28 @@ use crossterm::{
     event::{poll, read, Event},
 };
 
-const BOX_SIZE: u16 = 30;
-const FRAME_TIME: u64 = 10; // Much faster updates
+// Standard terminal is 80x24, leave room for borders
+const BOX_SIZE: u16 = 20; // Smaller box to fit in standard terminal
+const FRAME_TIME: u64 = 10; // Fast updates
+const MIN_TERM_WIDTH: u16 = 80;
+const MIN_TERM_HEIGHT: u16 = 24;
 
+// Reduced symbol set for cleaner look in smaller space
 const SYMBOLS: &[char] = &[
-    // Block Elements
-    '█', '▀', '▄', '▌', '▐', '░', '▒', '▓', '■', '□', '▢', '▣', '▤', '▥', '▦', '▧',
-    '▨', '▩', '▪', '▫', '▬', '▭', '▮', '▯', '▰', '▱', '▲', '△', '▴', '▵', '▶', '▷',
-    '▸', '▹', '►', '▻', '▼', '▽', '▾', '▿', '◀', '◁', '◂', '◃', '◄', '◅', '◆', '◇',
-    '◈', '◉', '◊', '○', '◌', '◍', '◎', '●', '◐', '◑', '◒', '◓', '◔', '◕', '◖', '◗',
-    // ASCII Art Blocks
-    '╔', '╗', '╚', '╝', '║', '═', '╒', '╓', '╕', '╖', '╘', '╙', '╛', '╜', '╞', '╟',
-    '╠', '╡', '╢', '╣', '╤', '╥', '╦', '╧', '╨', '╩', '╪', '╫', '╬', '╭', '╮', '╯',
-    '╰', '╱', '╲', '╳', '╴', '╵', '╶', '╷', '│', '┌', '┐', '└', '┘', '├', '┤', '┬',
-    '┴', '┼', '┃', '┄', '┅', '┆', '┇', '┈', '┉', '┊', '┋', '┌', '┍', '┎', '┏', '┐',
-    // Braille Patterns
-    '⠁', '⠂', '⠃', '⠄', '⠅', '⠆', '⠇', '⠈', '⠉', '⠊', '⠋', '⠌', '⠍', '⠎', '⠏', '⠐',
+    '█', '▀', '▄', '▌', '▐', '░', '▒', '▓',
+    '■', '□', '◆', '◇', '○', '●', '◐', '◑',
 ];
 
-// Color palette with RGB values for smooth transitions
+// Brighter colors for better visibility in smaller area
 const COLORS: &[(u8, u8, u8)] = &[
-    (255, 0, 0),     // Red
-    (255, 127, 0),   // Orange
+    (255, 0, 0),     // Bright Red
+    (255, 128, 0),   // Orange
     (255, 255, 0),   // Yellow
-    (127, 255, 0),   // Chartreuse
-    (0, 255, 0),     // Green
-    (0, 255, 127),   // Spring Green
+    (0, 255, 0),     // Bright Green
     (0, 255, 255),   // Cyan
-    (0, 127, 255),   // Azure
+    (0, 128, 255),   // Light Blue
     (0, 0, 255),     // Blue
-    (127, 0, 255),   // Violet
     (255, 0, 255),   // Magenta
-    (255, 0, 127),   // Rose
 ];
 
 #[derive(Copy, Clone)]
@@ -63,7 +53,7 @@ impl Pattern {
             x_offset: 0.0,
             y_offset: 0.0,
             direction: Direction::Left,
-            speed: 1.0,
+            speed: 0.5, // Slower speed for smaller area
         }
     }
 
@@ -94,33 +84,45 @@ fn draw_pattern(
     let start_y = (term_height - BOX_SIZE) / 2;
     
     // Draw a border around the animation box
-    let border_color = Color::Rgb { r: 100, g: 100, b: 100 };
+    let border_color = Color::Rgb { r: 150, g: 150, b: 150 }; // Brighter border
     
-    // Top and bottom borders
+    // Draw title
+    let title = "SpringKeys VGA Test";
+    let title_x = start_x + (BOX_SIZE - title.len() as u16) / 2;
+    execute!(stdout, MoveTo(title_x, start_y - 2), SetForegroundColor(border_color))?;
+    write!(stdout, "{}", title)?;
+    
+    // Top and bottom borders with double lines for better visibility
     for x in start_x..start_x + BOX_SIZE {
         execute!(stdout, MoveTo(x, start_y - 1), SetForegroundColor(border_color))?;
-        write!(stdout, "─")?;
+        write!(stdout, "═")?;
         execute!(stdout, MoveTo(x, start_y + BOX_SIZE), SetForegroundColor(border_color))?;
-        write!(stdout, "─")?;
+        write!(stdout, "═")?;
     }
     
-    // Left and right borders
+    // Left and right borders with double lines
     for y in start_y..start_y + BOX_SIZE {
         execute!(stdout, MoveTo(start_x - 1, y), SetForegroundColor(border_color))?;
-        write!(stdout, "│")?;
+        write!(stdout, "║")?;
         execute!(stdout, MoveTo(start_x + BOX_SIZE, y), SetForegroundColor(border_color))?;
-        write!(stdout, "│")?;
+        write!(stdout, "║")?;
     }
     
-    // Corners
+    // Corners with double lines
     execute!(stdout, MoveTo(start_x - 1, start_y - 1), SetForegroundColor(border_color))?;
-    write!(stdout, "┌")?;
+    write!(stdout, "╔")?;
     execute!(stdout, MoveTo(start_x + BOX_SIZE, start_y - 1), SetForegroundColor(border_color))?;
-    write!(stdout, "┐")?;
+    write!(stdout, "╗")?;
     execute!(stdout, MoveTo(start_x - 1, start_y + BOX_SIZE), SetForegroundColor(border_color))?;
-    write!(stdout, "└")?;
+    write!(stdout, "╚")?;
     execute!(stdout, MoveTo(start_x + BOX_SIZE, start_y + BOX_SIZE), SetForegroundColor(border_color))?;
-    write!(stdout, "┘")?;
+    write!(stdout, "╝")?;
+    
+    // Draw help text
+    let help_text = "Press any key to exit";
+    let help_x = start_x + (BOX_SIZE - help_text.len() as u16) / 2;
+    execute!(stdout, MoveTo(help_x, start_y + BOX_SIZE + 1), SetForegroundColor(border_color))?;
+    write!(stdout, "{}", help_text)?;
     
     let color_index = (color_phase.floor() as usize) % COLORS.len();
     let next_color_index = (color_index + 1) % COLORS.len();
@@ -171,9 +173,10 @@ pub fn run_test_screen() -> io::Result<()> {
     let (term_width, term_height) = size()?;
     
     // Check if terminal is large enough
-    if term_width < BOX_SIZE + 2 || term_height < BOX_SIZE + 2 {
+    if term_width < MIN_TERM_WIDTH || term_height < MIN_TERM_HEIGHT {
         execute!(stdout, ResetColor)?;
-        println!("Terminal window too small. Minimum size: {}x{}", BOX_SIZE + 2, BOX_SIZE + 2);
+        println!("Terminal window too small. Minimum size: {}x{}", MIN_TERM_WIDTH, MIN_TERM_HEIGHT);
+        println!("Current size: {}x{}", term_width, term_height);
         return Ok(());
     }
     
