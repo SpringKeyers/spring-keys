@@ -1,10 +1,10 @@
 use std::io::{self, Write, stdout};
-use std::time::Duration;
+use std::time::{Duration, Instant};
 use crossterm::{
     execute,
     terminal::{Clear, ClearType, enable_raw_mode, disable_raw_mode},
     cursor::{Hide, Show, MoveTo},
-    style::{Color, SetForegroundColor, SetBackgroundColor, ResetColor},
+    style::{Color, SetForegroundColor, SetBackgroundColor},
     event::{poll, read, Event},
 };
 
@@ -26,11 +26,12 @@ const COLORS: &[(u8, u8, u8)] = &[
     (148, 0, 211),   // Violet
 ];
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 enum Direction {
     Left,
 }
 
+#[derive(Debug)]
 struct Pattern {
     x_offset: f64,
     y_offset: f64,
@@ -48,103 +49,25 @@ impl Pattern {
         }
     }
 
-    fn update(&mut self, box_size: u16) {
-        let max_offset = box_size.saturating_sub(2) as f64;
+    fn update(&mut self) {
         match self.direction {
             Direction::Left => {
-                self.x_offset = (self.x_offset - self.speed).rem_euclid(max_offset)
-            },
+                let new_offset = self.x_offset - self.speed;
+                if new_offset <= -1.0 {
+                    self.x_offset = 0.0;
+                } else {
+                    self.x_offset = new_offset;
+                }
+            }
         }
     }
-
-    fn get_offset(&self, x: u16, y: u16, box_size: u16) -> (usize, usize) {
-        let max_offset = box_size.saturating_sub(2) as f64;
-        let x_pos = ((x as f64 + self.x_offset).rem_euclid(max_offset)).max(0.0);
-        let y_pos = ((y as f64 + self.y_offset).rem_euclid(max_offset)).max(0.0);
-        (x_pos.floor() as usize, y_pos.floor() as usize)
-    }
-}
-
-fn draw_pattern(
-    stdout: &mut io::Stdout,
-    term_width: u16,
-    term_height: u16,
-    pattern: &Pattern,
-    color_phase: f64,
-    box_size: u16,
-) -> io::Result<()> {
-    let start_x = (term_width.saturating_sub(box_size)) / 2;
-    let start_y = (term_height.saturating_sub(box_size)) / 2;
-    
-    // Draw a border around the animation box
-    let border_color = Color::Rgb { r: 150, g: 150, b: 150 }; // Brighter border
-    
-    // Only draw title if there's enough space
-    if term_height > box_size + 1 {
-        let title = format!("VGA {}x{}", box_size, box_size);
-        let title_x = if title.len() as u16 > term_width {
-            0
-        } else {
-            (term_width.saturating_sub(title.len() as u16)) / 2
-        };
-        execute!(stdout, MoveTo(title_x, start_y.saturating_sub(1)), SetForegroundColor(border_color))?;
-        write!(stdout, "{}", title)?;
-    }
-    
-    // Draw borders
-    for x in start_x..start_x.saturating_add(box_size) {
-        execute!(stdout, MoveTo(x, start_y), SetForegroundColor(border_color))?;
-        write!(stdout, "-")?;
-        execute!(stdout, MoveTo(x, start_y.saturating_add(box_size.saturating_sub(1))), SetForegroundColor(border_color))?;
-        write!(stdout, "-")?;
-    }
-    
-    for y in start_y..start_y.saturating_add(box_size) {
-        execute!(stdout, MoveTo(start_x, y), SetForegroundColor(border_color))?;
-        write!(stdout, "|")?;
-        execute!(stdout, MoveTo(start_x.saturating_add(box_size.saturating_sub(1)), y), SetForegroundColor(border_color))?;
-        write!(stdout, "|")?;
-    }
-    
-    // Draw the animated pattern inside the box
-    for y in 0..box_size.saturating_sub(2) {
-        for x in 0..box_size.saturating_sub(2) {
-            let (offset_x, offset_y) = pattern.get_offset(x, y, box_size);
-            let symbol = SYMBOLS[(offset_x + offset_y) % SYMBOLS.len()];
-            
-            let position_t = ((x as f64 / box_size as f64) + (y as f64 / box_size as f64)) / 2.0;
-            let color_shift = (position_t * 0.2) - 0.1;
-            let adjusted_t = (color_phase + color_shift).max(0.0).min(1.0);
-            
-            let color_index = (adjusted_t * (COLORS.len() - 1) as f64).floor() as usize;
-            let next_color_index = (color_index + 1) % COLORS.len();
-            let t = (adjusted_t * (COLORS.len() - 1) as f64).fract();
-            
-            let color = interpolate_color(COLORS[color_index], COLORS[next_color_index], t);
-            
-            execute!(
-                stdout,
-                MoveTo(start_x.saturating_add(x.saturating_add(1)), start_y.saturating_add(y.saturating_add(1))),
-                SetForegroundColor(color),
-                SetBackgroundColor(Color::Black)
-            )?;
-            
-            write!(stdout, "{}", symbol)?;
-        }
-    }
-    
-    stdout.flush()?;
-    Ok(())
-}
-
-fn interpolate_color(color1: (u8, u8, u8), color2: (u8, u8, u8), t: f64) -> Color {
-    let r = (color1.0 as f64 * (1.0 - t) + color2.0 as f64 * t) as u8;
-    let g = (color1.1 as f64 * (1.0 - t) + color2.1 as f64 * t) as u8;
-    let b = (color1.2 as f64 * (1.0 - t) + color2.2 as f64 * t) as u8;
-    Color::Rgb { r, g, b }
 }
 
 pub fn run_test_screen() -> io::Result<()> {
+    run_test_screen_with_duration(None)
+}
+
+fn run_test_screen_with_duration(max_duration: Option<Duration>) -> io::Result<()> {
     enable_raw_mode()?;
     let mut stdout = stdout();
     
@@ -160,8 +83,17 @@ pub fn run_test_screen() -> io::Result<()> {
     let mut color_phase = 0.0;
     let color_speed = 0.02;
     
-    // Animation sequence - 200 frames = 2 seconds at 10ms per frame
-    for _ in 0..200 {
+    let start_time = Instant::now();
+    
+    // Animation sequence
+    loop {
+        // Check if we've exceeded max duration (for tests)
+        if let Some(max_dur) = max_duration {
+            if start_time.elapsed() >= max_dur {
+                break;
+            }
+        }
+
         if poll(Duration::from_millis(FRAME_TIME))? {
             if let Event::Key(_) = read()? {
                 break;
@@ -169,12 +101,105 @@ pub fn run_test_screen() -> io::Result<()> {
         }
         
         draw_pattern(&mut stdout, term_width, term_height, &pattern, color_phase, box_size)?;
-        pattern.update(box_size);
-        color_phase = (color_phase + color_speed) % COLORS.len() as f64;
+        
+        // Update pattern position
+        pattern.update();
+        
+        // Update color phase
+        color_phase = (color_phase + color_speed) % (2.0 * std::f64::consts::PI);
     }
     
-    // Reset terminal
-    execute!(stdout, Clear(ClearType::All), ResetColor, Show, MoveTo(0, 0))?;
+    // Cleanup
+    execute!(stdout, Show)?;
+    execute!(stdout, Clear(ClearType::All))?;
     disable_raw_mode()?;
+    
     Ok(())
+}
+
+fn draw_pattern(stdout: &mut io::Stdout, width: u16, height: u16, pattern: &Pattern, color_phase: f64, box_size: u16) -> io::Result<()> {
+    // Calculate pattern dimensions
+    let pattern_width = box_size;
+    let pattern_height = box_size;
+    
+    // Calculate starting position to center the pattern
+    let start_x = (width - pattern_width) / 2;
+    let start_y = (height - pattern_height) / 2;
+    
+    // Draw the pattern
+    for y in 0..pattern_height {
+        for x in 0..pattern_width {
+            let pos_x = start_x + x;
+            let pos_y = start_y + y;
+            
+            // Calculate pattern offset
+            let offset_x = x as f64 + pattern.x_offset;
+            let offset_y = y as f64 + pattern.y_offset;
+            
+            // Calculate color based on position and phase
+            let color_idx = ((offset_x + offset_y + color_phase * 10.0) / 4.0).sin();
+            let color_idx = ((color_idx + 1.0) / 2.0 * (COLORS.len() - 1) as f64) as usize;
+            let (r, g, b) = COLORS[color_idx];
+            
+            // Calculate symbol based on position
+            let symbol_idx = ((offset_x + offset_y) / 2.0).floor() as usize % SYMBOLS.len();
+            let symbol = SYMBOLS[symbol_idx];
+            
+            // Draw the character
+            execute!(
+                stdout,
+                MoveTo(pos_x, pos_y),
+                SetBackgroundColor(Color::Rgb { r, g, b }),
+                SetForegroundColor(Color::Black)
+            )?;
+            write!(stdout, "{}", symbol)?;
+        }
+    }
+    
+    stdout.flush()?;
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::time::Duration;
+
+    #[test]
+    fn test_vga_animation_can_run_and_exit() {
+        // Run the test screen with a short duration
+        let result = run_test_screen_with_duration(Some(Duration::from_millis(500)));
+        assert!(result.is_ok(), "VGA test screen should run and exit cleanly");
+    }
+
+    #[test]
+    fn test_pattern_movement() {
+        let mut pattern = Pattern::new(16);
+        
+        // Initial state
+        assert!(pattern.x_offset >= 0.0 && pattern.x_offset < 1.0, "Pattern should start within bounds");
+        assert_eq!(pattern.speed, 1.0);
+        assert!(matches!(pattern.direction, Direction::Left));
+        
+        // Track movement over multiple updates
+        let mut updates = 0;
+        let mut saw_wrap = false;
+        
+        for _ in 0..10 {
+            pattern.update();
+            updates += 1;
+            
+            // Pattern should always be within [-1.0, 0.0]
+            assert!(pattern.x_offset >= -1.0 && pattern.x_offset <= 0.0, 
+                "Pattern should stay within bounds (got {})", pattern.x_offset);
+            
+            // Check if we've seen a wrap
+            if pattern.x_offset == 0.0 {
+                saw_wrap = true;
+            }
+        }
+        
+        assert!(updates > 0, "Pattern should update");
+        assert!(saw_wrap, "Pattern should wrap around at least once");
+    }
 } 
