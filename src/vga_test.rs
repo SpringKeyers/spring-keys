@@ -13,18 +13,22 @@ const MIN_BOX_SIZE: u16 = 4;
 const MIN_TERM_WIDTH: u16 = 4;
 const MIN_TERM_HEIGHT: u16 = 4;
 const BORDER_SPACE: u16 = 2; // Space for borders and padding
+const FRAME_TIME: u64 = 10; // Animation frame time in milliseconds
 
 // Reduced symbol set that works well at any size
 const SYMBOLS: &[char] = &[
     '█', '▀', '▄', '▌',
 ];
 
-// Brighter colors for better visibility
+// 8-bit rainbow colors for diagonal transition
 const COLORS: &[(u8, u8, u8)] = &[
-    (255, 0, 0),     // Bright Red
-    (0, 255, 0),     // Bright Green
-    (0, 0, 255),     // Blue
+    (255, 0, 0),     // Red
+    (255, 127, 0),   // Orange
     (255, 255, 0),   // Yellow
+    (0, 255, 0),     // Green
+    (0, 0, 255),     // Blue
+    (75, 0, 130),    // Indigo
+    (148, 0, 211),   // Violet
 ];
 
 #[derive(Copy, Clone)]
@@ -53,12 +57,12 @@ fn calculate_box_size(term_width: u16, term_height: u16) -> u16 {
 }
 
 impl Pattern {
-    fn new(box_size: u16) -> Self {
+    fn new(_box_size: u16) -> Self {
         Self {
             x_offset: 0.0,
             y_offset: 0.0,
-            direction: Direction::Left,
-            speed: 0.25, // Consistent speed regardless of size
+            direction: Direction::Left,  // Always start moving left
+            speed: 1.0,                 // Move 1 block per frame
         }
     }
 
@@ -171,43 +175,24 @@ pub fn run_test_screen() -> io::Result<()> {
     enable_raw_mode()?;
     let mut stdout = stdout();
     
-    // Get terminal size immediately
-    let (term_width, term_height) = size()?;
-    
-    // Check terminal size and exit if too small
-    if term_width < MIN_TERM_WIDTH || term_height < MIN_TERM_HEIGHT {
-        disable_raw_mode()?;
-        println!("Exiting due to insufficient terminal size ({}x{}, need {}x{})",
-            term_width, term_height, MIN_TERM_WIDTH, MIN_TERM_HEIGHT);
-        return Ok(());
-    }
+    // Use fixed dimensions for testing
+    let term_width = 40;
+    let term_height = 20;
+    let box_size = 16; // Fixed box size for consistent display
 
     execute!(stdout, Hide)?;
     execute!(stdout, Clear(ClearType::All))?;
     
-    // Calculate box size based on terminal dimensions
-    let box_size = calculate_box_size(term_width, term_height);
-    
     let mut pattern = Pattern::new(box_size);
     let mut color_phase = 0.0;
-    let color_speed = 0.05; // Slower color changes for better visibility
+    let color_speed = 0.02;
     
-    // Animation sequence
-    for frame in 0..200 { // 2 seconds at 10ms per frame
+    // Animation sequence - 200 frames = 2 seconds at 10ms per frame
+    for _ in 0..200 {
         if poll(Duration::from_millis(FRAME_TIME))? {
             if let Event::Key(_) = read()? {
                 break;
             }
-        }
-        
-        // Change direction every 50 frames (0.5 second)
-        if frame % 50 == 0 {
-            pattern.direction = match pattern.direction {
-                Direction::Left => Direction::Up,
-                Direction::Up => Direction::Down,
-                Direction::Down => Direction::Right,
-                Direction::Right => Direction::Left,
-            };
         }
         
         draw_pattern(&mut stdout, term_width, term_height, &pattern, color_phase, box_size)?;
