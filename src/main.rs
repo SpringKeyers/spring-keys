@@ -1,3 +1,6 @@
+mod core;
+mod input;
+
 use std::io::{self, Write};
 use std::time::Instant;
 use std::collections::VecDeque;
@@ -9,20 +12,8 @@ use crossterm::{
     style::{Color, SetForegroundColor, ResetColor},
 };
 
-#[derive(Debug)]
-struct KeyboardEvent {
-    key: KeyCode,
-    modifiers: KeyModifiers,
-    timestamp: Instant,
-}
-
-#[derive(Debug)]
-struct InputProcessor {
-    current_text: String,
-    cursor_position: usize,
-    input_buffer: VecDeque<KeyboardEvent>,
-    last_error: Option<TypingError>,
-}
+use input::{InputProcessor, KeyboardEvent};
+use core::state::{GameState, GameType};
 
 #[derive(Debug)]
 struct TypingError {
@@ -30,47 +21,6 @@ struct TypingError {
     received: char,
     position: usize,
     timestamp: Instant,
-}
-
-impl InputProcessor {
-    fn new() -> Self {
-        Self {
-            current_text: String::new(),
-            cursor_position: 0,
-            input_buffer: VecDeque::new(),
-            last_error: None,
-        }
-    }
-
-    fn process_key(&mut self, key_event: KeyboardEvent) -> io::Result<()> {
-        let mut stdout = io::stdout();
-
-        match key_event.key {
-            KeyCode::Char(c) if key_event.modifiers == KeyModifiers::NONE => {
-                self.current_text.push(c);
-                self.cursor_position += 1;
-                stdout.execute(SetForegroundColor(Color::Green))?;
-                print!("{}", c);
-                stdout.execute(ResetColor)?;
-            }
-            KeyCode::Backspace if key_event.modifiers == KeyModifiers::NONE => {
-                if self.cursor_position > 0 {
-                    self.current_text.pop();
-                    self.cursor_position -= 1;
-                    print!("\x08 \x08"); // Move back, print space, move back again
-                }
-            }
-            KeyCode::Enter if key_event.modifiers == KeyModifiers::NONE => {
-                println!();
-                self.current_text.clear();
-                self.cursor_position = 0;
-            }
-            _ => {}
-        }
-
-        stdout.flush()?;
-        Ok(())
-    }
 }
 
 fn main() -> io::Result<()> {
@@ -82,6 +32,7 @@ fn main() -> io::Result<()> {
     println!("Press 'Esc' to quit\n");
 
     let mut processor = InputProcessor::new();
+    let mut game_state = GameState::new(GameType::Practice);
 
     loop {
         match event::read()? {
@@ -91,13 +42,48 @@ fn main() -> io::Result<()> {
                     break;
                 }
 
-                let event = KeyboardEvent {
-                    key: code,
-                    modifiers,
-                    timestamp: Instant::now(),
-                };
+                let event = KeyboardEvent::new(code, modifiers);
+                
+                // Process modifiers (like Caps Lock)
+                processor.process_modifiers(&event);
 
-                processor.process_key(event)?;
+                // Handle the key event
+                match event.key {
+                    KeyCode::Char(c) if event.modifiers == KeyModifiers::NONE => {
+                        let c = processor.handle_caps_lock(c);
+                        processor.current_text.push(c);
+                        processor.cursor_position += 1;
+                        
+                        let mut stdout = io::stdout();
+                        stdout.execute(SetForegroundColor(Color::Green))?;
+                        print!("{}", c);
+                        stdout.execute(ResetColor)?;
+                        stdout.flush()?;
+                    }
+                    KeyCode::Backspace if event.modifiers == KeyModifiers::NONE => {
+                        if processor.cursor_position > 0 {
+                            processor.current_text.pop();
+                            processor.cursor_position -= 1;
+                            print!("\x08 \x08"); // Move back, print space, move back again
+                            io::stdout().flush()?;
+                        }
+                    }
+                    KeyCode::Enter if event.modifiers == KeyModifiers::NONE => {
+                        println!();
+                        processor.current_text.clear();
+                        processor.cursor_position = 0;
+                        io::stdout().flush()?;
+                    }
+                    _ => {}
+                }
+
+                // Store the event in the input buffer for replay/analysis
+                processor.input_buffer.push_back(event);
+                
+                // Keep buffer size reasonable
+                if processor.input_buffer.len() > 100 {
+                    processor.input_buffer.pop_front();
+                }
             }
             _ => {}
         }
