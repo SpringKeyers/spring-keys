@@ -1,6 +1,6 @@
-use std::time::{Duration, Instant, SystemTime};
+use std::time::{Duration, Instant};
 use crossterm::event::{KeyCode, KeyModifiers};
-use crate::core::TypingError;
+use crate::core::TypingSession;
 
 mod event_queue;
 pub use event_queue::{EventQueue, KeyboardEvent};
@@ -13,7 +13,7 @@ pub struct InputProcessor {
     pub current_text: String,
     pub cursor_position: usize,
     pub event_queue: EventQueue,
-    pub last_error: Option<TypingError>,
+    pub last_error: Option<bool>,
     pub caps_lock_enabled: bool,
     pub last_key_time: Option<Instant>,
 }
@@ -21,8 +21,8 @@ pub struct InputProcessor {
 #[derive(Debug)]
 pub struct ValidationResult {
     pub is_valid: bool,
-    pub error: Option<TypingError>,
-    pub suggestions: Vec<String>,
+    pub error: Option<bool>,
+    pub position: usize,
 }
 
 impl InputProcessor {
@@ -37,10 +37,27 @@ impl InputProcessor {
         }
     }
 
-    pub fn process_key_event(&mut self, key: KeyCode, modifiers: KeyModifiers) {
+    pub fn process_key_event(&mut self, key: KeyCode, modifiers: KeyModifiers, typing_session: Option<&mut TypingSession>) {
         let event = KeyboardEvent::new(key, modifiers);
         self.event_queue.push(event);
         self.process_modifiers(key, modifiers);
+        
+        // Record the keystroke in the typing session metrics
+        if let Some(session) = typing_session {
+            match key {
+                KeyCode::Char(c) => {
+                    let processed_char = self.handle_caps_lock(c);
+                    session.record_keystroke(processed_char);
+                },
+                KeyCode::Backspace => {
+                    // For backspace, we could add a special tracking method
+                    // but for now we'll just record it as a special character
+                    session.record_keystroke('\u{232B}'); // Unicode backspace symbol
+                },
+                _ => {} // Ignore other keys for metrics tracking
+            }
+        }
+        
         self.last_key_time = Some(Instant::now());
     }
 
@@ -101,24 +118,31 @@ impl InputProcessor {
 
     pub fn validate_input(&self, expected: &str) -> ValidationResult {
         let current = self.current_text.as_str();
-        let is_valid = current.starts_with(expected);
+        let mut is_valid = true;
+        let mut error = None;
+        let mut error_position = 0;
         
-        let error = if !is_valid && !current.is_empty() {
-            let pos = current.len() - 1;
-            Some(TypingError {
-                expected: expected.chars().nth(pos).unwrap_or(' '),
-                received: current.chars().last().unwrap(),
-                position: pos,
-                timestamp: SystemTime::now(),
-            })
-        } else {
-            None
-        };
+        // Check character by character
+        for (i, (actual, expected)) in current.chars().zip(expected.chars()).enumerate() {
+            if actual != expected {
+                is_valid = false;
+                error = Some(true);
+                error_position = i;
+                break;
+            }
+        }
+        
+        // Check if the input is longer than expected
+        if current.len() > expected.len() {
+            is_valid = false;
+            error = Some(true);
+            error_position = expected.len();
+        }
 
         ValidationResult {
             is_valid,
             error,
-            suggestions: Vec::new(),
+            position: error_position,
         }
     }
 
