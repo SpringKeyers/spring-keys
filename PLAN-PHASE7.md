@@ -261,4 +261,57 @@ fn calculate_box_size(term_width: u16, term_height: u16) -> u16 {
 - Add size transition animations
 - Support custom size preferences
 
-// ... rest of the existing content ... 
+# Code Cleanup and Warning Fixes
+
+## Warning Resolution
+Addressed multiple compiler warnings to improve code quality:
+
+1. VGA Test Module (`src/vga_test.rs`):
+   - Removed unused `size` import
+   - Removed unused size constants (MIN_BOX_SIZE, MIN_TERM_WIDTH, MIN_TERM_HEIGHT, BORDER_SPACE)
+   - Simplified Direction enum to only Left variant
+   - Removed unused `calculate_box_size` function
+   - Fixed frame variable warning in animation loop
+
+2. Input Module (`src/input/mod.rs`):
+   - Removed unused constants KEY_REPEAT_DELAY and KEY_REPEAT_RATE
+
+3. UI Module (`src/ui/mod.rs`):
+   - Removed unused width and height fields from TerminalUI struct
+   - Simplified CustomMargin usage
+
+4. Heatmap Module (`src/ui/heatmap.rs`):
+   - Added #[cfg(test)] to module components
+   - Properly scoped keyboard heatmap implementation
+
+## Code Improvements
+
+### VGA Test Screen
+```rust
+// Simplified animation parameters
+const FRAME_TIME: u64 = 10; // Animation frame time in milliseconds
+
+// Fixed display dimensions
+let term_width = 40;
+let term_height = 20;
+let box_size = 16; // Fixed box size for consistent display
+
+// Streamlined pattern movement
+enum Direction {
+    Left, // Only left movement needed
+}
+```
+
+### Benefits
+1. Reduced code complexity
+2. Improved maintainability
+3. Better compile-time checks
+4. Clearer code intent
+5. Removed dead code
+6. Better test organization
+
+### Future Considerations
+1. Consider making heatmap visualization optional
+2. Evaluate need for dynamic terminal sizing
+3. Review other unused components for potential removal
+4. Consider adding more test coverage for core functionality 
