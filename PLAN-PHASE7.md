@@ -554,3 +554,113 @@ fn test_pattern_movement() {
    - Clear boundary conditions
    - Movement verification
    - Pattern behavior validation 
+
+# Phase 7: Minesweeper Typing Activity Implementation
+
+## Overview
+A word-based minesweeper game where players navigate through similar-looking words, using typing skills to reveal safe spaces and flag potential mines.
+
+### Core Mechanics
+- Word-based minefield instead of character-based
+- Similar-looking words create typing challenges
+- Caps Lock repurposed as flag mode
+- Neighbor count indicates nearby mines
+- Points awarded for correctly flagged mines
+
+### Game Elements
+1. Field Structure:
+   - Grid of words (similar to traditional minesweeper)
+   - Words chosen for similarity and typing challenge
+   - Visual separation using ASCII art borders
+   - Clear exposure indicators (~ for exposed areas)
+
+2. Word Selection:
+   - Groups of similar words (e.g., "doggy", "foggy", "boggy")
+   - Common typo patterns
+   - Muscle memory challenges
+   - Difficulty-based word sets
+
+3. Interaction Mechanics:
+   - Type word to expose area
+   - Use Caps Lock to enter flag mode
+   - Number indicators for adjacent mines
+   - Progressive revelation of safe areas
+
+4. Scoring System:
+   - Points for correctly flagged mines
+   - Bonus for strategic exposures
+   - Penalties for incorrect flags
+   - Time-based bonuses
+
+### Implementation Tasks
+- [ ] Create word database with similarity groups
+- [ ] Implement grid generation algorithm
+- [ ] Design ASCII art rendering system
+- [ ] Add Caps Lock flag mode
+- [ ] Implement neighbor counting
+- [ ] Add scoring system
+- [ ] Create progressive revelation logic
+- [ ] Add animation system for exposures
+
+### Technical Requirements
+1. Word Database:
+```rust
+struct WordGroup {
+    words: Vec<String>,
+    difficulty: DifficultyLevel,
+    similarity_score: f32,
+}
+
+struct MineField {
+    grid: Vec<Vec<Cell>>,
+    exposed: HashSet<Position>,
+    flagged: HashSet<Position>,
+    mine_positions: HashSet<Position>,
+}
+```
+
+2. Game States:
+```rust
+enum CellState {
+    Hidden,
+    Exposed(u8), // number of neighboring mines
+    Flagged,
+    Mine,
+}
+
+struct Cell {
+    word: String,
+    state: CellState,
+    is_mine: bool,
+}
+```
+
+### User Interface
+```
+####################################################
+###       #####        ########        #############
+###   ?   #####   ?    ########   ?    #############
+### twerpy##### tappy  ######## flippy #############
+###       #####        ########        #############
+####################################################
+```
+
+### Scoring Formula
+- Base points: 100 per correct flag
+- Neighbor bonus: 20 * number of adjacent mines
+- Time bonus: max(0, 1000 - seconds_elapsed * 10)
+- Final score: base_points + neighbor_bonus + time_bonus
+
+## Testing Strategy
+- [ ] Unit tests for word similarity
+- [ ] Grid generation verification
+- [ ] Flag mode interaction tests
+- [ ] Scoring system validation
+- [ ] Edge case handling for grid boundaries
+
+## Future Enhancements
+1. Multiple difficulty levels
+2. Custom word sets
+3. Achievement system
+4. Multiplayer mode
+5. Learning analytics 
