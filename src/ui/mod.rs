@@ -319,10 +319,6 @@ fn render_detailed_metrics(frame: &mut tui::Frame<CrosstermBackend<Stdout>>, app
         frame.render_widget(row_block.clone(), chunks[1]);
         frame.render_widget(heatmap_block.clone(), chunks[2]);
         
-        // For more detailed visualizations of finger/row performance and heatmap,
-        // we'd need to create custom widgets with tui-rs
-        // This is a simplified implementation to get started
-        
         // For finger performance data, we can render a simpler text representation
         if let Some(finger_perf) = app.get_finger_performance() {
             let mut left_hand = vec![];
@@ -357,7 +353,7 @@ fn render_detailed_metrics(frame: &mut tui::Frame<CrosstermBackend<Stdout>>, app
             }
             
             // Get inner area of the block
-            let finger_inner = finger_block.inner(CustomMargin { vertical: 0, horizontal: 0 });
+            let finger_inner = chunks[0];
             let finger_chunks = Layout::default()
                 .direction(Direction::Horizontal)
                 .constraints([
@@ -383,7 +379,7 @@ fn render_detailed_metrics(frame: &mut tui::Frame<CrosstermBackend<Stdout>>, app
         }
         
         // Render row performance data
-        let row_inner = row_block.inner(CustomMargin { vertical: 0, horizontal: 0 });
+        let row_inner = chunks[1];
         let row_para = Paragraph::new(vec![
             Spans::from(format!("Top Row: {:.1}ms", session.metrics.top_row_metrics.avg_time_ms)),
             Spans::from(format!("Home Row: {:.1}ms", session.metrics.home_row_metrics.avg_time_ms)),
@@ -391,9 +387,6 @@ fn render_detailed_metrics(frame: &mut tui::Frame<CrosstermBackend<Stdout>>, app
         ]);
         
         frame.render_widget(row_para, row_inner);
-        
-        // For heatmap, we would need to create a custom widget
-        // This would require significant additional code
     }
 }
 
