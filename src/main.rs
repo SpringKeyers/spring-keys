@@ -1,98 +1,88 @@
 mod core;
 mod input;
+mod ui;
+mod config;
+mod logger;
+mod games;
 
-use std::io::{self, Write};
-use std::time::Instant;
-use std::collections::VecDeque;
-use crossterm::{
-    event::{self, Event, KeyCode, KeyEvent, KeyModifiers},
-    terminal::{self, disable_raw_mode, enable_raw_mode},
-    ExecutableCommand,
-    cursor::{Hide, Show},
-    style::{Color, SetForegroundColor, ResetColor},
-};
+use std::path::PathBuf;
+use log::{info, LevelFilter};
 
-use input::{InputProcessor, KeyboardEvent};
-use core::state::{GameState, GameType};
+pub use core::{TypingSession, TypingMetrics, TypingError};
+pub use input::{InputProcessor, ValidationResult};
+pub use core::state::{GameState, GameType, GameStatus};
+pub use ui::TerminalUI;
+pub use games::minesweeper::MinesweeperGame;
+
+// Re-export commonly used types from dependencies
+pub use crossterm::event::{KeyCode, KeyModifiers};
 
 #[derive(Debug)]
-struct TypingError {
-    expected: char,
-    received: char,
-    position: usize,
-    timestamp: Instant,
+pub struct SpringKeys {
+    pub game_state: GameState,
+    pub input_processor: InputProcessor,
+    pub typing_session: Option<TypingSession>,
+    pub config: config::Config,
 }
 
-fn main() -> io::Result<()> {
-    // Enable raw mode and hide cursor
-    enable_raw_mode()?;
-    io::stdout().execute(Hide)?;
+impl SpringKeys {
+    pub fn new() -> Self {
+        // Load configuration or create default
+        let config_path = PathBuf::from(config::DEFAULT_CONFIG_FILE);
+        let config = config::Config::load_or_default(config_path);
 
-    println!("SpringKeys Typing Tutor");
-    println!("Press 'Esc' to quit\n");
-
-    let mut processor = InputProcessor::new();
-    let mut game_state = GameState::new(GameType::Practice);
-
-    loop {
-        match event::read()? {
-            Event::Key(KeyEvent { code, modifiers, .. }) => {
-                // Exit on Escape key
-                if code == KeyCode::Esc {
-                    break;
-                }
-
-                let event = KeyboardEvent::new(code, modifiers);
-                
-                // Process modifiers (like Caps Lock)
-                processor.process_modifiers(&event);
-
-                // Handle the key event
-                match event.key {
-                    KeyCode::Char(c) if event.modifiers == KeyModifiers::NONE => {
-                        let c = processor.handle_caps_lock(c);
-                        processor.current_text.push(c);
-                        processor.cursor_position += 1;
-                        
-                        let mut stdout = io::stdout();
-                        stdout.execute(SetForegroundColor(Color::Green))?;
-                        print!("{}", c);
-                        stdout.execute(ResetColor)?;
-                        stdout.flush()?;
-                    }
-                    KeyCode::Backspace if event.modifiers == KeyModifiers::NONE => {
-                        if processor.cursor_position > 0 {
-                            processor.current_text.pop();
-                            processor.cursor_position -= 1;
-                            print!("\x08 \x08"); // Move back, print space, move back again
-                            io::stdout().flush()?;
-                        }
-                    }
-                    KeyCode::Enter if event.modifiers == KeyModifiers::NONE => {
-                        println!();
-                        processor.current_text.clear();
-                        processor.cursor_position = 0;
-                        io::stdout().flush()?;
-                    }
-                    _ => {}
-                }
-
-                // Store the event in the input buffer for replay/analysis
-                processor.input_buffer.push_back(event);
-                
-                // Keep buffer size reasonable
-                if processor.input_buffer.len() > 100 {
-                    processor.input_buffer.pop_front();
-                }
-            }
-            _ => {}
+        info!("SpringKeys application initialized");
+        info!("Game mode: {:?}", config.game.game_mode);
+        
+        Self {
+            game_state: GameState::default(),
+            input_processor: InputProcessor::new(),
+            typing_session: None,
+            config,
         }
     }
 
-    // Clean up: show cursor and disable raw mode
-    io::stdout().execute(Show)?;
-    disable_raw_mode()?;
+    pub fn start_typing_session(&mut self, text: String) {
+        info!("Starting typing session with text: {}", text);
+        self.typing_session = Some(TypingSession::new(text));
+        self.input_processor.clear();
+    }
+
+    pub fn process_input(&mut self, key: KeyCode, modifiers: KeyModifiers) {
+        self.input_processor.process_key_event(key, modifiers);
+        self.input_processor.process_queued_events();
+
+        if let Some(session) = &mut self.typing_session {
+            let result = self.input_processor.validate_input(&session.text);
+            self.input_processor.update_error_state(result);
+            session.calculate_metrics();
+        }
+    }
+
+    pub fn change_game(&mut self, game_type: GameType) {
+        info!("Changing game type to {:?}", game_type);
+        self.game_state = GameState::new(game_type);
+        self.typing_session = None;
+        self.input_processor.clear();
+    }
+}
+
+fn main() -> std::io::Result<()> {
+    // Initialize logger
+    let _ = logger::init_logger(LevelFilter::Info, None::<PathBuf>);
     
-    println!("\nThank you for using SpringKeys!");
-    Ok(())
+    info!("Starting SpringKeys application");
+    
+    let mut app = SpringKeys::new();
+    let mut ui = TerminalUI::new()?;
+    
+    ui.init()?;
+    
+    let result = ui.run(&mut app);
+    
+    // Ensure terminal is restored even if an error occurs
+    ui.cleanup()?;
+    
+    // Return any error from the run function
+    result
 } 

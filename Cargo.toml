@@ -6,4 +6,10 @@ authors = ["SpringKeys Team"]
 description = "A typing tutor with spring-based physics and mini-games"
 
 [dependencies]
-crossterm = "0.27.0" 
+crossterm = "0.27.0"
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8.0"
+log = "0.4"
+log4rs = "1.2"
+thiserror = "1.0"
+rand = "0.8" 
