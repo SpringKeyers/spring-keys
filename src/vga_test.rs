@@ -9,27 +9,22 @@ use crossterm::{
 };
 
 // Standard terminal is 80x24, leave room for borders
-const BOX_SIZE: u16 = 20; // Smaller box to fit in standard terminal
+const BOX_SIZE: u16 = 4; // Reduced box size to minimum
 const FRAME_TIME: u64 = 10; // Fast updates
-const MIN_TERM_WIDTH: u16 = 80;
-const MIN_TERM_HEIGHT: u16 = 24;
+const MIN_TERM_WIDTH: u16 = 4;
+const MIN_TERM_HEIGHT: u16 = 4;
 
-// Reduced symbol set for cleaner look in smaller space
+// Reduced symbol set for smaller space
 const SYMBOLS: &[char] = &[
-    '█', '▀', '▄', '▌', '▐', '░', '▒', '▓',
-    '■', '□', '◆', '◇', '○', '●', '◐', '◑',
+    '█', '▀', '▄', '▌',
 ];
 
 // Brighter colors for better visibility in smaller area
 const COLORS: &[(u8, u8, u8)] = &[
     (255, 0, 0),     // Bright Red
-    (255, 128, 0),   // Orange
-    (255, 255, 0),   // Yellow
     (0, 255, 0),     // Bright Green
-    (0, 255, 255),   // Cyan
-    (0, 128, 255),   // Light Blue
     (0, 0, 255),     // Blue
-    (255, 0, 255),   // Magenta
+    (255, 255, 0),   // Yellow
 ];
 
 #[derive(Copy, Clone)]
@@ -53,30 +48,30 @@ impl Pattern {
             x_offset: 0.0,
             y_offset: 0.0,
             direction: Direction::Left,
-            speed: 0.5, // Slower speed for smaller area
+            speed: 0.25, // Slower speed for tiny box
         }
     }
 
     fn update(&mut self) {
         match self.direction {
             Direction::Left => {
-                self.x_offset = (self.x_offset - self.speed).rem_euclid(BOX_SIZE as f64)
+                self.x_offset = (self.x_offset - self.speed).rem_euclid(2.0)
             },
             Direction::Up => {
-                self.y_offset = (self.y_offset - self.speed).rem_euclid(BOX_SIZE as f64)
+                self.y_offset = (self.y_offset - self.speed).rem_euclid(2.0)
             },
             Direction::Down => {
-                self.y_offset = (self.y_offset + self.speed).rem_euclid(BOX_SIZE as f64)
+                self.y_offset = (self.y_offset + self.speed).rem_euclid(2.0)
             },
             Direction::Right => {
-                self.x_offset = (self.x_offset + self.speed).rem_euclid(BOX_SIZE as f64)
+                self.x_offset = (self.x_offset + self.speed).rem_euclid(2.0)
             },
         }
     }
 
     fn get_offset(&self, x: u16, y: u16) -> (usize, usize) {
-        let x_pos = ((x as f64 + self.x_offset).rem_euclid(BOX_SIZE as f64)).max(0.0);
-        let y_pos = ((y as f64 + self.y_offset).rem_euclid(BOX_SIZE as f64)).max(0.0);
+        let x_pos = ((x as f64 + self.x_offset).rem_euclid(2.0)).max(0.0);
+        let y_pos = ((y as f64 + self.y_offset).rem_euclid(2.0)).max(0.0);
         (x_pos.floor() as usize, y_pos.floor() as usize)
     }
 }
@@ -88,76 +83,59 @@ fn draw_pattern(
     pattern: &Pattern,
     color_phase: f64,
 ) -> io::Result<()> {
-    let start_x = (term_width - BOX_SIZE) / 2;
-    let start_y = (term_height - BOX_SIZE) / 2;
+    let start_x = (term_width.saturating_sub(BOX_SIZE)) / 2;
+    let start_y = (term_height.saturating_sub(BOX_SIZE)) / 2;
     
     // Draw a border around the animation box
     let border_color = Color::Rgb { r: 150, g: 150, b: 150 }; // Brighter border
     
-    // Draw title
-    let title = "SpringKeys VGA Test";
-    let title_x = if title.len() as u16 > BOX_SIZE {
-        start_x
-    } else {
-        start_x + ((BOX_SIZE - title.len() as u16) / 2)
-    };
-    execute!(stdout, MoveTo(title_x, start_y.saturating_sub(2)), SetForegroundColor(border_color))?;
-    write!(stdout, "{}", title)?;
-    
-    // Top and bottom borders with double lines for better visibility
-    for x in start_x..start_x + BOX_SIZE {
-        execute!(stdout, MoveTo(x, start_y.saturating_sub(1)), SetForegroundColor(border_color))?;
-        write!(stdout, "═")?;
-        execute!(stdout, MoveTo(x, start_y + BOX_SIZE), SetForegroundColor(border_color))?;
-        write!(stdout, "═")?;
+    // Only draw title if there's enough space
+    if term_height > 4 {
+        let title = "VGA";
+        let title_x = if title.len() as u16 > term_width {
+            0
+        } else {
+            (term_width.saturating_sub(title.len() as u16)) / 2
+        };
+        execute!(stdout, MoveTo(title_x, start_y.saturating_sub(1)), SetForegroundColor(border_color))?;
+        write!(stdout, "{}", title)?;
     }
     
-    // Left and right borders with double lines
-    for y in start_y..start_y + BOX_SIZE {
-        execute!(stdout, MoveTo(start_x.saturating_sub(1), y), SetForegroundColor(border_color))?;
-        write!(stdout, "║")?;
-        execute!(stdout, MoveTo(start_x + BOX_SIZE, y), SetForegroundColor(border_color))?;
-        write!(stdout, "║")?;
+    // Top and bottom borders with simple lines for small size
+    for x in start_x..start_x.saturating_add(BOX_SIZE) {
+        execute!(stdout, MoveTo(x, start_y), SetForegroundColor(border_color))?;
+        write!(stdout, "-")?;
+        execute!(stdout, MoveTo(x, start_y.saturating_add(BOX_SIZE.saturating_sub(1))), SetForegroundColor(border_color))?;
+        write!(stdout, "-")?;
     }
     
-    // Corners with double lines
-    execute!(stdout, MoveTo(start_x.saturating_sub(1), start_y.saturating_sub(1)), SetForegroundColor(border_color))?;
-    write!(stdout, "╔")?;
-    execute!(stdout, MoveTo(start_x + BOX_SIZE, start_y.saturating_sub(1)), SetForegroundColor(border_color))?;
-    write!(stdout, "╗")?;
-    execute!(stdout, MoveTo(start_x.saturating_sub(1), start_y + BOX_SIZE), SetForegroundColor(border_color))?;
-    write!(stdout, "╚")?;
-    execute!(stdout, MoveTo(start_x + BOX_SIZE, start_y + BOX_SIZE), SetForegroundColor(border_color))?;
-    write!(stdout, "╝")?;
-    
-    // Draw help text
-    let help_text = "Press any key to exit";
-    let help_x = start_x + (BOX_SIZE - help_text.len() as u16) / 2;
-    execute!(stdout, MoveTo(help_x, start_y + BOX_SIZE + 1), SetForegroundColor(border_color))?;
-    write!(stdout, "{}", help_text)?;
-    
-    let color_index = (color_phase.floor() as usize) % COLORS.len();
-    let next_color_index = (color_index + 1) % COLORS.len();
-    let color_t = color_phase.fract();
-    
-    let current_color = COLORS[color_index];
-    let next_color = COLORS[next_color_index];
+    // Left and right borders
+    for y in start_y..start_y.saturating_add(BOX_SIZE) {
+        execute!(stdout, MoveTo(start_x, y), SetForegroundColor(border_color))?;
+        write!(stdout, "|")?;
+        execute!(stdout, MoveTo(start_x.saturating_add(BOX_SIZE.saturating_sub(1)), y), SetForegroundColor(border_color))?;
+        write!(stdout, "|")?;
+    }
     
     // Draw the animated pattern inside the box
-    for y in 0..BOX_SIZE {
-        for x in 0..BOX_SIZE {
+    for y in 0..BOX_SIZE.saturating_sub(2) {
+        for x in 0..BOX_SIZE.saturating_sub(2) {
             let (offset_x, offset_y) = pattern.get_offset(x, y);
             let symbol = SYMBOLS[(offset_x + offset_y) % SYMBOLS.len()];
             
             let position_t = ((x as f64 / BOX_SIZE as f64) + (y as f64 / BOX_SIZE as f64)) / 2.0;
             let color_shift = (position_t * 0.2) - 0.1;
-            let adjusted_t = (color_t + color_shift).max(0.0).min(1.0);
+            let adjusted_t = (color_phase + color_shift).max(0.0).min(1.0);
             
-            let color = interpolate_color(current_color, next_color, adjusted_t);
+            let color_index = (adjusted_t * (COLORS.len() - 1) as f64).floor() as usize;
+            let next_color_index = (color_index + 1) % COLORS.len();
+            let t = (adjusted_t * (COLORS.len() - 1) as f64).fract();
+            
+            let color = interpolate_color(COLORS[color_index], COLORS[next_color_index], t);
             
             execute!(
                 stdout,
-                MoveTo(start_x + x, start_y + y),
+                MoveTo(start_x.saturating_add(x.saturating_add(1)), start_y.saturating_add(y.saturating_add(1))),
                 SetForegroundColor(color),
                 SetBackgroundColor(Color::Black)
             )?;
@@ -187,9 +165,6 @@ pub fn run_test_screen() -> io::Result<()> {
     // Check terminal size and exit if too small
     if term_width < MIN_TERM_WIDTH || term_height < MIN_TERM_HEIGHT {
         disable_raw_mode()?;
-        eprintln!("Debug: Terminal size check failed");
-        eprintln!("Debug: Current size: {}x{}", term_width, term_height);
-        eprintln!("Debug: Required size: {}x{}", MIN_TERM_WIDTH, MIN_TERM_HEIGHT);
         println!("Exiting due to insufficient terminal size ({}x{}, need {}x{})",
             term_width, term_height, MIN_TERM_WIDTH, MIN_TERM_HEIGHT);
         return Ok(());
@@ -198,33 +173,20 @@ pub fn run_test_screen() -> io::Result<()> {
     execute!(stdout, Hide)?;
     execute!(stdout, Clear(ClearType::All))?;
     
-    // Calculate safe starting positions
-    let start_x = (term_width.saturating_sub(BOX_SIZE)) / 2;
-    let start_y = (term_height.saturating_sub(BOX_SIZE)) / 2;
-    
-    // Ensure we have enough space for the box
-    if start_x == 0 || start_y == 0 {
-        execute!(stdout, Clear(ClearType::All), ResetColor, Show, MoveTo(0, 0))?;
-        disable_raw_mode()?;
-        println!("Error: Not enough space for the animation box!");
-        println!("Please make your terminal window larger.");
-        return Ok(());
-    }
-    
     let mut pattern = Pattern::new();
     let mut color_phase = 0.0;
-    let color_speed = 0.1;
+    let color_speed = 0.05; // Slower color changes for better visibility
     
     // Animation sequence
-    for frame in 0..400 { // 4 seconds total at 10ms per frame
+    for frame in 0..200 { // 2 seconds at 10ms per frame
         if poll(Duration::from_millis(FRAME_TIME))? {
             if let Event::Key(_) = read()? {
                 break;
             }
         }
         
-        // Change direction every 100 frames (1 second)
-        if frame % 100 == 0 {
+        // Change direction every 50 frames (0.5 second)
+        if frame % 50 == 0 {
             pattern.direction = match pattern.direction {
                 Direction::Left => Direction::Up,
                 Direction::Up => Direction::Down,
@@ -235,43 +197,11 @@ pub fn run_test_screen() -> io::Result<()> {
         
         draw_pattern(&mut stdout, term_width, term_height, &pattern, color_phase)?;
         pattern.update();
-        color_phase += color_speed;
+        color_phase = (color_phase + color_speed) % COLORS.len() as f64;
     }
     
     // Quick fade to black
-    for i in 0..10 {
-        let fade = 1.0 - (i as f64 / 10.0);
-        let start_x = (term_width - BOX_SIZE) / 2;
-        let start_y = (term_height - BOX_SIZE) / 2;
-        
-        for y in 0..BOX_SIZE {
-            for x in 0..BOX_SIZE {
-                let color = Color::Rgb {
-                    r: (fade * 255.0) as u8,
-                    g: (fade * 255.0) as u8,
-                    b: (fade * 255.0) as u8,
-                };
-                execute!(
-                    stdout,
-                    MoveTo(start_x + x, start_y + y),
-                    SetForegroundColor(color),
-                )?;
-                write!(stdout, "█")?;
-            }
-        }
-        stdout.flush()?;
-        std::thread::sleep(Duration::from_millis(FRAME_TIME));
-    }
-    
-    // Reset terminal
-    execute!(
-        stdout,
-        Clear(ClearType::All),
-        ResetColor,
-        Show,
-        MoveTo(0, 0)
-    )?;
-    
+    execute!(stdout, Clear(ClearType::All), ResetColor, Show, MoveTo(0, 0))?;
     disable_raw_mode()?;
     Ok(())
 } 
