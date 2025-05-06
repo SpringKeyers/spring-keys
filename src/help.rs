@@ -12,6 +12,7 @@ pub fn print_help() {
     println!("  config                Edit configuration");
     println!("  test                  Display test pattern (VGA-style test)");
     println!("  single [QUOTE]        Run a single quote test with automated exit");
+    println!("  consume [INPUT]       Process input and visualize typing results in UI");
     println!();
     println!("OPTIONS:");
     println!("  -h, --help            Show this help message");
@@ -24,9 +25,13 @@ pub fn print_help() {
     println!("  --input=TEXT          Input sequence for automation");
     println!("  --timeout=MS          Timeout in milliseconds (default: 1000)");
     println!();
+    println!("CONSUME MODE OPTIONS:");
+    println!("  --input=TEXT          Input sequence to process (space-separated tokens)");
+    println!();
     println!("ENVIRONMENT VARIABLES:");
     println!("  SPRING_KEYS_TEST_MODE Set to '1' or 'true' to enable single mode for automated testing");
     println!("  SPRING_KEYS_ENV_INFO  Set to '1' or 'true' to display environment information");
+    println!("  SPRING_KEYS_DEMO_HEATMAP Enable color spectrum visualization for keyboard heatmap");
     println!();
     println!("HEADLESS DETECTION:");
     println!("  SpringKeys automatically detects headless environments (CI systems, non-interactive");
@@ -39,6 +44,7 @@ pub fn print_help() {
     println!("  spring-keys test");
     println!("  spring-keys single \"Custom test quote.\"");
     println!("  spring-keys single --preset=foxjump");
+    println!("  spring-keys consume \"T h e <space> q u i c k\"");
     println!("  SPRING_KEYS_TEST_MODE=1 spring-keys --input \"T h e <space> q u i c k\"");
     println!();
     println!("For more information, see the documentation.");

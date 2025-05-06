@@ -11,7 +11,6 @@ use crate::SpringKeys;
 use std::time::Duration;
 
 pub mod heatmap;
-pub mod histogram_display;
 pub mod color_spectrum;
 
 pub struct TerminalUI {
@@ -49,6 +48,20 @@ impl TerminalUI {
     pub fn run(&mut self, app: &mut SpringKeys) -> io::Result<()> {
         // Initialize with a random typing text from the quotes database
         app.start_typing_session(None);
+        
+        // Check if demo heatmap mode is enabled via an environment variable
+        let demo_heatmap = std::env::var("SPRING_KEYS_DEMO_HEATMAP").is_ok();
+        
+        // Apply demo data if in demo heatmap mode
+        if demo_heatmap {
+            // Log demo mode activation
+            println!("Demo Heatmap Mode: Activating color spectrum visualization");
+            // Set up demo typing data for spectrum visualization
+            if let Some(session) = &mut app.typing_session {
+                println!("Demo Heatmap Mode: Simulating typing data for number keys");
+                session.metrics.simulate_demo_data();
+            }
+        }
         
         while !self.should_quit {
             self.draw_ui(app)?;
@@ -100,6 +113,10 @@ impl TerminalUI {
         }
         
         Ok(())
+    }
+
+    pub fn render_frame(&mut self, app: &SpringKeys) -> io::Result<()> {
+        self.draw_ui(app)
     }
 
     fn draw_ui(&mut self, app: &SpringKeys) -> io::Result<()> {

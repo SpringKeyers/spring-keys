@@ -682,4 +682,81 @@ impl TypingMetrics {
         self.key_histogram.reset_current();
         self.wpm_histogram.reset_current();
     }
+
+    /// Simulate demo data for visualization testing
+    pub fn simulate_demo_data(&mut self) {
+        // Demo speeds for different keys to show the full color spectrum
+        let demo_speeds = [
+            // Number row with gradient from fast to slow
+            ('1', 90.0),   // Fast - should be red
+            ('2', 120.0),  // Medium-fast - should be reddish
+            ('3', 150.0),  // Medium-fast - should be light red
+            ('4', 180.0),  // Medium - should be pinkish
+            ('5', 200.0),  // Medium - should be white
+            ('6', 220.0),  // Medium-slow - should be light purple
+            ('7', 240.0),  // Medium-slow - should be purple-ish
+            ('8', 260.0),  // Slow - should be more purple
+            ('9', 280.0),  // Slow - should be very purple
+            ('0', 300.0),  // Very slow - should be deep purple
+            
+            // Some letter keys with varying speeds
+            ('q', 100.0),
+            ('w', 150.0),
+            ('e', 200.0),
+            ('r', 250.0),
+            ('t', 300.0),
+            ('a', 90.0),
+            ('s', 140.0),
+            ('d', 190.0),
+            ('f', 240.0),
+            ('z', 100.0),
+            ('x', 200.0),
+            ('c', 300.0),
+            
+            // Space
+            (' ', 120.0),
+        ];
+        
+        // Update every key in the demo speeds list
+        for &(key, speed) in &demo_speeds {
+            if let Some(metrics) = self.char_metrics.get_mut(&key) {
+                // Record hits and timing
+                metrics.count = 5;
+                metrics.correct_count = 5;
+                metrics.total_time_ms = (speed * 5.0) as u64;
+                metrics.avg_time_ms = speed;
+                metrics.last_delay_ms = speed as u64;
+                metrics.recent_times_ms = vec![speed as u64; 5];
+                metrics.min_time_ms = speed as u64;
+                metrics.max_time_ms = speed as u64 + 50;
+                metrics.short_term_avg_ms = speed;
+                
+                // Update extended stats
+                let now = Instant::now();
+                metrics.extended_stats.update(speed, now);
+                
+                // Add some history
+                for i in 0..5 {
+                    let adjusted_speed = speed * (0.9 + (i as f64 * 0.05));
+                    metrics.extended_stats.update_quote_stats(adjusted_speed);
+                }
+            }
+        }
+        
+        // Set some general metrics
+        self.keystrokes = 100;
+        self.correct_keystrokes = 95;
+        self.wpm = 60.0;
+        self.accuracy = 95.0;
+        
+        // Update finger metrics
+        for (_, stats) in &mut self.finger_metrics {
+            stats.current = 180.0;
+            stats.avg_10s = 200.0;
+            stats.avg_60s = 220.0;
+            stats.avg_quote = 210.0;
+            stats.fastest = 100.0;
+            stats.slowest = 350.0;
+        }
+    }
 } 

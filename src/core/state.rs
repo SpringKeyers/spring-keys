@@ -7,6 +7,7 @@ pub enum GameType {
     RcRacing,
     FortuneTeller,
     HockeyFight,
+    Consume,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
