@@ -3,7 +3,6 @@ mod input;
 mod ui;
 mod config;
 mod logger;
-mod games;
 mod quotes;
 mod help;
 mod vga_test;
@@ -22,7 +21,6 @@ pub use core::metrics::ExtendedStats;
 pub use input::{InputProcessor, ValidationResult};
 pub use core::state::{GameState, GameType, GameStatus};
 pub use ui::TerminalUI;
-pub use games::minesweeper::MinesweeperGame;
 pub use quotes::{Quote, QuoteDatabase, QuoteDifficulty, QuoteCategory};
 
 // Re-export commonly used types from dependencies
@@ -97,15 +95,12 @@ impl SpringKeys {
 
         if let Some(session) = &mut self.typing_session {
             let result = self.input_processor.validate_input(&session.text);
-            self.input_processor.update_error_state(result);
+            self.input_processor.update_error_state(&result);
             session.calculate_metrics();
 
-            // Check if the quote is completed and ends with a period
-            if self.input_processor.is_quote_completed(&session.text) {
-                if session.check_completion() {
-                    // Start a new typing session with a new quote
-                    self.start_typing_session(None);
-                }
+            // Start a new typing session if the current text matches the expected text
+            if result.is_valid && self.input_processor.current_text.len() == session.text.len() {
+                self.start_typing_session(None);
             }
         }
     }
@@ -169,11 +164,6 @@ fn run_single_mode(app: &mut SpringKeys, quote: Option<&str>, input: Option<&str
     println!("Timeout: {}ms", timeout_ms);
     println!("==============================================");
     
-    // Check if input contains exit sequence
-    let has_exit_sequence = input
-        .map(|seq| app.input_processor.contains_exit_sequence(seq))
-        .unwrap_or(false);
-    
     // Process input if provided
     if let Some(input_sequence) = input {
         info!("Processing input sequence: {}", input_sequence);
@@ -190,10 +180,11 @@ fn run_single_mode(app: &mut SpringKeys, quote: Option<&str>, input: Option<&str
             println!("WPM: {:.1}, Accuracy: {:.1}%", session.metrics.wpm, session.metrics.accuracy);
             
             // Check if we processed the entire input and the current text matches expected
-            let success = app.input_processor.is_quote_completed(&session.text);
+            let result = app.input_processor.validate_input(&session.text);
+            let success = result.is_valid && app.input_processor.current_text.len() == session.text.len();
             
-            if success || has_exit_sequence {
-                info!("Quote completed or exit sequence detected, returning success code");
+            if success {
+                info!("Quote completed successfully, returning success code");
                 return 0;
             } else {
                 // In headless mode, consider any input processing a success
@@ -279,56 +270,36 @@ fn run_consume_mode(app: &mut SpringKeys, input_sequence: Option<&str>) -> io::R
     // Set demo heatmap to ensure the visualization works
     std::env::set_var("SPRING_KEYS_DEMO_HEATMAP", "1");
     
-    // Start a typing session if there isn't one
-    if app.typing_session.is_none() {
-        app.start_typing_session(None);
-    }
-    
     // Initialize and run the UI
     let mut ui = TerminalUI::new()?;
     ui.init()?;
-    
-    // Give the UI time to render before consuming input
-    thread::sleep(Duration::from_millis(500));
     
     // Process input sequence if provided
     if let Some(input_text) = input_sequence {
         info!("Processing input sequence in consume mode: {}", input_text);
         
-        // Set initial key delay to 1ms for all keys to simulate input
-        if let Some(session) = &mut app.typing_session {
-            // Initialize a minimal default delay for all keys
-            for c in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ,.-=[]\\;'/<>?:\"{}|~`!@#$%^&*()_+".chars() {
-                session.metrics.record_keystroke(c, c, 0);
-            }
-        }
+        // Start a new typing session with the input text
+        app.start_typing_session(Some(input_text.to_string()));
         
-        // Process the token sequence
-        let tokens: Vec<&str> = input_text.split_whitespace().collect();
-        for token in tokens {
-            // Process token and update metrics
+        // Process each character
+        for (i, c) in input_text.chars().enumerate() {
             if let Some(session) = &mut app.typing_session {
-                app.input_processor.process_token(token, Some(session));
+                // Record keystroke with position
+                session.metrics.record_keystroke(c, c, i);
                 session.calculate_metrics();
             }
-            
-            // Add delay and render frame
-            thread::sleep(Duration::from_millis(150)); // Delay between tokens
+            thread::sleep(Duration::from_millis(100));
             ui.render_frame(app)?;
         }
         
-        // Final metrics update and render
-        if let Some(session) = &mut app.typing_session {
-            session.calculate_metrics();
-        }
+        // Final render
         ui.render_frame(app)?;
+        
+        // Keep the display visible for a moment
+        thread::sleep(Duration::from_secs(2));
     }
     
-    // Keep the UI running to allow user to see the results or continue typing
-    let result = ui.run(app);
-    ui.cleanup()?;
-    
-    result
+    Ok(())
 }
 
 fn main() -> std::io::Result<()> {
@@ -493,7 +464,7 @@ fn main() -> std::io::Result<()> {
             app.start_typing_session(None);
         },
         Some(cmd) if cmd == "game" => {
-            app.change_game(GameType::Minesweeper);
+            app.change_game(GameType::Consume);
         },
         Some(cmd) if cmd == "stats" => {
             println!("Statistics viewing not yet implemented");

@@ -118,13 +118,13 @@ fn test_consume_mode_input_processing() {
     ];
     
     // Process each character
-    for (c, modifiers) in input_sequence {
-        app.process_input(KeyCode::Char(c), modifiers);
+    for (c, modifiers) in &input_sequence {
+        app.process_input(KeyCode::Char(*c), *modifiers);
     }
     
     // Verify input was processed
     let heatmap = app.get_heat_map().expect("Heatmap should exist");
-    for (c, _) in input_sequence {
+    for (c, _) in &input_sequence {
         assert!(heatmap.contains_key(&c.to_ascii_lowercase()), 
             "Key {} should be in heatmap after processing", c);
     }

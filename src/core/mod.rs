@@ -1,7 +1,4 @@
 use std::time::{SystemTime, Instant};
-use std::fs::OpenOptions;
-use std::io::Write;
-use chrono::Local;
 
 pub mod state;
 pub mod metrics;
@@ -19,7 +16,8 @@ pub struct TypingSession {
     pub completed_quotes: usize,
     pub total_wpm: f64,
     pub total_accuracy: f64,
-    log_file: Option<std::fs::File>,
+    pub current_sentence_end: usize,
+    pub show_up_to: usize,
 }
 
 #[derive(Debug, Clone)]
@@ -32,15 +30,9 @@ pub struct TypingError {
 
 impl TypingSession {
     pub fn new(text: String) -> Self {
-        // Open log file with append mode
-        let log_file = OpenOptions::new()
-            .create(true)
-            .append(true)
-            .open("typing_stats.log")
-            .ok();
-        
+        let first_sentence_end = find_next_sentence_end(&text, 0);
         Self {
-            text,
+            text: text.clone(),
             start_time: Instant::now(),
             end_time: None,
             metrics: TypingMetrics::new(),
@@ -48,7 +40,8 @@ impl TypingSession {
             completed_quotes: 0,
             total_wpm: 0.0,
             total_accuracy: 0.0,
-            log_file,
+            current_sentence_end: first_sentence_end,
+            show_up_to: first_sentence_end,
         }
     }
 
@@ -58,96 +51,18 @@ impl TypingSession {
             eprintln!("Failed to save stats: {}", e);
         }
 
-        // Update session stats
-        self.completed_quotes += 1;
-        self.total_wpm += self.metrics.wpm;
-        self.total_accuracy += self.metrics.accuracy;
-
-        // Prepare metrics for new quote while maintaining overall stats
-        self.metrics.prepare_for_new_quote();
-
-        // Update text and reset timing
+        // Update text and reset timing/positions
         self.text = text;
-        self.start_time = Instant::now();
-        self.end_time = None;
+        self.reset();
     }
     
     pub fn record_keystroke(&mut self, c: char) {
         let expected_char = self.text.chars().nth(self.current_position).unwrap_or(' ');
         self.metrics.record_keystroke(c, expected_char, self.current_position);
         
-        if c == expected_char {
+        // Only advance position if we're not at the end of the quote
+        if c == expected_char && self.current_position < self.text.len() - 1 {
             self.current_position += 1;
-        }
-        
-        // Check if we're at the end of the text
-        if self.current_position >= self.text.len() {
-            self.end_time = Some(Instant::now());
-        }
-    }
-
-    pub fn check_completion(&mut self) -> bool {
-        if self.current_position >= self.text.len() && self.text.ends_with('.') {
-            // Update averages
-            self.completed_quotes += 1;
-            self.total_wpm += self.metrics.wpm;
-            self.total_accuracy += self.metrics.accuracy;
-
-            // Log completion stats
-            if let Some(log_file) = &mut self.log_file {
-                let timestamp = Local::now().format("%Y-%m-%d %H:%M:%S");
-                let stats = format!(
-                    "\n[{}] Quote completed:\n{}\nWPM: {:.1}\nAccuracy: {:.1}%\nAvg WPM: {:.1}\nAvg Accuracy: {:.1}%\n",
-                    timestamp,
-                    self.text,
-                    self.metrics.wpm,
-                    self.metrics.accuracy,
-                    self.total_wpm / self.completed_quotes as f64,
-                    self.total_accuracy / self.completed_quotes as f64
-                );
-
-                // Log row performance
-                let row_stats = format!(
-                    "Row Performance (ms):\n  Top: {:.1} (10s: {:.1}, 60s: {:.1}, Quote: {:.1})\n  Home: {:.1} (10s: {:.1}, 60s: {:.1}, Quote: {:.1})\n  Bottom: {:.1} (10s: {:.1}, 60s: {:.1}, Quote: {:.1})\n",
-                    self.metrics.top_row_metrics.avg_time_ms,
-                    self.metrics.top_row_metrics.short_term_avg_ms,
-                    self.metrics.top_row_metrics.avg_time_ms,
-                    self.metrics.top_row_metrics.avg_time_ms,
-                    self.metrics.home_row_metrics.avg_time_ms,
-                    self.metrics.home_row_metrics.short_term_avg_ms,
-                    self.metrics.home_row_metrics.avg_time_ms,
-                    self.metrics.home_row_metrics.avg_time_ms,
-                    self.metrics.bottom_row_metrics.avg_time_ms,
-                    self.metrics.bottom_row_metrics.short_term_avg_ms,
-                    self.metrics.bottom_row_metrics.avg_time_ms,
-                    self.metrics.bottom_row_metrics.avg_time_ms,
-                );
-
-                // Log finger performance with extended stats
-                let mut finger_stats = String::from("Finger Performance (ms):\n");
-                for (finger, stats) in &self.metrics.finger_metrics {
-                    finger_stats.push_str(&format!(
-                        "  {:?}:\n    Current: {:.1}\n    10s Avg: {:.1}\n    60s Avg: {:.1}\n    Quote Avg: {:.1}\n    Fastest: {:.1}\n    Slowest: {:.1}\n",
-                        finger,
-                        stats.current,
-                        stats.avg_10s,
-                        stats.avg_60s,
-                        stats.avg_quote,
-                        stats.fastest,
-                        stats.slowest
-                    ));
-                }
-
-                let separator = "\n----------------------------------------\n";
-                
-                if let Err(e) = writeln!(log_file, "{}{}{}{}", stats, row_stats, finger_stats, separator) {
-                    eprintln!("Failed to write to log file: {}", e);
-                }
-            }
-
-            true
-        } else {
-            false
         }
     }
 
@@ -168,9 +83,49 @@ impl TypingSession {
     }
     
     pub fn reset(&mut self) {
+        // Reset timing
         self.start_time = Instant::now();
         self.end_time = None;
-        self.metrics = TypingMetrics::new();
+        
+        // Reset position
         self.current_position = 0;
+        
+        // Reset sentence positions
+        self.current_sentence_end = find_next_sentence_end(&self.text, 0);
+        self.show_up_to = self.current_sentence_end;
     }
+
+    pub fn advance_sentence(&mut self) {
+        if self.current_position >= self.current_sentence_end {
+            // Find next sentence end
+            self.current_sentence_end = find_next_sentence_end(&self.text, self.current_sentence_end + 1);
+            self.show_up_to = self.current_sentence_end;
+        }
+    }
+}
+
+// Helper function to find the end of the next sentence
+pub fn find_next_sentence_end(text: &str, start_pos: usize) -> usize {
+    let chars: Vec<char> = text.chars().collect();
+    let mut in_ellipsis = false;
+    
+    for (i, &c) in chars.iter().enumerate().skip(start_pos) {
+        match c {
+            '.' => {
+                // Check for ellipsis
+                if i + 2 < chars.len() && chars[i + 1] == '.' && chars[i + 2] == '.' {
+                    in_ellipsis = true;
+                    continue;
+                }
+                if in_ellipsis {
+                    in_ellipsis = false;
+                    continue;
+                }
+                return i + 1; // Include the period
+            }
+            '!' | '?' => return i + 1, // Include the punctuation mark
+            _ => continue,
+        }
+    }
+    text.len() // If no sentence end found, return end of text
 } 

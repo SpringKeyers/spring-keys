@@ -15,7 +15,7 @@ pub struct InputProcessor {
     pub last_key_time: Option<Instant>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct ValidationResult {
     pub is_valid: bool,
     pub error: Option<bool>,
@@ -49,11 +49,10 @@ impl InputProcessor {
                         self.handle_caps_lock(c)
                     };
                     session.record_keystroke(processed_char);
-                    
-                    // Check for quote completion if a period was typed
-                    if processed_char == '.' {
-                        session.check_completion();
-                    }
+                },
+                KeyCode::Enter => {
+                    // Reset cursor position on Enter press
+                    self.cursor_position = 0;
                 },
                 KeyCode::Backspace => {
                     session.record_keystroke('\u{232B}'); // Unicode backspace symbol
@@ -139,13 +138,6 @@ impl InputProcessor {
                 break;
             }
         }
-        
-        // Check if the input is longer than expected
-        if current.len() > expected.len() {
-            is_valid = false;
-            error = Some(true);
-            error_position = expected.len();
-        }
 
         ValidationResult {
             is_valid,
@@ -154,31 +146,20 @@ impl InputProcessor {
         }
     }
 
-    pub fn update_error_state(&mut self, result: ValidationResult) {
+    pub fn update_error_state(&mut self, result: &ValidationResult) {
         self.last_error = result.error;
     }
 
     pub fn clear(&mut self) {
         self.current_text.clear();
-        self.cursor_position = 0;
+        self.cursor_position = 0;  // Reset cursor to start
         self.event_queue.clear();
         self.last_error = None;
         self.last_key_time = None;
     }
 
-    pub fn is_quote_completed(&self, expected: &str) -> bool {
-        // For testing purposes, just check if the texts match exactly
-        if self.current_text == expected {
-            return true;
-        }
-        
-        // For normal operation, check if the length matches and the text ends with a period
-        if self.current_text.len() != expected.len() {
-            return false;
-        }
-        
-        // Check if the text matches exactly and ends with a period
-        self.current_text == expected && self.current_text.ends_with('.')
+    pub fn backspace(&mut self) {
+        self.handle_backspace();
     }
 
     /// Process a token from an automated input sequence
@@ -265,24 +246,6 @@ impl InputProcessor {
             }
         }
         
-        // No need to process events again as each token processes them
-        
         processed
-    }
-    
-    /// Check if the input sequence contains a period followed by enter
-    /// This is the exit condition for single mode
-    pub fn contains_exit_sequence(&self, sequence: &str) -> bool {
-        let tokens: Vec<&str> = sequence.split_whitespace().collect();
-        let len = tokens.len();
-        
-        if len >= 2 {
-            let period_check = tokens[len - 2] == "." || tokens[len - 2] == "<.>";
-            let enter_check = tokens[len - 1] == "<enter>";
-            
-            return period_check && enter_check;
-        }
-        
-        false
     }
 } 

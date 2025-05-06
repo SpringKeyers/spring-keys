@@ -2,6 +2,98 @@
 
 A terminal-based typing tutor that provides real-time feedback on typing performance with visual keyboard heatmaps and finger performance metrics.
 
+## Quick Start
+```bash
+# Start practice mode (default)
+cargo run
+
+# Start consume mode with specific text
+cargo run -- consume "hello world"
+
+# View help
+cargo run -- --help
+```
+
+## Build & Test Instructions
+
+### Prerequisites
+- Rust toolchain (1.70.0 or later)
+- Cargo package manager
+- Terminal with ANSI color support
+- Make (optional, for using Makefile commands)
+
+### Building
+```bash
+# Using Make
+make build        # Debug build
+make release      # Release build
+make install      # Install locally
+
+# Using Cargo directly
+cargo build
+cargo build --release
+cargo install --path .
+```
+
+### Testing
+```bash
+# Using Make
+make test              # Run all tests
+make watch             # Watch tests (requires cargo-watch)
+make test-suite suite=heatmap_verification_test  # Run specific test suite
+
+# Using Cargo directly
+cargo test                    # Run all tests
+cargo test test_name         # Run specific test
+cargo test -- --nocapture    # Run tests with output
+cargo watch -x test          # Watch tests (requires cargo-watch)
+```
+
+### Development Tools
+```bash
+# Using Make
+make setup      # Install development dependencies
+make check      # Run clippy and format checks
+make fmt        # Format code
+make clean      # Clean build artifacts
+
+# Using Cargo directly
+cargo clippy    # Run linter
+cargo fmt       # Format code
+cargo clean     # Clean build artifacts
+```
+
+### Test Coverage
+The test suite includes:
+- Unit tests for core functionality
+- Integration tests for keyboard heatmap
+- Visual verification tests for color spectrum
+- Input processing validation
+- Performance metrics accuracy
+
+### Common Test Categories
+- `heatmap_verification_test`: Validates keyboard heatmap visualization
+- `consume_mode_test`: Tests consume mode functionality
+- `color_spectrum_test`: Verifies color mapping accuracy
+- `input_processor_test`: Validates input handling
+- `typing_capture_test`: Tests typing metrics collection
+
+### Development Workflow
+1. Make changes to code
+2. Run `make check` to verify formatting and run linter
+3. Run `make test` to ensure all tests pass
+4. Submit changes
+
+### Continuous Integration
+The project uses GitHub Actions for CI/CD:
+- Automated testing on push and pull requests
+- Code formatting checks
+- Clippy linting
+- Code coverage reporting
+- Cross-platform builds (Ubuntu, macOS, Windows)
+
+View the latest build status and coverage reports in the GitHub Actions tab.
+
 ## Features
 
 ### Keyboard Heatmap
@@ -233,3 +325,84 @@ Yay, unshown animation of mines being exposed. Because all others were mines. Go
 
 The points of correctly flagged mines are counted.
 
+
+```
+
+# Spring Keys - Typing Practice Application
+
+## Consume Mode Feature
+
+The consume mode is a specialized binary mode that shares core functionality with the practice mode while providing additional features for automated input processing and metrics visualization.
+
+### Features
+
+- **Input Processing**
+  - Processes keyboard buffer input arguments
+  - Supports automated character sequence input
+  - Maintains compatibility with practice mode core functionality
+
+- **Metrics Tracking**
+  - Records character frequencies and typing speeds
+  - Tracks individual keystroke timing
+  - Maintains accurate WPM (Words Per Minute) calculations
+  - Stores character-specific metrics including:
+    - Total count
+    - Correct count
+    - Average typing speed
+    - Minimum/maximum delays
+
+- **Keyboard Heatmap**
+  - Real-time visualization of typing patterns
+  - Color-coded speed indicators
+  - Character frequency display
+  - Accurate character count representation
+  - Support for special characters and spaces
+
+### Testing Implementation
+
+The feature includes comprehensive testing through two main test functions:
+
+1. **Heatmap Verification Test** (`test_heatmap_verification`)
+   - Validates character frequency counting
+   - Verifies timing calculations
+   - Ensures correct character count display
+   - Tests special character handling
+   - Example: Verifies 'l' appears twice in "hello"
+
+2. **Display Test** (`test_consume_mode_display`)
+   - Tests visual output rendering
+   - Verifies metrics display format
+   - Validates keyboard heatmap visualization
+   - Checks timing information display
+
+### Usage
+
+Run the application in consume mode using:
+
+```bash
+cargo run -- consume "your text here"
+```
+
+### Output Format
+
+The application displays:
+```
+WPM: 60.0 | Acc: 95.0% | Avg WPM: 0.0 | Avg Acc: 0.0%
+[Keyboard heatmap with timing information]
+```
+
+### Implementation Details
+
+- Shared codebase with practice mode
+- Efficient input buffer processing
+- Real-time metrics calculation
+- Accurate character frequency tracking
+- Color-coded visualization system
+- Comprehensive error handling
+
+### Technical Requirements
+
+- Rust environment with Cargo
+- Terminal with color support
+- Sufficient permissions for file operations
+- Memory for metrics tracking

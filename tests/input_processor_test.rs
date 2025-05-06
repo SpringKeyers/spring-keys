@@ -30,26 +30,6 @@ mod tests {
     }
     
     #[test]
-    fn test_exit_sequence_detection() {
-        let processor = InputProcessor::new();
-        
-        // Test sequence with period + enter at the end
-        assert!(processor.contains_exit_sequence("a b c . <enter>"));
-        
-        // Test sequence without period + enter
-        assert!(!processor.contains_exit_sequence("a b c"));
-        
-        // Test sequence with just period
-        assert!(!processor.contains_exit_sequence("a b c ."));
-        
-        // Test sequence with just enter
-        assert!(!processor.contains_exit_sequence("a b c <enter>"));
-        
-        // Test sequence with period and enter separated
-        assert!(!processor.contains_exit_sequence("a . b <enter>"));
-    }
-    
-    #[test]
     fn test_full_typing_session() {
         // Create a simple session and processor
         let mut session = TypingSession::new("abc".to_string());
@@ -65,6 +45,36 @@ mod tests {
         assert_eq!(session.current_position, 3);
         
         // Check that the quote is completed
-        assert!(processor.is_quote_completed(&session.text));
+        let result = processor.validate_input(&session.text);
+        assert!(result.is_valid);
+        assert_eq!(processor.current_text.len(), session.text.len());
+    }
+    
+    #[test]
+    fn test_quote_completion() {
+        let mut processor = InputProcessor::new();
+        let quote = "Hello world";
+        let mut session = TypingSession::new(quote.to_string());
+        
+        // Process the exact quote
+        processor.process_token_sequence("H e l l o <space> w o r l d", Some(&mut session));
+        
+        // Validate completion
+        let result = processor.validate_input(&session.text);
+        assert!(result.is_valid);
+        assert_eq!(processor.current_text.len(), session.text.len());
+        
+        // Test partial input
+        let mut processor = InputProcessor::new();
+        processor.process_token_sequence("H e l l", Some(&mut session));
+        let result = processor.validate_input(&session.text);
+        assert!(result.is_valid);
+        assert!(processor.current_text.len() < session.text.len());
+        
+        // Test incorrect input
+        let mut processor = InputProcessor::new();
+        processor.process_token_sequence("H e y", Some(&mut session));
+        let result = processor.validate_input(&session.text);
+        assert!(!result.is_valid);
     }
 } 

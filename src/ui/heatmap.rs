@@ -4,174 +4,168 @@ use crossterm::{
     queue,
 };
 use std::io::{self, Write};
+use std::collections::HashMap;
+use std::time::{Instant, Duration};
 use crate::{TypingMetrics, Finger};
-use crate::ui::color_spectrum::value_to_spectrum;
+use crate::ui::color_spectrum::{value_to_spectrum, get_contrasting_text_color};
+use std::sync::Mutex;
+use once_cell::sync::Lazy;
 
-/// Enhanced keyboard visualization matching screenshot design
-pub fn draw_keyboard_heatmap(
-    stdout: &mut impl Write,
-    metrics: &TypingMetrics,
-    y_offset: u16
-) -> io::Result<()> {
-    // Get typing statistics
-    let heat_map = metrics.generate_heat_map();
-    let geometric_avgs = metrics.get_key_geometric_averages();
-    
-    // Draw difficulty and category info
-    queue!(
-        stdout,
-        MoveTo(0, y_offset),
-        SetForegroundColor(Color::White),
-        Print("Errors: 0"),
-        MoveTo(0, y_offset + 1),
-        Print("Difficulty: Easy | Category: Proverbs | Origin: English"),
-        ResetColor
-    )?;
-    
-    // Keyboard layout rows
-    let rows = [
-        "1234567890-=",
-        "qwertyuiop[]\\",
-        "asdfghjkl;'",
-        "zxcvbnm,./",
-    ];
+// Track key press animations
+#[derive(Clone)]
+struct KeyAnimation {
+    last_press: Instant,
+    previous_count: u32,
+}
 
-    // Space between keys
-    let key_spacing: u16 = 1;
-    
-    // Key dimensions
-    let key_width: u16 = 7;
-    let key_height: u16 = 2;
-    
-    // Draw keyboard layout
-    for (row_idx, row) in rows.iter().enumerate() {
-        // Calculate row indentation based on standard keyboard layout
-        let indent: u16 = match row_idx {
-            0 => 0, // Number row
-            1 => 2, // Top QWERTY row
-            2 => 4, // Home row
-            3 => 6, // Bottom row
-            _ => 0,
-        };
-        
-        let base_y = y_offset + 3 + (row_idx as u16 * (key_height + key_spacing));
-        
-        for (col_idx, key) in row.chars().enumerate() {
-            let base_x = indent + (col_idx as u16 * (key_width + key_spacing));
-            
-            // Get metrics for this key
-            let (recent_speed, _) = heat_map.get(&key).unwrap_or(&(0.0, 0));
-            let geo_avg = geometric_avgs.get(&key).unwrap_or(&0.0);
-            
-            // Format speeds for display
-            let speed_text = if *recent_speed > 0.0 {
-                format!("{}ms", recent_speed.round() as u32)
-            } else {
-                String::from("---")
-            };
-            
-            // Determine colors
-            let bg_color = get_background_color(*geo_avg);
-            let fg_color = get_foreground_color(*recent_speed);
-            
-            // Draw key box
-            queue!(
-                stdout,
-                MoveTo(base_x, base_y),
-                SetBackgroundColor(bg_color),
-                SetForegroundColor(fg_color),
-                Print(format!("{:^width$}", key, width = key_width as usize)),
-                MoveTo(base_x, base_y + 1),
-                Print(format!("{:^width$}", speed_text, width = key_width as usize)),
-                ResetColor
-            )?;
+impl KeyAnimation {
+    fn new() -> Self {
+        Self {
+            last_press: Instant::now() - Duration::from_secs(10), // Start inactive
+            previous_count: 0,
         }
     }
+
+    fn glow_intensity(&self) -> f64 {
+        let elapsed = self.last_press.elapsed().as_millis() as f64;
+        if elapsed >= 500.0 {
+            0.0
+        } else {
+            // Smooth fade out with easing
+            let t = 1.0 - (elapsed / 500.0);
+            t * t * (3.0 - 2.0 * t) // Smoother cubic easing
+        }
+    }
+
+    fn needs_redraw(&self) -> bool {
+        // Only redraw if the key is still glowing
+        self.last_press.elapsed() < Duration::from_millis(500)
+    }
+}
+
+// Track key press animations using a thread-safe global
+static KEY_ANIMATIONS: Lazy<Mutex<HashMap<char, KeyAnimation>>> = Lazy::new(|| {
+    Mutex::new(HashMap::new())
+});
+
+fn get_animations() -> std::sync::MutexGuard<'static, HashMap<char, KeyAnimation>> {
+    KEY_ANIMATIONS.lock().unwrap()
+}
+
+// Cache for previous frame's key states
+static PREVIOUS_FRAME: Lazy<Mutex<HashMap<char, (Color, u32)>>> = Lazy::new(|| {
+    Mutex::new(HashMap::new())
+});
+
+fn should_redraw_key(key: char, bg_color: Color, hits: u32) -> bool {
+    let mut prev_frame = PREVIOUS_FRAME.lock().unwrap();
+    let prev_state = prev_frame.get(&key);
     
-    // Draw space bar
-    let space_y = y_offset + 3 + (4 * (key_height + key_spacing));
-    let space_x: u16 = 7; // Center under the keyboard
-    let space_width: u16 = 7 * 7; // Cover about 7 key widths
-    
-    let (space_speed, _) = heat_map.get(&' ').unwrap_or(&(0.0, 0));
-    let space_geo_avg = geometric_avgs.get(&' ').unwrap_or(&0.0);
-    
-    let space_bg_color = get_background_color(*space_geo_avg);
-    let space_fg_color = get_foreground_color(*space_speed);
-    
-    let space_speed_text = if *space_speed > 0.0 {
-        format!("{}ms", space_speed.round() as u32)
-    } else {
-        String::from("---")
+    // Check if key state changed
+    let should_redraw = match prev_state {
+        Some(&(prev_color, prev_hits)) => {
+            prev_color != bg_color || prev_hits != hits || get_animations().get(&key).map_or(false, |anim| anim.needs_redraw())
+        }
+        None => true // First time seeing this key
     };
     
+    // Update cache if redrawing
+    if should_redraw {
+        prev_frame.insert(key, (bg_color, hits));
+    }
+    
+    should_redraw
+}
+
+/// Get color based on typing speed using the spectrum
+fn get_speed_color(speed_ms: f64) -> Color {
+    value_to_spectrum(speed_ms)
+}
+
+/// Draw a bordered key with content
+fn draw_key(
+    stdout: &mut impl Write,
+    x: u16,
+    y: u16,
+    width: usize,
+    content: &[String],
+    bg_color: Color,
+    text_colors: &[Color],
+    _is_active: bool, // Prefix with _ to indicate intentionally unused
+) -> io::Result<()> {
+    let content_height = content.len(); // Rename to be more specific
+    
+    // Top border
     queue!(
         stdout,
-        MoveTo(space_x, space_y),
-        SetBackgroundColor(space_bg_color),
-        SetForegroundColor(space_fg_color),
-        Print(format!("{:^width$}", "", width = space_width as usize)),
-        MoveTo(space_x, space_y + 1),
-        Print(format!("{:^width$}", space_speed_text, width = space_width as usize)),
+        MoveTo(x, y),
+        SetForegroundColor(Color::White),
+        Print("╭"),
+        Print("─".repeat(width - 2)),
+        Print("╮")
+    )?;
+
+    // Content lines with borders
+    for (i, line) in content.iter().enumerate() {
+        queue!(
+            stdout,
+            MoveTo(x, y + 1 + i as u16),
+            SetForegroundColor(Color::White),
+            Print("│"),
+            SetBackgroundColor(bg_color),
+            SetForegroundColor(text_colors[i]),
+            Print(format!("{:^width$}", line, width = width - 2)),
+            SetBackgroundColor(Color::Reset),
+            SetForegroundColor(Color::White),
+            Print("│")
+        )?;
+    }
+
+    // Bottom border
+    queue!(
+        stdout,
+        MoveTo(x, y + content_height as u16 + 1),
+        SetForegroundColor(Color::White),
+        Print("╰"),
+        Print("─".repeat(width - 2)),
+        Print("╯"),
         ResetColor
     )?;
-    
+
     Ok(())
 }
 
-/// Get background color based on geometric average speed
-fn get_background_color(speed_ms: f64) -> Color {
-    if speed_ms <= 0.0 {
-        return Color::Rgb { r: 40, g: 40, b: 40 }; // Dark gray for unused keys
-    } else if speed_ms < 130.0 {
-        Color::Rgb { r: 0, g: 60, b: 160 } // Dark blue for fast typing
-    } else if speed_ms < 160.0 {
-        Color::Rgb { r: 0, g: 100, b: 0 } // Dark green for good typing
-    } else if speed_ms < 250.0 {
-        Color::Rgb { r: 140, g: 140, b: 0 } // Dark yellow for medium typing
+/// Find the fastest and slowest speeds from the heat map data
+fn find_speed_range(heat_map: &HashMap<char, (f64, u64)>) -> (f64, f64) {
+    let mut fastest = f64::MAX;
+    let mut slowest: f64 = 0.0;
+
+    for &(speed, _) in heat_map.values() {
+        if speed > 0.0 {  // Ignore zero speeds (unused keys)
+            fastest = fastest.min(speed);
+            slowest = slowest.max(speed);
+        }
+    }
+
+    // If no valid speeds found, use default range
+    if fastest == f64::MAX || slowest == 0.0 {
+        (50.0, 5000.0)  // Default range: 50ms to 5000ms
     } else {
-        Color::Rgb { r: 140, g: 0, b: 0 } // Dark red for slow typing
+        (fastest, slowest)
     }
 }
 
-/// Get foreground (text) color based on recent speed
-fn get_foreground_color(speed_ms: f64) -> Color {
-    if speed_ms <= 0.0 {
-        return Color::White; // White for unused keys
-    } else if speed_ms < 130.0 {
-        Color::Rgb { r: 150, g: 200, b: 255 } // Light blue for fast typing
-    } else if speed_ms < 160.0 {
-        Color::Rgb { r: 150, g: 255, b: 150 } // Light green for good typing
-    } else if speed_ms < 250.0 {
-        Color::Rgb { r: 255, g: 255, b: 150 } // Light yellow for medium typing
-    } else {
-        Color::Rgb { r: 255, g: 150, b: 150 } // Light red for slow typing
-    }
-}
-
-/// Update the spectrum value calculation and color usage
-fn get_speed_color(speed_ms: f64) -> Color {
-    // Convert speed to a value between 0 and 100
-    let spectrum_value = if speed_ms < 100.0 {
-        0.0 // Fastest - purple
-    } else if speed_ms > 400.0 {
-        100.0 // Slowest - red
-    } else {
-        // Linear interpolation between 100ms and 400ms
-        ((speed_ms - 100.0) / 300.0) * 100.0
-    };
-    
-    value_to_spectrum(spectrum_value)
-}
-
-/// Enhanced keyboard visualization with larger keys, showing current and geometric average speeds
-pub fn draw_enhanced_keyboard_heatmap(
+/// Unified keyboard visualization with large keys, hit counts, and color temperature
+pub fn draw_unified_keyboard_heatmap(
     stdout: &mut impl Write,
     metrics: &TypingMetrics,
     y_offset: u16
 ) -> io::Result<()> {
     let heat_map = metrics.generate_heat_map();
     let geometric_avgs = metrics.get_key_geometric_averages();
+    
+    // Find speed range for color normalization
+    let (fastest, slowest) = find_speed_range(&heat_map);
     
     // Define keyboard layout
     let rows = [
@@ -182,116 +176,68 @@ pub fn draw_enhanced_keyboard_heatmap(
     ];
     
     let indents = [0, 0, 1, 2]; // Number of spaces to indent each row
-    let key_width = 8;
-    let key_height = 3;
-    let key_spacing = 1;
     
     // Draw each row of the keyboard
     for (row_idx, (row, indent)) in rows.iter().zip(indents.iter()).enumerate() {
-        let base_y = y_offset + (row_idx as u16 * (key_height + key_spacing));
-        let indent_spaces = " ".repeat(*indent);
+        let y = y_offset + (row_idx as u16 * 5); // 5 units per row for spacing
         
         // Draw each key in the row
-        for (i, key) in row.chars().enumerate() {
-            let x = (indent_spaces.len() + i * (key_width + 1)) as u16;
+        for (key_idx, c) in row.chars().enumerate() {
+            let x = (*indent * 2 + key_idx * 10) as u16; // 10 units per key, 2 units per indent
             
-            // Get speed data for the key
-            let (recent_speed, hits) = heat_map.get(&key).copied().unwrap_or((0.0, 0));
-            let geo_avg = geometric_avgs.get(&key).copied().unwrap_or(0.0);
+            // Get heat map data for this key
+            let (speed, hits) = heat_map.get(&c).copied().unwrap_or((0.0, 0));
             
-            // Format speed strings
-            let recent_speed_str = if hits > 0 {
-                format!("{:.0}ms", recent_speed)
+            // Get geometric average for this key
+            let geo_avg = geometric_avgs.get(&c).copied().unwrap_or(0.0);
+            
+            // Calculate normalized speed (0.0 to 1.0)
+            let normalized_speed = if speed > 0.0 && slowest > fastest {
+                (speed - fastest) / (slowest - fastest)
             } else {
-                String::from("-")
+                0.0
             };
             
-            let geo_avg_str = if geo_avg > 0.0 {
-                format!("{:.0}ms", geo_avg)
-            } else {
-                String::from("-")
-            };
+            // Calculate background color based on normalized speed
+            let bg_color = value_to_spectrum(normalized_speed);
             
-            // Get color based on speed
-            let bg_color = get_speed_color(geo_avg);
-            let fg_color = Color::White;
+            // Calculate text colors with contrast
+            let text_colors = [
+                get_contrasting_text_color(bg_color),
+                get_contrasting_text_color(bg_color),
+                get_contrasting_text_color(bg_color),
+            ];
             
-            // Draw key box
-            queue!(
+            // Format key content
+            let content = vec![
+                c.to_string(),
+                format!("{} hits", hits),
+                if geo_avg > 0.0 {
+                    format!("{:.0}ms", geo_avg)
+                } else {
+                    "---".to_string()
+                },
+            ];
+            
+            // Draw the key with all its information
+            draw_key(
                 stdout,
-                MoveTo(x, base_y),
-                SetBackgroundColor(bg_color),
-                SetForegroundColor(fg_color),
-                Print(format!("{:^8}", key)),
-                MoveTo(x, base_y + 1),
-                Print(format!("{:^8}", recent_speed_str)),
-                MoveTo(x, base_y + 2),
-                Print(format!("{:^8}", geo_avg_str)),
-                ResetColor
+                x,
+                y,
+                8, // key width
+                &content,
+                bg_color,
+                &text_colors,
+                hits > 0, // active if has hits
             )?;
         }
     }
-    
-    // Draw space bar
-    let space_y = y_offset + (4 * (key_height + key_spacing));
-    let space_x = 12;
-    
-    // Get space bar metrics
-    let (recent_speed, hits) = heat_map.get(&' ').copied().unwrap_or((0.0, 0));
-    let geo_avg = geometric_avgs.get(&' ').copied().unwrap_or(0.0);
-    
-    // Format speed strings
-    let recent_speed_str = if hits > 0 {
-        format!("{:.0}ms", recent_speed)
-    } else {
-        String::from("-")
-    };
-    
-    let geo_avg_str = if geo_avg > 0.0 {
-        format!("{:.0}ms", geo_avg)
-    } else {
-        String::from("-")
-    };
-    
-    // Get color based on speed
-    let bg_color = get_speed_color(geo_avg);
-    let fg_color = Color::White;
-    
-    // Draw space bar
-    queue!(
-        stdout,
-        MoveTo(space_x, space_y),
-        SetBackgroundColor(bg_color),
-        SetForegroundColor(fg_color),
-        Print("             SPACE              "),
-        MoveTo(space_x, space_y + 1),
-        Print(format!("{:^30}", recent_speed_str)),
-        MoveTo(space_x, space_y + 2),
-        Print(format!("{:^30}", geo_avg_str)),
-        ResetColor
-    )?;
-    
-    Ok(())
-}
 
-pub fn draw_finger_performance(
-    stdout: &mut impl Write,
-    y_offset: u16,
-    metrics: &TypingMetrics
-) -> io::Result<()> {
-    // Draw header
-    queue!(
-        stdout,
-        MoveTo(0, y_offset),
-        SetForegroundColor(Color::White),
-        Print("Finger Performance (ms):"),
-        ResetColor
-    )?;
-
-    // Get finger performance stats
+    // Calculate base Y position for finger metrics (4 rows * 5 units + 2 units padding)
+    let finger_metrics_y = y_offset + 22;
+    
+    // Draw finger performance metrics
     let finger_stats = metrics.finger_performance();
-    
-    // Define fingers in order from left to right (excluding thumb)
     let fingers = [
         ("LP", Finger::LeftPinky),
         ("LR", Finger::LeftRing),
@@ -303,145 +249,82 @@ pub fn draw_finger_performance(
         ("RP", Finger::RightPinky),
     ];
 
-    // Draw finger metrics
+    // Draw finger metrics row
     for (i, (label, finger)) in fingers.iter().enumerate() {
-        let x = i as u16 * 10;
-        let y = y_offset + 1;
+        let x = i as u16 * 12; // Increased spacing
 
         if let Some(stats) = finger_stats.get(finger) {
-            let color = if stats.current < 150.0 {
-                Color::Green
-            } else if stats.current < 250.0 {
-                Color::Yellow
+            // Normalize finger speed against overall speed range
+            let normalized_speed = if stats.current > 0.0 && slowest > fastest {
+                (stats.current - fastest) / (slowest - fastest)
             } else {
-                Color::Red
+                0.0
             };
-
-            queue!(
+            
+            let speed_color = value_to_spectrum(normalized_speed);
+            let bg_color = speed_color;
+            let text_color = get_contrasting_text_color(bg_color);
+            
+            // Draw mini bordered metric
+            draw_key(
                 stdout,
-                MoveTo(x, y),
-                Print(label),
-                MoveTo(x, y + 1),
-                SetForegroundColor(color),
-                Print(format!("{:3.0}", stats.current)),
-                ResetColor
+                x,
+                finger_metrics_y,
+                9,
+                &[label.to_string(), format!("{:3.0}ms", stats.current)],
+                bg_color,
+                &[text_color, text_color],
+                stats.current > 0.0,
             )?;
         }
     }
+    
+    // Draw speed range info
+    if slowest > fastest {
+        queue!(
+            stdout,
+            MoveTo(0, finger_metrics_y + 4),
+            SetForegroundColor(Color::White),
+            Print(format!("Speed Range: {:.0}ms (fastest) to {:.0}ms (slowest)", fastest, slowest))
+        )?;
+    }
 
+    // Draw legend at the bottom
+    draw_legend(stdout, finger_metrics_y + 6)?;
+    
     Ok(())
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::ui::color_spectrum;
+/// Draw a legend explaining the key information layout
+fn draw_legend(
+    stdout: &mut impl Write,
+    y_offset: u16,
+) -> io::Result<()> {
+    // Draw color spectrum explanation
+    queue!(
+        stdout,
+        MoveTo(0, y_offset),
+        SetForegroundColor(Color::White),
+        Print("Color Scale: ")
+    )?;
+
+    // Draw color spectrum samples
+    let labels = ["Fastest", "Fast", "Medium", "Slow", "Slowest"];
+    let values = [0.0, 0.25, 0.5, 0.75, 1.0];
     
-    #[test]
-    fn test_color_mapping() {
-        // Test background colors
-        assert_ne!(get_background_color(0.0), get_background_color(120.0));
-        assert_ne!(get_background_color(120.0), get_background_color(180.0));
-        assert_ne!(get_background_color(180.0), get_background_color(300.0));
-        
-        // Test foreground colors
-        assert_ne!(get_foreground_color(0.0), get_foreground_color(120.0));
-        assert_ne!(get_foreground_color(120.0), get_foreground_color(180.0));
-        assert_ne!(get_foreground_color(180.0), get_foreground_color(300.0));
+    for (i, (&value, label)) in values.iter().zip(labels.iter()).enumerate() {
+        let color = value_to_spectrum(value);
+        queue!(
+            stdout,
+            MoveTo(13 + (i * 12) as u16, y_offset),
+            SetBackgroundColor(color),
+            Print("   "),
+            SetBackgroundColor(Color::Reset),
+            SetForegroundColor(Color::White),
+            MoveTo(13 + (i * 12) as u16, y_offset + 1),
+            Print(label)
+        )?;
     }
-    
-    #[test]
-    fn test_key_1_color_spectrum() {
-        // Test color spectrum for key '1'
-        
-        // Case 1: No data (0 ms)
-        let no_data_speed = 0.0;
-        let no_data_spectrum_value = if no_data_speed <= 0.0 {
-            0
-        } else if no_data_speed <= 100.0 {
-            100
-        } else if no_data_speed >= 300.0 {
-            0
-        } else {
-            ((300.0 - no_data_speed) / 2.0) as u8
-        };
-        let no_data_colors = color_spectrum::value_to_spectrum(no_data_spectrum_value);
-        
-        // Case 2: Fast typing (90 ms)
-        let fast_speed = 90.0;
-        let fast_spectrum_value = if fast_speed <= 0.0 {
-            0
-        } else if fast_speed <= 100.0 {
-            100
-        } else if fast_speed >= 300.0 {
-            0
-        } else {
-            ((300.0 - fast_speed) / 2.0) as u8
-        };
-        let fast_colors = color_spectrum::value_to_spectrum(fast_spectrum_value);
-        
-        // Case 3: Medium typing (200 ms)
-        let medium_speed = 200.0;
-        let medium_spectrum_value = if medium_speed <= 0.0 {
-            0
-        } else if medium_speed <= 100.0 {
-            100
-        } else if medium_speed >= 300.0 {
-            0
-        } else {
-            ((300.0 - medium_speed) / 2.0) as u8
-        };
-        let medium_colors = color_spectrum::value_to_spectrum(medium_spectrum_value);
-        
-        // Case 4: Slow typing (300 ms)
-        let slow_speed = 300.0;
-        let slow_spectrum_value = if slow_speed <= 0.0 {
-            0
-        } else if slow_speed <= 100.0 {
-            100
-        } else if slow_speed >= 300.0 {
-            0
-        } else {
-            ((300.0 - slow_speed) / 2.0) as u8
-        };
-        let slow_colors = color_spectrum::value_to_spectrum(slow_spectrum_value);
-        
-        // Verify that the spectrum values are correctly calculated
-        assert_eq!(no_data_spectrum_value, 0);
-        assert_eq!(fast_spectrum_value, 100);
-        assert_eq!(medium_spectrum_value, 50);
-        assert_eq!(slow_spectrum_value, 0);
-        
-        // Different speeds should result in different background colors
-        if let (Color::Rgb { r: r1, g: g1, b: b1 }, Color::Rgb { r: r2, g: g2, b: b2 }) = 
-            (fast_colors.background, medium_colors.background) {
-            // Fast (red) should be different from medium (white)
-            assert!(r1 != r2 || g1 != g2 || b1 != b2);
-        }
-        
-        if let (Color::Rgb { r: r1, g: g1, b: b1 }, Color::Rgb { r: r2, g: g2, b: b2 }) = 
-            (medium_colors.background, slow_colors.background) {
-            // Medium (white) should be different from slow (purple)
-            assert!(r1 != r2 || g1 != g2 || b1 != b2);
-        }
-        
-        // Verify color range
-        if let Color::Rgb { r, g, b } = fast_colors.background {
-            println!("Fast typing (90ms) color: RGB({}, {}, {})", r, g, b);
-            // Should be reddish (high red component)
-            assert!(r > g && r > b);
-        }
-        
-        if let Color::Rgb { r, g, b } = medium_colors.background {
-            println!("Medium typing (200ms) color: RGB({}, {}, {})", r, g, b);
-            // Should be whitish (balanced RGB components)
-            assert!(r > 200 && g > 200 && b > 200);
-        }
-        
-        if let Color::Rgb { r, g, b } = slow_colors.background {
-            println!("Slow typing (300ms) color: RGB({}, {}, {})", r, g, b);
-            // Should be purplish (high red and blue components)
-            assert!(r > g && b > g);
-        }
-    }
+
+    Ok(())
 } 

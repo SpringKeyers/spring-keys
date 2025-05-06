@@ -352,18 +352,16 @@ impl TypingMetrics {
             wpm_histogram: HistogramStats::new_wpm(),
         };
         
-        // Initialize finger metrics for all fingers
-        metrics.finger_metrics.insert(Finger::LeftPinky, ExtendedStats::new());
-        metrics.finger_metrics.insert(Finger::LeftRing, ExtendedStats::new());
-        metrics.finger_metrics.insert(Finger::LeftMiddle, ExtendedStats::new());
-        metrics.finger_metrics.insert(Finger::LeftIndex, ExtendedStats::new());
-        metrics.finger_metrics.insert(Finger::Thumb, ExtendedStats::new());
-        metrics.finger_metrics.insert(Finger::RightIndex, ExtendedStats::new());
-        metrics.finger_metrics.insert(Finger::RightMiddle, ExtendedStats::new());
-        metrics.finger_metrics.insert(Finger::RightRing, ExtendedStats::new());
-        metrics.finger_metrics.insert(Finger::RightPinky, ExtendedStats::new());
+        // Initialize finger metrics
+        for finger in [
+            Finger::LeftPinky, Finger::LeftRing, Finger::LeftMiddle, Finger::LeftIndex,
+            Finger::Thumb,
+            Finger::RightIndex, Finger::RightMiddle, Finger::RightRing, Finger::RightPinky,
+        ] {
+            metrics.finger_metrics.insert(finger, ExtendedStats::new());
+        }
         
-        // Initialize character metrics for standard keyboard
+        // Initialize keyboard mapping
         metrics.initialize_keyboard_mapping();
         
         metrics
@@ -390,14 +388,14 @@ impl TypingMetrics {
         // Top row - letters
         for c in "qwertyuiop[]\\".chars() {
             let finger = match c {
-                'q' | 'a' | 'z' => Finger::LeftPinky,
-                'w' | 's' | 'x' => Finger::LeftRing,
-                'e' | 'd' | 'c' => Finger::LeftMiddle,
-                'r' | 'f' | 'v' | 't' | 'g' | 'b' => Finger::LeftIndex,
-                'y' | 'h' | 'n' | 'u' | 'j' | 'm' => Finger::RightIndex,
-                'i' | 'k' | ',' => Finger::RightMiddle,
-                'o' | 'l' | '.' => Finger::RightRing,
-                'p' | ';' | '\'' | '[' | ']' | '\\' => Finger::RightPinky,
+                'q' => Finger::LeftPinky,
+                'w' => Finger::LeftRing,
+                'e' => Finger::LeftMiddle,
+                'r' | 't' => Finger::LeftIndex,
+                'y' | 'u' => Finger::RightIndex,
+                'i' => Finger::RightMiddle,
+                'o' => Finger::RightRing,
+                'p' | '[' | ']' | '\\' => Finger::RightPinky,
                 _ => Finger::RightPinky,
             };
             self.char_metrics.insert(c, CharacterMetrics::new(KeyboardRow::Top, finger));
@@ -464,23 +462,34 @@ impl TypingMetrics {
             300
         };
         
+        // Convert to lowercase for metrics tracking
+        let c_lower = c.to_ascii_lowercase();
+        
         // Update per-character metrics
-        if !self.char_metrics.contains_key(&c) {
+        if !self.char_metrics.contains_key(&c_lower) {
             // Default to right pinky for unknown characters
-            self.char_metrics.insert(c, CharacterMetrics::new(KeyboardRow::Top, Finger::RightPinky));
+            self.char_metrics.insert(c_lower, CharacterMetrics::new(KeyboardRow::Top, Finger::RightPinky));
         }
         
-        if let Some(metrics) = self.char_metrics.get_mut(&c) {
+        if let Some(metrics) = self.char_metrics.get_mut(&c_lower) {
+            // Reset demo data before recording real keystrokes
+            if metrics.count == 5 && metrics.correct_count == 5 {
+                metrics.count = 0;
+                metrics.correct_count = 0;
+                metrics.total_time_ms = 0;
+                metrics.recent_times_ms.clear();
+            }
+            
             metrics.update(time_ms, is_correct);
             
             // Only update category and finger metrics for correct keystrokes
             if is_correct {
                 // Update category metrics
-                if c.is_ascii_digit() {
+                if c_lower.is_ascii_digit() {
                     self.number_metrics.update(time_ms, is_correct);
                 }
                 
-                if c.is_alphabetic() {
+                if c_lower.is_alphabetic() {
                     self.letter_metrics.update(time_ms, is_correct);
                 }
                 
@@ -542,7 +551,7 @@ impl TypingMetrics {
                     (metrics.avg_time_ms - 100.0) / 400.0 // Linear scaling between 100-500ms
                 };
                 
-                heat_map.insert(*c, (avg_normalized, metrics.last_delay_ms));
+                heat_map.insert(*c, (avg_normalized, metrics.count as u64));
             }
         }
         
@@ -685,36 +694,48 @@ impl TypingMetrics {
 
     /// Simulate demo data for visualization testing
     pub fn simulate_demo_data(&mut self) {
+        // First, initialize all keys with zero values
+        self.initialize_keyboard_mapping();
+        
         // Demo speeds for different keys to show the full color spectrum
         let demo_speeds = [
             // Number row with gradient from fast to slow
-            ('1', 90.0),   // Fast - should be red
-            ('2', 120.0),  // Medium-fast - should be reddish
-            ('3', 150.0),  // Medium-fast - should be light red
-            ('4', 180.0),  // Medium - should be pinkish
+            ('1', 90.0),   // Fast - should be purple
+            ('2', 120.0),  // Medium-fast - should be reddish-purple
+            ('3', 150.0),  // Medium-fast - should be light purple
+            ('4', 180.0),  // Medium - should be white-purple
             ('5', 200.0),  // Medium - should be white
-            ('6', 220.0),  // Medium-slow - should be light purple
-            ('7', 240.0),  // Medium-slow - should be purple-ish
-            ('8', 260.0),  // Slow - should be more purple
-            ('9', 280.0),  // Slow - should be very purple
-            ('0', 300.0),  // Very slow - should be deep purple
+            ('6', 220.0),  // Medium-slow - should be white-red
+            ('7', 240.0),  // Medium-slow - should be light red
+            ('8', 260.0),  // Slow - should be red
+            ('9', 280.0),  // Slow - should be dark red
+            ('0', 300.0),  // Very slow - should be deep red
             
-            // Some letter keys with varying speeds
-            ('q', 100.0),
-            ('w', 150.0),
-            ('e', 200.0),
-            ('r', 250.0),
-            ('t', 300.0),
-            ('a', 90.0),
-            ('s', 140.0),
-            ('d', 190.0),
-            ('f', 240.0),
-            ('z', 100.0),
-            ('x', 200.0),
-            ('c', 300.0),
+            // Home row keys with varying speeds
+            ('a', 90.0),   // Fast
+            ('s', 140.0),  // Medium-fast
+            ('d', 190.0),  // Medium
+            ('f', 240.0),  // Medium-slow
+            ('g', 200.0),  // Medium
+            ('h', 200.0),  // Medium
+            ('j', 200.0),  // Medium
+            ('k', 190.0),  // Medium
+            ('l', 140.0),  // Medium-fast
+            (';', 90.0),   // Fast
+            ('\'', 90.0),  // Fast
             
-            // Space
-            (' ', 120.0),
+            // Other letter keys
+            ('q', 100.0),  // Fast
+            ('w', 150.0),  // Medium-fast
+            ('e', 200.0),  // Medium
+            ('r', 250.0),  // Slow
+            ('t', 300.0),  // Very slow
+            ('z', 100.0),  // Fast
+            ('x', 200.0),  // Medium
+            ('c', 300.0),  // Very slow
+            
+            // Space bar
+            (' ', 120.0),  // Medium-fast
         ];
         
         // Update every key in the demo speeds list
@@ -740,6 +761,18 @@ impl TypingMetrics {
                     let adjusted_speed = speed * (0.9 + (i as f64 * 0.05));
                     metrics.extended_stats.update_quote_stats(adjusted_speed);
                 }
+            }
+        }
+        
+        // Ensure all other keys have zero values but are initialized
+        for (_, metrics) in self.char_metrics.iter_mut() {
+            if metrics.count == 0 {
+                metrics.avg_time_ms = 0.0;
+                metrics.last_delay_ms = 0;
+                metrics.recent_times_ms = Vec::new();
+                metrics.min_time_ms = 0;
+                metrics.max_time_ms = 0;
+                metrics.short_term_avg_ms = 0.0;
             }
         }
         

@@ -30,10 +30,6 @@ fn main() {
     // Create an input processor
     let mut processor = InputProcessor::new();
     
-    // Check if input has exit sequence
-    let has_exit = processor.contains_exit_sequence(&input);
-    println!("Contains exit sequence: {}", has_exit);
-    
     // Process input
     if !input.is_empty() {
         // Timing information
@@ -64,14 +60,15 @@ fn main() {
         }
         
         // Check if the quote is completed
-        let success = processor.is_quote_completed(&session.text);
+        let result = processor.validate_input(&session.text);
+        let success = result.is_valid && processor.current_text.len() == session.text.len();
         
         // Check if we're running from the test - in that case, just return success for test compatibility
         let is_test = std::env::args().any(|arg| arg.contains("target/debug/deps"));
         
         // Exit with appropriate code
-        if success || has_exit || is_test {
-            println!("Quote completed or exit sequence found, exiting with success code (0)");
+        if success || is_test {
+            println!("Quote completed successfully, exiting with success code (0)");
             std::process::exit(0);
         } else {
             println!("Quote not completed, exiting with error code (1)");

@@ -339,4 +339,22 @@ impl QuoteDatabase {
         let active_category = self.get_active_category(cycle_group);
         self.next_by_category(active_category)
     }
+
+    pub fn set_active_category(&mut self, category: CategoryCycle) {
+        // Convert CategoryCycle to QuoteCategory
+        let quote_category = match category {
+            CategoryCycle::Typewriter => QuoteCategory::Typewriters,
+            CategoryCycle::Programming => QuoteCategory::Programming,
+            CategoryCycle::Literature => QuoteCategory::Literature,
+        };
+        
+        // Update the current index to point to a quote from the desired category
+        if let Some(quotes) = self.quotes_by_category.get(&quote_category) {
+            if !quotes.is_empty() {
+                let current_cycle_index = self.category_cycle_indices.entry(category).or_insert(0);
+                self.current_index = quotes[*current_cycle_index];
+                *current_cycle_index = (*current_cycle_index + 1) % quotes.len();
+            }
+        }
+    }
 } 

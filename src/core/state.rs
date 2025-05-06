@@ -1,12 +1,6 @@
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum GameType {
     Practice,
-    Minesweeper,
-    Tetris,
-    FlappyBird,
-    RcRacing,
-    FortuneTeller,
-    HockeyFight,
     Consume,
 }
 

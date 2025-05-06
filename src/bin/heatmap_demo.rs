@@ -1,55 +1,35 @@
 use crossterm::{
-    terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen, Clear, ClearType},
-    event::{self, Event, KeyCode},
+    terminal::{enable_raw_mode, disable_raw_mode, Clear, ClearType},
     cursor::{Hide, Show},
-    queue, ExecutableCommand,
+    ExecutableCommand,
 };
-use std::io::{self, stdout, Write};
-use spring_keys::TypingMetrics;
-use spring_keys::ui::heatmap;
-use std::time::{Duration, Instant};
+use spring_keys::{TypingMetrics, ui::heatmap};
+use std::io::{self, stdout};
 
 fn main() -> io::Result<()> {
+    // Set up terminal
     let mut stdout = stdout();
     enable_raw_mode()?;
-    stdout.execute(EnterAlternateScreen)?;
     stdout.execute(Hide)?;
-    
+    stdout.execute(Clear(ClearType::All))?;
+
     // Create demo metrics
     let mut metrics = TypingMetrics::new();
-    let start_time = Instant::now();
     
-    // Main demo loop
-    loop {
-        // Clear screen
-        queue!(
-            stdout,
-            Clear(ClearType::All)
-        )?;
-        
-        // Update demo data based on time
-        let elapsed = start_time.elapsed().as_secs_f64();
-        for c in "abcdefghijklmnopqrstuvwxyz".chars() {
-            let speed = 150.0 + (elapsed * 10.0).sin() * 50.0;
-            metrics.record_keystroke(c, c, speed as usize);
-        }
-        
-        // Draw heatmap
-        heatmap::draw_enhanced_keyboard_heatmap(&mut stdout, &metrics, 2)?;
-        stdout.flush()?;
-        
-        // Check for quit
-        if event::poll(Duration::from_millis(100))? {
-            if let Event::Key(key) = event::read()? {
-                if key.code == KeyCode::Char('q') {
-                    break;
-                }
-            }
-        }
-    }
-    
-    stdout.execute(Show)?;
-    stdout.execute(LeaveAlternateScreen)?;
+    // Simulate typing data for demo
+    metrics.simulate_demo_data();
+
+    // Draw the unified keyboard heatmap
+    heatmap::draw_unified_keyboard_heatmap(&mut stdout, &metrics, 2)?;
+
+    // Wait for user input
+    let mut input = String::new();
+    io::stdin().read_line(&mut input)?;
+
+    // Clean up terminal
     disable_raw_mode()?;
+    stdout.execute(Show)?;
+    stdout.execute(Clear(ClearType::All))?;
+
     Ok(())
 } 

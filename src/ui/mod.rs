@@ -1,10 +1,10 @@
 use crossterm::{
     event::{self, Event, KeyCode, KeyModifiers},
-    terminal::{self, enable_raw_mode, disable_raw_mode, Clear, ClearType},
+    terminal::{self, enable_raw_mode, disable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
     style::{Color, Print, SetForegroundColor, ResetColor},
     cursor::{MoveTo, Hide, Show},
-    ExecutableCommand,
     queue,
+    execute,
 };
 use std::io::{self, Write, Stdout};
 use crate::SpringKeys;
@@ -21,27 +21,38 @@ pub struct TerminalUI {
 
 impl TerminalUI {
     pub fn new() -> io::Result<Self> {
-        let stdout = io::stdout();
-        let terminal_size = terminal::size()?;
-        
         Ok(Self {
-            stdout,
+            stdout: io::stdout(),
             should_quit: false,
-            terminal_size,
+            terminal_size: terminal::size()?,
         })
     }
 
     pub fn init(&mut self) -> io::Result<()> {
+        // Enable raw mode
         enable_raw_mode()?;
-        self.stdout.execute(Hide)?;
-        self.stdout.execute(Clear(ClearType::All))?;
+        
+        // Switch to alternate screen and hide cursor
+        execute!(
+            self.stdout,
+            EnterAlternateScreen,
+            Hide
+        )?;
+
         Ok(())
     }
 
     pub fn cleanup(&mut self) -> io::Result<()> {
+        // Show cursor and leave alternate screen
+        execute!(
+            self.stdout,
+            Show,
+            LeaveAlternateScreen
+        )?;
+        
+        // Disable raw mode
         disable_raw_mode()?;
-        self.stdout.execute(Show)?;
-        self.stdout.execute(Clear(ClearType::All))?;
+        
         Ok(())
     }
 
@@ -75,34 +86,33 @@ impl TerminalUI {
                         continue;
                     }
                     
-                    // Handle F-keys for category cycling
                     match key_event.code {
+                        KeyCode::Enter => {
+                            // Only clear the current input
+                            app.input_processor.clear();
+                        },
                         KeyCode::F(5) => {
+                            // Load a new random quote
                             app.start_typing_session(None);
                         },
                         KeyCode::F(6) => {
-                            let category = app.quote_db.cycle_category(crate::quotes::CategoryCycle::Typewriter);
-                            let quote_text = app.quote_db.next_by_category(category)
-                                .map(|quote| quote.text.clone());
-                            if let Some(text) = quote_text {
-                                app.start_typing_session(Some(text));
-                            }
+                            // Switch to typewriter quotes
+                            app.quote_db.set_active_category(crate::quotes::CategoryCycle::Typewriter);
+                            app.start_typing_session(None);
                         },
                         KeyCode::F(7) => {
-                            let category = app.quote_db.cycle_category(crate::quotes::CategoryCycle::Programming);
-                            let quote_text = app.quote_db.next_by_category(category)
-                                .map(|quote| quote.text.clone());
-                            if let Some(text) = quote_text {
-                                app.start_typing_session(Some(text));
-                            }
+                            // Switch to programming quotes
+                            app.quote_db.set_active_category(crate::quotes::CategoryCycle::Programming);
+                            app.start_typing_session(None);
                         },
                         KeyCode::F(8) => {
-                            let category = app.quote_db.cycle_category(crate::quotes::CategoryCycle::Literature);
-                            let quote_text = app.quote_db.next_by_category(category)
-                                .map(|quote| quote.text.clone());
-                            if let Some(text) = quote_text {
-                                app.start_typing_session(Some(text));
-                            }
+                            // Switch to literature quotes
+                            app.quote_db.set_active_category(crate::quotes::CategoryCycle::Literature);
+                            app.start_typing_session(None);
+                        },
+                        KeyCode::Backspace => {
+                            // Remove the last character from input
+                            app.input_processor.backspace();
                         },
                         _ => {
                             app.process_input(key_event.code, key_event.modifiers);
@@ -120,28 +130,9 @@ impl TerminalUI {
     }
 
     fn draw_ui(&mut self, app: &SpringKeys) -> io::Result<()> {
-        // Clear screen
-        queue!(self.stdout, Clear(ClearType::All))?;
+        // Instead of clearing the whole screen, we'll just reset cursor
+        queue!(self.stdout, MoveTo(0, 0))?;
         
-        // Draw title (centered)
-        let title = "SpringKeys Typing Tutor";
-        let title_pos = (self.terminal_size.0 as usize / 2).saturating_sub(title.len() / 2) as u16;
-        queue!(
-            self.stdout,
-            MoveTo(title_pos, 1),
-            SetForegroundColor(Color::Cyan),
-            Print(title),
-            ResetColor
-        )?;
-
-        // Draw instructions
-        let instructions = "ESC: Quit | F5: Random Quote | F6: Typewriter | F7: Programming | F8: Literature";
-        queue!(
-            self.stdout,
-            MoveTo(0, 3),
-            Print(instructions)
-        )?;
-
         // Draw active categories
         let active_categories = format!(
             "Active: Type:{:?} Prog:{:?} Lit:{:?}",
@@ -151,23 +142,9 @@ impl TerminalUI {
         );
         queue!(
             self.stdout,
-            MoveTo(0, 4),
+            MoveTo(0, 0),
             SetForegroundColor(Color::Yellow),
             Print(&active_categories),
-            ResetColor
-        )?;
-
-        // Draw game status
-        let game_status = format!(
-            "Game: {:?} | Status: {:?}",
-            app.game_state.current_game,
-            app.game_state.status
-        );
-        queue!(
-            self.stdout,
-            MoveTo(0, 5),
-            SetForegroundColor(Color::Yellow),
-            Print(&game_status),
             ResetColor
         )?;
 
@@ -189,24 +166,96 @@ impl TerminalUI {
                 ResetColor
             )?;
 
-            // Draw enhanced keyboard heatmap - use the new function
-            heatmap::draw_enhanced_keyboard_heatmap(&mut self.stdout, &session.metrics, 7)?;
+            // Draw unified keyboard heatmap with color temperature and hit counts
+            heatmap::draw_unified_keyboard_heatmap(&mut self.stdout, &session.metrics, 7)?;
 
-            // Draw typing area at a position below the keyboard visualization
-            // Adjusted position to account for the larger keyboard display
-            let typing_area_y = 40;
+            // Draw typing area at a position below the visualization
+            let typing_area_y = 35;
+            
+            // Get error count
+            let error_count = session.metrics.errors.len();
+
+            // Clear the entire typing area first (5 lines: errors, top cursor, quote, input, bottom cursor)
+            for y in typing_area_y..typing_area_y+6 {
+                queue!(
+                    self.stdout,
+                    MoveTo(0, y),
+                    Print(" ".repeat(self.terminal_size.0 as usize))
+                )?;
+            }
+
+            // Draw error count
             queue!(
                 self.stdout,
                 MoveTo(0, typing_area_y),
-                Print("Type the following text:"),
-                MoveTo(0, typing_area_y + 1),
-                SetForegroundColor(Color::Blue),
-                Print(&session.text),
-                ResetColor,
+                SetForegroundColor(Color::White),
+                Print(format!("Errors: {}", error_count)),
+                ResetColor
+            )?;
+
+            // Only show text up to the current sentence end
+            let visible_text = &session.text[..session.show_up_to];
+
+            // Draw the quote text
+            queue!(
+                self.stdout,
                 MoveTo(0, typing_area_y + 2),
-                Print(&session.text[..session.current_position]),
-                MoveTo(session.current_position as u16, typing_area_y + 2),
-                Print("▶")  // Cursor indicator
+                SetForegroundColor(Color::Blue),
+                Print(visible_text),
+                ResetColor
+            )?;
+
+            // Draw input text if we have any
+            if !app.input_processor.current_text.is_empty() {
+                queue!(
+                    self.stdout,
+                    MoveTo(0, typing_area_y + 3)
+                )?;
+
+                let input_text = &app.input_processor.current_text;
+                for (i, c) in input_text.chars().enumerate() {
+                    let expected = session.text.chars().nth(i);
+                    let color = if let Some(expected_char) = expected {
+                        if c == expected_char {
+                            Color::Green
+                        } else {
+                            Color::Red
+                        }
+                    } else {
+                        Color::Red // Extra characters are red
+                    };
+                    
+                    queue!(
+                        self.stdout,
+                        SetForegroundColor(color),
+                        Print(c),
+                        ResetColor
+                    )?;
+                }
+            }
+
+            // Draw cursors at the current position
+            let cursor_x = app.input_processor.cursor_position as u16;
+            
+            // Top cursor
+            queue!(
+                self.stdout,
+                MoveTo(cursor_x, typing_area_y + 1),
+                Print("▼")
+            )?;
+
+            // Bottom cursor
+            queue!(
+                self.stdout,
+                MoveTo(cursor_x, typing_area_y + 4),
+                Print("▲")
+            )?;
+
+            // Add the underline
+            queue!(
+                self.stdout,
+                MoveTo(0, typing_area_y + 5),
+                Print("─".repeat(visible_text.len()))
             )?;
         }
 

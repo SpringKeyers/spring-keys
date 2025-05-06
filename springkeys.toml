@@ -4,7 +4,6 @@ version = "0.1.0"
 username = "Captain Typebeard"
 difficulty = "beginner"
 sound_enabled = true
-animations_enabled = true
 
 [ui]
 theme = "classic"
@@ -14,7 +13,4 @@ show_accuracy = true
 highlight_errors = true
 
 [game]
-physics_enabled = true
-spring_constant = 0.800000011920929
-damping = 0.20000000298023224
 game_mode = "practice"

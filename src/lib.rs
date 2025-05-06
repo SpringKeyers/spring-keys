@@ -4,10 +4,12 @@ pub mod input;
 pub mod ui;
 pub mod config;
 pub mod logger;
-pub mod games;
 pub mod quotes;
 pub mod help;
 pub mod vga_test;
+
+// Import required crates
+use log::info;
 
 // Re-export commonly used types for convenience
 pub use core::{TypingSession, TypingError};
@@ -16,7 +18,6 @@ pub use core::metrics::ExtendedStats;
 pub use input::{InputProcessor, ValidationResult};
 pub use core::state::{GameState, GameType, GameStatus};
 pub use ui::TerminalUI;
-pub use games::minesweeper::MinesweeperGame;
 pub use quotes::{Quote, QuoteDatabase, QuoteDifficulty, QuoteCategory};
 pub use ui::color_spectrum;
 
@@ -47,24 +48,53 @@ impl SpringKeys {
             quote_db: QuoteDatabase::new(),
         }
     }
-    
-    pub fn start_typing_session(&mut self, text: Option<String>) {
+
+    /// Load a new quote and prepare the session for typing
+    fn load_quote(&mut self, text: Option<String>) {
         let quote_text = match text {
             Some(t) => t,
             None => {
-                // Default text for testing
-                String::from("Hello world. This is a test quote.")
+                // Use a random quote based on user's difficulty setting
+                let difficulty = match self.config.preferences.difficulty {
+                    config::DifficultyLevel::Beginner => QuoteDifficulty::Easy,
+                    config::DifficultyLevel::Intermediate => QuoteDifficulty::Medium,
+                    config::DifficultyLevel::Advanced | config::DifficultyLevel::Expert => QuoteDifficulty::Hard,
+                };
+                
+                if let Some(quote) = self.quote_db.next_by_difficulty(difficulty) {
+                    info!("Selected quote: \"{}\" ({})", quote.text, quote.source);
+                    quote.text.clone()
+                } else {
+                    // Fallback to a random quote if no quote for the specific difficulty
+                    let quote = self.quote_db.next_random();
+                    info!("Selected random quote: \"{}\" ({})", quote.text, quote.source);
+                    quote.text.clone()
+                }
             }
         };
         
+        info!("Loading new quote: {}", quote_text);
+        
+        // Clear input processor state
+        self.input_processor.clear();
+        
+        // Create new session or reset existing one
         if let Some(session) = &mut self.typing_session {
-            // If we already have a session, just load the new quote
             session.load_new_quote(quote_text);
         } else {
-            // Create a new session if we don't have one
             self.typing_session = Some(TypingSession::new(quote_text));
         }
-        self.input_processor.clear();
+    }
+    
+    pub fn start_typing_session(&mut self, text: Option<String>) {
+        self.load_quote(text);
+
+        // Initialize demo data for consume mode if needed
+        if let Some(session) = &mut self.typing_session {
+            if self.game_state.current_game == GameType::Consume {
+                session.metrics.simulate_demo_data();
+            }
+        }
     }
     
     pub fn process_input(&mut self, key: KeyCode, modifiers: KeyModifiers) {
@@ -75,13 +105,8 @@ impl SpringKeys {
 
         if let Some(session) = &mut self.typing_session {
             let result = self.input_processor.validate_input(&session.text);
-            self.input_processor.update_error_state(result);
+            self.input_processor.update_error_state(&result);
             session.calculate_metrics();
-
-            // Check if the quote is completed
-            if self.input_processor.is_quote_completed(&session.text) {
-                session.check_completion();
-            }
         }
     }
     

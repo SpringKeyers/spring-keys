@@ -27,8 +27,6 @@ pub struct Preferences {
     pub difficulty: DifficultyLevel,
     /// Sound effects enable/disable
     pub sound_enabled: bool,
-    /// Animations enable/disable
-    pub animations_enabled: bool,
 }
 
 /// UI settings
@@ -49,12 +47,6 @@ pub struct UiSettings {
 /// Game settings
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct GameSettings {
-    /// Enable physics in typing
-    pub physics_enabled: bool,
-    /// Spring stiffness (higher = more bouncy)
-    pub spring_constant: f32,
-    /// Damping factor (higher = less bouncy)
-    pub damping: f32,
     /// Selected game mode
     pub game_mode: GameMode,
 }
@@ -79,18 +71,8 @@ pub enum DifficultyLevel {
 pub enum GameMode {
     /// Practice mode (standard typing)
     Practice,
-    /// Minesweeper word game
-    Minesweeper,
-    /// Tetris word game
-    Tetris,
-    /// Flappy bird typing game
-    FlappyBird,
-    /// RC racing game
-    RcRacing,
-    /// Fortune teller game
-    FortuneTeller,
-    /// Hockey fight game
-    HockeyFight,
+    /// Consume mode (type given text)
+    Consume,
 }
 
 impl Default for Config {
@@ -110,7 +92,6 @@ impl Default for Preferences {
             username: "Captain Typebeard".to_string(),
             difficulty: DifficultyLevel::Beginner,
             sound_enabled: true,
-            animations_enabled: true,
         }
     }
 }
@@ -130,9 +111,6 @@ impl Default for UiSettings {
 impl Default for GameSettings {
     fn default() -> Self {
         Self {
-            physics_enabled: true,
-            spring_constant: 0.8,
-            damping: 0.2,
             game_mode: GameMode::Practice,
         }
     }
