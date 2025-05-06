@@ -18,6 +18,7 @@ pub use core::state::{GameState, GameType, GameStatus};
 pub use ui::TerminalUI;
 pub use games::minesweeper::MinesweeperGame;
 pub use quotes::{Quote, QuoteDatabase, QuoteDifficulty, QuoteCategory};
+pub use ui::color_spectrum;
 
 // Re-export commonly used types from dependencies
 pub use crossterm::event::{KeyCode, KeyModifiers};

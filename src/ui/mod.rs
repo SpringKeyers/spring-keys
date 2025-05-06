@@ -12,6 +12,7 @@ use std::time::Duration;
 
 pub mod heatmap;
 pub mod histogram_display;
+pub mod color_spectrum;
 
 pub struct TerminalUI {
     stdout: Stdout,
