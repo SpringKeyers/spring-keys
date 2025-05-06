@@ -88,8 +88,9 @@ impl TerminalUI {
                     
                     match key_event.code {
                         KeyCode::Enter => {
-                            // Only clear the current input
+                            // Load a new random quote and clear input
                             app.input_processor.clear();
+                            app.start_typing_session(None);
                         },
                         KeyCode::F(5) => {
                             // Load a new random quote
