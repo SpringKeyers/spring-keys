@@ -163,7 +163,17 @@ The release binary will be available in `target/release/spring-keys`
 
 2. Start typing to see real-time performance metrics
 3. Watch the keyboard heatmap and finger performance chart update in real-time
-4. Press `Ctrl+C` to exit
+4. Press `Enter` to load a new random quote from the current category
+5. Press `F6`, `F7`, or `F8` to switch between quote categories
+6. Press `Ctrl+C` to exit
+
+### Key Controls
+- `Enter`: Load a new random quote from the current category
+- `F5`: Load a new random quote (same as Enter)
+- `F6`: Switch to typewriter quotes
+- `F7`: Switch to programming quotes
+- `F8`: Switch to literature quotes
+- `Ctrl+C`: Exit the application
 
 ## Development Notes
 
