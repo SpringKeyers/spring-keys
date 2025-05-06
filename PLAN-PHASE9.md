@@ -254,6 +254,7 @@ The headless auto-detection and environment information features have been succe
 3. Shows clear test configuration during execution
 4. Works correctly in both interactive and non-interactive environments
 5. Loads new random quotes on Enter key press (✓ Completed)
+6. Accumulates and persists typing statistics (✓ Completed)
 
 ### Key Features Implemented
 - [x] Automatic headless environment detection
@@ -261,6 +262,40 @@ The headless auto-detection and environment information features have been succe
 - [x] Clear test configuration output
 - [x] Enter key loads new random quotes from current category
 - [x] Category switching with function keys (F6, F7, F8)
+- [x] Statistics persistence and accumulation
+
+### Statistics System Enhancement
+The application now includes a robust statistics persistence system:
+
+1. **Stats Storage**
+   - Statistics are stored in JSON files in the `stats/` directory
+   - Each session creates a new stats file with timestamp
+   - Files contain detailed metrics including:
+     - WPM (Words Per Minute)
+     - Accuracy percentages
+     - Character-specific performance
+     - Timing data
+
+2. **Stats Accumulation**
+   - On startup, the application reads all valid JSON files from stats directory
+   - Each file's data is parsed and validated
+   - Valid statistics are accumulated into running totals
+   - Interface displays combined averages from all sessions
+   - Current session stats are merged with historical data
+
+3. **Resume Capability**
+   - Interface maintains running totals across sessions
+   - Users can stop and resume practice while maintaining progress
+   - Historical performance data influences displayed averages
+   - Seamless integration of past and current performance metrics
+
+4. **Implementation Details**
+   - Automatic stats file parsing on startup
+   - Graceful handling of invalid or corrupted stat files
+   - Real-time updates to accumulated statistics
+   - Efficient storage and retrieval of historical data
+
+This enhancement allows users to track their progress over time and resume practice sessions while maintaining their historical performance metrics.
 
 ### Build Verification
 // ... existing code ... 
