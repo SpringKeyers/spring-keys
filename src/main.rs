@@ -18,6 +18,7 @@ use std::thread;
 pub use core::{TypingSession, TypingError};
 pub use core::metrics::{TypingMetrics, CharacterMetrics, KeyboardRow, Finger};
 pub use core::metrics::ExtendedStats;
+pub use core::stats::AccumulatedStats;
 pub use input::{InputProcessor, ValidationResult};
 pub use core::state::{GameState, GameType, GameStatus};
 pub use ui::TerminalUI;
@@ -33,6 +34,7 @@ pub struct SpringKeys {
     pub typing_session: Option<TypingSession>,
     pub config: config::Config,
     pub quote_db: QuoteDatabase,
+    pub accumulated_stats: AccumulatedStats,
 }
 
 impl SpringKeys {
@@ -40,9 +42,11 @@ impl SpringKeys {
         // Load configuration or create default
         let config_path = PathBuf::from(config::DEFAULT_CONFIG_FILE);
         let config = config::Config::load_or_default(config_path);
-
-        info!("SpringKeys application initialized");
-        info!("Game mode: {:?}", config.game.game_mode);
+        
+        // Load accumulated stats from the stats directory
+        info!("Loading accumulated statistics from stats directory...");
+        let accumulated_stats = AccumulatedStats::load_from_directory();
+        info!("Loaded stats from {} quotes", accumulated_stats.total_quotes);
         
         Self {
             game_state: GameState::default(),
@@ -50,6 +54,7 @@ impl SpringKeys {
             typing_session: None,
             config,
             quote_db: QuoteDatabase::new(),
+            accumulated_stats,
         }
     }
 
@@ -121,7 +126,13 @@ impl SpringKeys {
     }
 
     pub fn get_averages(&self) -> Option<(f64, f64)> {
-        self.typing_session.as_ref().map(|session| session.get_averages())
+        // If we have a current session, use its stats
+        if let Some(session) = &self.typing_session {
+            Some(session.get_averages())
+        } else {
+            // Otherwise use accumulated stats
+            Some((self.accumulated_stats.avg_wpm, self.accumulated_stats.avg_accuracy))
+        }
     }
 }
 

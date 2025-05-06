@@ -151,13 +151,13 @@ impl TerminalUI {
 
         // Draw metrics if there's an active session
         if let Some(session) = &app.typing_session {
-            let (avg_wpm, avg_accuracy) = app.get_averages().unwrap_or((0.0, 0.0));
             let metrics_text = format!(
-                "WPM: {:.1} | Acc: {:.1}% | Avg WPM: {:.1} | Avg Acc: {:.1}%",
+                "Current WPM: {:.1} | Acc: {:.1}% | All-time WPM: {:.1} | All-time Acc: {:.1}% | Total Quotes: {}",
                 session.metrics.wpm,
                 session.metrics.accuracy,
-                avg_wpm,
-                avg_accuracy
+                app.accumulated_stats.avg_wpm,
+                app.accumulated_stats.avg_accuracy,
+                app.accumulated_stats.total_quotes
             );
             queue!(
                 self.stdout,
@@ -175,6 +175,7 @@ impl TerminalUI {
             
             // Get error count
             let error_count = session.metrics.errors.len();
+            let total_errors = app.accumulated_stats.total_errors;
 
             // Clear the entire typing area first (5 lines: errors, top cursor, quote, input, bottom cursor)
             for y in typing_area_y..typing_area_y+6 {
@@ -185,12 +186,12 @@ impl TerminalUI {
                 )?;
             }
 
-            // Draw error count
+            // Draw error counts (current and total)
             queue!(
                 self.stdout,
                 MoveTo(0, typing_area_y),
                 SetForegroundColor(Color::White),
-                Print(format!("Errors: {}", error_count)),
+                Print(format!("Errors: {} (Total: {})", error_count, total_errors)),
                 ResetColor
             )?;
 
