@@ -5,6 +5,7 @@ use crossterm::{
 };
 use std::io::{self, Write};
 use crate::{TypingMetrics, Finger};
+use crate::ui::color_spectrum::value_to_spectrum;
 
 /// Enhanced keyboard visualization matching screenshot design
 pub fn draw_keyboard_heatmap(
@@ -221,8 +222,8 @@ fn draw_big_key(
     geo_avg: f64
 ) -> io::Result<()> {
     // Determine colors based on speeds
-    let bg_color = get_background_color(geo_avg);
-    let fg_color = get_foreground_color(recent_speed);
+    let top_bg_color = get_background_color(geo_avg);
+    let top_fg_color = get_foreground_color(recent_speed);
     
     // Format speeds for display
     let recent_speed_str = if recent_speed > 0.0 {
@@ -237,16 +238,36 @@ fn draw_big_key(
         "---".to_string()
     };
     
-    // Draw key box - matching screenshot layout
+    // Map speed to a 0-100 scale for the color spectrum
+    // 100ms = 100 (fastest), 300ms+ = 0 (slowest)
+    let spectrum_value = if recent_speed <= 0.0 {
+        0 // No data
+    } else if recent_speed <= 100.0 {
+        100 // Maximum (fastest)
+    } else if recent_speed >= 300.0 {
+        0 // Minimum (slowest)
+    } else {
+        // Linear mapping from 100-300ms to 100-0
+        ((300.0 - recent_speed) / 2.0) as u8
+    };
+    
+    // Get color from spectrum for second row
+    let spectrum_colors = value_to_spectrum(spectrum_value);
+    
+    // Draw key box with spectrum colors for second row
     queue!(
         stdout,
         MoveTo(x, y),
-        SetBackgroundColor(bg_color),
-        SetForegroundColor(fg_color),
+        SetBackgroundColor(top_bg_color),
+        SetForegroundColor(top_fg_color),
         Print(format!("{:^8}", key)),
         MoveTo(x, y + 1),
+        SetBackgroundColor(spectrum_colors.background),
+        SetForegroundColor(spectrum_colors.foreground),
         Print(format!("{:^8}", recent_speed_str)),
         MoveTo(x, y + 2),
+        SetBackgroundColor(top_bg_color),
+        SetForegroundColor(top_fg_color),
         Print(format!("{:^8}", geo_avg_str)),
         MoveTo(x, y + 3),
         Print("        "),
@@ -265,8 +286,8 @@ fn draw_spacebar(
     geo_avg: f64
 ) -> io::Result<()> {
     // Determine colors based on speeds
-    let bg_color = get_background_color(geo_avg);
-    let fg_color = get_foreground_color(recent_speed);
+    let top_bg_color = get_background_color(geo_avg);
+    let top_fg_color = get_foreground_color(recent_speed);
     
     // Format speeds for display
     let recent_speed_str = if recent_speed > 0.0 {
@@ -281,16 +302,36 @@ fn draw_spacebar(
         "---".to_string()
     };
     
-    // Draw space bar 
+    // Map speed to a 0-100 scale for the color spectrum
+    // 100ms = 100 (fastest), 300ms+ = 0 (slowest)
+    let spectrum_value = if recent_speed <= 0.0 {
+        0 // No data
+    } else if recent_speed <= 100.0 {
+        100 // Maximum (fastest)
+    } else if recent_speed >= 300.0 {
+        0 // Minimum (slowest)
+    } else {
+        // Linear mapping from 100-300ms to 100-0
+        ((300.0 - recent_speed) / 2.0) as u8
+    };
+    
+    // Get color from spectrum for second row
+    let spectrum_colors = value_to_spectrum(spectrum_value);
+    
+    // Draw space bar with spectrum colors for second row 
     queue!(
         stdout,
         MoveTo(x, y),
-        SetBackgroundColor(bg_color),
-        SetForegroundColor(fg_color),
+        SetBackgroundColor(top_bg_color),
+        SetForegroundColor(top_fg_color),
         Print("             SPACE              "),
         MoveTo(x, y + 1),
+        SetBackgroundColor(spectrum_colors.background),
+        SetForegroundColor(spectrum_colors.foreground),
         Print(format!("{:^30}", recent_speed_str)),
         MoveTo(x, y + 2),
+        SetBackgroundColor(top_bg_color),
+        SetForegroundColor(top_fg_color),
         Print(format!("{:^30}", geo_avg_str)),
         MoveTo(x, y + 3),
         Print("                              "),
