@@ -295,6 +295,106 @@ The application now includes a robust statistics persistence system:
    - Real-time updates to accumulated statistics
    - Efficient storage and retrieval of historical data
 
+5. **JSON Implementation Details**
+   - **File Structure**
+     ```json
+     {
+       "timestamp": "2024-03-21T15:30:45Z",
+       "session_duration": 3600,
+       "metrics": {
+         "wpm": 75.5,
+         "accuracy": 98.2,
+         "total_keystrokes": 1250,
+         "correct_keystrokes": 1227,
+         "errors": 23
+       },
+      "character_stats": {
+         "a": { "count": 120, "errors": 2, "avg_time_ms": 150 },
+         "b": { "count": 45, "errors": 1, "avg_time_ms": 165 }
+         // ... other characters
+       }
+     }
+     ```
+
+   - **File Management**
+     - Stats files named with pattern: `typing_stats_YYYYMMDD_HHMMSS.json`
+     - Files stored in `stats/` directory with appropriate permissions
+     - Automatic cleanup of temporary or corrupted files
+     - Backup creation before writing new data
+
+   - **Loading Process**
+     1. Scan `stats/` directory for `.json` files on startup
+     2. Parse each file using serde_json with custom deserializer
+     3. Validate schema and data integrity
+     4. Skip and log any corrupted or invalid files
+     5. Accumulate valid statistics into memory
+
+   - **Parsing Implementation**
+     ```rust
+     #[derive(Serialize, Deserialize)]
+     struct TypingStats {
+         timestamp: DateTime<Utc>,
+         session_duration: u64,
+         metrics: SessionMetrics,
+         character_stats: HashMap<char, CharacterStats>
+     }
+
+     impl TypingStats {
+         fn load_from_directory(path: &Path) -> Result<Vec<TypingStats>> {
+             let entries = fs::read_dir(path)?;
+             entries
+                 .filter_map(|entry| {
+                     let path = entry.ok()?.path();
+                     if path.extension()? == "json" {
+                         Self::load_from_file(&path).ok()
+                     } else {
+                         None
+                     }
+                 })
+                 .collect()
+         }
+     }
+     ```
+
+   - **Saving Process**
+     1. Create new stats file with unique timestamp
+     2. Serialize current session data to JSON
+     3. Write to temporary file first
+     4. Validate written data
+     5. Atomically rename to final filename
+     ```rust
+     impl TypingStats {
+         fn save(&self) -> Result<()> {
+             let filename = format!(
+                 "typing_stats_{}.json",
+                 Utc::now().format("%Y%m%d_%H%M%S")
+             );
+             let temp_path = self.stats_dir.join(format!(".{}.tmp", filename));
+             let final_path = self.stats_dir.join(filename);
+             
+             serde_json::to_writer_pretty(
+                 File::create(&temp_path)?,
+                 self
+             )?;
+             
+             fs::rename(temp_path, final_path)?;
+             Ok(())
+         }
+     }
+     ```
+
+   - **Error Handling**
+     - Graceful recovery from corrupted files
+     - Logging of parsing errors with file details
+     - Automatic backup of problematic files
+     - Fallback to empty stats if no valid files found
+
+   - **Performance Considerations**
+     - Lazy loading of historical data
+     - Caching of accumulated statistics
+     - Periodic auto-save of current session
+     - Efficient memory usage for large datasets
+
 This enhancement allows users to track their progress over time and resume practice sessions while maintaining their historical performance metrics.
 
 ### Build Verification
