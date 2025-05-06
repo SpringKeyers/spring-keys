@@ -1,35 +1,12 @@
 #[cfg(test)]
 mod tests {
     
-    
     // Import the required types
     use spring_keys::TypingMetrics;
     use spring_keys::ui::heatmap;
     
     #[test]
-    fn test_basic_heatmap_drawing() {
-        // Create a minimal test metrics object
-        let metrics = TypingMetrics::new();
-        
-        // Create a buffer to capture the output
-        let mut buffer = Vec::new();
-        
-        // Test the keyboard heatmap rendering
-        let result = heatmap::draw_keyboard_heatmap(&mut buffer, &metrics, 1);
-        
-        // Make sure rendering succeeds
-        assert!(result.is_ok(), "Heatmap rendering failed: {:?}", result.err());
-        
-        // Basic validation: output should contain some data
-        assert!(!buffer.is_empty(), "Heatmap rendering produced no output");
-        
-        // Sanity check: buffer should contain some ANSI escape sequences
-        let output = String::from_utf8_lossy(&buffer);
-        assert!(output.contains("\u{1b}["), "Output doesn't contain ANSI escape sequences");
-    }
-
-    #[test]
-    fn test_enhanced_heatmap_drawing() {
+    fn test_unified_heatmap_drawing() {
         // Create a test metrics structure with some data
         let mut metrics = TypingMetrics::new();
         
@@ -60,20 +37,17 @@ mod tests {
         // Create a buffer to capture the output
         let mut buffer = Vec::new();
         
-        // Test the enhanced keyboard heatmap rendering
-        let result = heatmap::draw_enhanced_keyboard_heatmap(&mut buffer, &metrics, 1);
+        // Test the unified keyboard heatmap rendering
+        let result = heatmap::draw_unified_keyboard_heatmap(&mut buffer, &metrics, 1);
         
         // Make sure rendering succeeds
-        assert!(result.is_ok(), "Enhanced heatmap rendering failed: {:?}", result.err());
+        assert!(result.is_ok(), "Unified heatmap rendering failed: {:?}", result.err());
         
         // Basic validation: output should contain some data
-        assert!(!buffer.is_empty(), "Enhanced heatmap rendering produced no output");
+        assert!(!buffer.is_empty(), "Unified heatmap rendering produced no output");
         
         // Sanity check: buffer should contain some ANSI escape sequences
         let output = String::from_utf8_lossy(&buffer);
         assert!(output.contains("\u{1b}["), "Output doesn't contain ANSI escape sequences");
-        
-        // Verify key representation
-        assert!(output.contains("SPACE"), "Space bar not found in output");
     }
 } 

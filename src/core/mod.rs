@@ -60,8 +60,8 @@ impl TypingSession {
         let expected_char = self.text.chars().nth(self.current_position).unwrap_or(' ');
         self.metrics.record_keystroke(c, expected_char, self.current_position);
         
-        // Only advance position if we're not at the end of the quote
-        if c == expected_char && self.current_position < self.text.len() - 1 {
+        // Increment position if the character matches and we're not past the end
+        if c == expected_char && self.current_position < self.text.len() {
             self.current_position += 1;
         }
     }

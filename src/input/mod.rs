@@ -129,7 +129,7 @@ impl InputProcessor {
         let mut error = None;
         let mut error_position = 0;
         
-        // Check character by character
+        // Check character by character up to the current input length
         for (i, (actual, expected)) in current.chars().zip(expected.chars()).enumerate() {
             if actual != expected {
                 is_valid = false;
@@ -137,6 +137,12 @@ impl InputProcessor {
                 error_position = i;
                 break;
             }
+        }
+
+        // If we've matched all characters typed so far, it's valid
+        if is_valid && current.len() <= expected.len() {
+            is_valid = true;
+            error = None;
         }
 
         ValidationResult {
@@ -214,9 +220,20 @@ impl InputProcessor {
             // Regular single character
             s if s.len() == 1 => {
                 if let Some(c) = s.chars().next() {
-                    let key = KeyCode::Char(c);
-                    self.process_key_event(key, KeyModifiers::NONE, typing_session);
-                    true
+                    // Skip processing spaces in token sequence
+                    if c == ' ' {
+                        true
+                    } else {
+                        let key = KeyCode::Char(c);
+                        // If the character is uppercase, use SHIFT modifier
+                        let modifiers = if c.is_uppercase() {
+                            KeyModifiers::SHIFT
+                        } else {
+                            KeyModifiers::NONE
+                        };
+                        self.process_key_event(key, modifiers, typing_session);
+                        true
+                    }
                 } else {
                     false
                 }
