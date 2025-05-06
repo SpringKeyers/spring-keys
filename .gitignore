@@ -2,3 +2,6 @@
 **/*.rs.bk
 Cargo.lock
 .DS_Store
+
+# Ignore stats JSON files
+stats/*.json
