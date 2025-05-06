@@ -14,6 +14,22 @@ mod tests {
 
         // Wait for a short duration to let the VGA test screen run
         thread::sleep(Duration::from_secs(2));
+        
+        // Check that the process is still running
+        match child.try_wait() {
+            Ok(Some(status)) => {
+                // Process has exited - this is unexpected for a short time
+                assert!(status.success(), "Process exited early with non-zero status");
+                println!("Note: Process exited early but with success status");
+            },
+            Ok(None) => {
+                // Process is still running as expected
+                println!("Process still running as expected");
+            },
+            Err(e) => {
+                panic!("Error waiting for child process: {}", e);
+            }
+        }
 
         // Terminate the process
         child.kill().expect("Failed to kill spring-keys process");

@@ -1,0 +1,79 @@
+#[cfg(test)]
+mod tests {
+    
+    
+    // Import the required types
+    use spring_keys::TypingMetrics;
+    use spring_keys::ui::heatmap;
+    
+    #[test]
+    fn test_basic_heatmap_drawing() {
+        // Create a minimal test metrics object
+        let metrics = TypingMetrics::new();
+        
+        // Create a buffer to capture the output
+        let mut buffer = Vec::new();
+        
+        // Test the keyboard heatmap rendering
+        let result = heatmap::draw_keyboard_heatmap(&mut buffer, &metrics, 1);
+        
+        // Make sure rendering succeeds
+        assert!(result.is_ok(), "Heatmap rendering failed: {:?}", result.err());
+        
+        // Basic validation: output should contain some data
+        assert!(!buffer.is_empty(), "Heatmap rendering produced no output");
+        
+        // Sanity check: buffer should contain some ANSI escape sequences
+        let output = String::from_utf8_lossy(&buffer);
+        assert!(output.contains("\u{1b}["), "Output doesn't contain ANSI escape sequences");
+    }
+
+    #[test]
+    fn test_enhanced_heatmap_drawing() {
+        // Create a test metrics structure with some data
+        let mut metrics = TypingMetrics::new();
+        
+        // Simulate some keystrokes with timing
+        let test_keys = "abcdefghijklmnopqrstuvwxyz1234567890 ";
+        for c in test_keys.chars() {
+            for _ in 0..5 {  // 5 keystrokes per character for good data
+                // Simulate different speeds based on character
+                let speed = match c {
+                    'a'..='f' => 120.0,  // Fast
+                    'g'..='m' => 200.0,  // Medium
+                    'n'..='t' => 300.0,  // Slow
+                    _ => 400.0,          // Very slow
+                };
+                
+                metrics.record_keystroke(c, c, metrics.keystrokes);
+                
+                // Directly update timing since we don't have actual events
+                if let Some(char_metrics) = metrics.char_metrics.get_mut(&c) {
+                    char_metrics.update(speed as u64, true);
+                    char_metrics.extended_stats.update(speed, std::time::Instant::now());
+                }
+                
+                metrics.keystrokes += 1;
+            }
+        }
+        
+        // Create a buffer to capture the output
+        let mut buffer = Vec::new();
+        
+        // Test the enhanced keyboard heatmap rendering
+        let result = heatmap::draw_enhanced_keyboard_heatmap(&mut buffer, &metrics, 1);
+        
+        // Make sure rendering succeeds
+        assert!(result.is_ok(), "Enhanced heatmap rendering failed: {:?}", result.err());
+        
+        // Basic validation: output should contain some data
+        assert!(!buffer.is_empty(), "Enhanced heatmap rendering produced no output");
+        
+        // Sanity check: buffer should contain some ANSI escape sequences
+        let output = String::from_utf8_lossy(&buffer);
+        assert!(output.contains("\u{1b}["), "Output doesn't contain ANSI escape sequences");
+        
+        // Verify key representation
+        assert!(output.contains("SPACE"), "Space bar not found in output");
+    }
+} 
