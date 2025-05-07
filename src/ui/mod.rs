@@ -1,6 +1,6 @@
 use crossterm::{
     event::{self, Event, KeyCode, KeyModifiers},
-    terminal::{self, enable_raw_mode, disable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
+    terminal::{self, enable_raw_mode, disable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen, Clear, ClearType},
     style::{Color, Print, SetForegroundColor, ResetColor, SetBackgroundColor},
     cursor::{MoveTo, Hide, Show},
     queue,
@@ -9,6 +9,7 @@ use crossterm::{
 use std::io::{self, Write, Stdout};
 use crate::SpringKeys;
 use std::time::Duration;
+use crate::quotes::CategoryCycle;
 
 pub mod heatmap;
 pub mod color_spectrum;
@@ -36,7 +37,8 @@ impl TerminalUI {
         execute!(
             self.stdout,
             EnterAlternateScreen,
-            Hide
+            Hide,
+            Clear(ClearType::All)
         )?;
 
         Ok(())
@@ -88,27 +90,32 @@ impl TerminalUI {
                     
                     match key_event.code {
                         KeyCode::Enter => {
+                            // TODO: investigate quote transition on Enter key
                             // Load a new random quote and clear input
                             app.input_processor.clear();
                             app.start_typing_session(None);
                         },
                         KeyCode::F(5) => {
+                            // TODO: investigate quote transition on F5 key
                             // Load a new random quote
                             app.start_typing_session(None);
                         },
                         KeyCode::F(6) => {
+                            // TODO: investigate quote transition on F6 key (Typewriter category)
                             // Switch to typewriter quotes
-                            app.quote_db.set_active_category(crate::quotes::CategoryCycle::Typewriter);
+                            app.quote_db.set_active_category(CategoryCycle::Typewriter);
                             app.start_typing_session(None);
                         },
                         KeyCode::F(7) => {
+                            // TODO: investigate quote transition on F7 key (Programming category)
                             // Switch to programming quotes
-                            app.quote_db.set_active_category(crate::quotes::CategoryCycle::Programming);
+                            app.quote_db.set_active_category(CategoryCycle::Programming);
                             app.start_typing_session(None);
                         },
                         KeyCode::F(8) => {
+                            // TODO: investigate quote transition on F8 key (Literature category)
                             // Switch to literature quotes
-                            app.quote_db.set_active_category(crate::quotes::CategoryCycle::Literature);
+                            app.quote_db.set_active_category(CategoryCycle::Literature);
                             app.start_typing_session(None);
                         },
                         KeyCode::Backspace => {
@@ -141,9 +148,9 @@ impl TerminalUI {
         // Draw active categories
         let active_categories = format!(
             "Active: Type:{:?} Prog:{:?} Lit:{:?}",
-            app.quote_db.get_active_category(crate::quotes::CategoryCycle::Typewriter),
-            app.quote_db.get_active_category(crate::quotes::CategoryCycle::Programming),
-            app.quote_db.get_active_category(crate::quotes::CategoryCycle::Literature),
+            app.quote_db.get_active_category(CategoryCycle::Typewriter),
+            app.quote_db.get_active_category(CategoryCycle::Programming),
+            app.quote_db.get_active_category(CategoryCycle::Literature),
         );
         queue!(
             self.stdout,
@@ -165,14 +172,55 @@ impl TerminalUI {
             );
             queue!(
                 self.stdout,
-                MoveTo(0, 0),
+                MoveTo(0, 1),
                 SetForegroundColor(Color::Green),
                 Print(&metrics_text),
                 ResetColor
             )?;
 
             // Draw unified keyboard heatmap with color temperature and hit counts
-            heatmap::draw_unified_keyboard_heatmap(&mut self.stdout, &session.metrics, 7)?;
+            heatmap::draw_unified_keyboard_heatmap(&mut self.stdout, &session.metrics, 3)?;
+
+            // Draw typing area at a position below the visualization
+            let typing_area_y = 35;
+            
+            // Get error count
+            let error_count = session.metrics.errors.len();
+
+            // Clear the entire typing area first (5 lines: errors, top cursor, quote, input, bottom cursor)
+            for y in typing_area_y..typing_area_y+6 {
+                queue!(
+                    self.stdout,
+                    MoveTo(0, y),
+                    Print(" ".repeat(self.terminal_size.0 as usize))
+                )?;
+            }
+
+            // Draw speed range and error counts
+            let speed_range = format!(
+                "Speed Range: {}ms (fastest) to {}ms (slowest) | Errors: {} (Session: {}, Total: {})",
+                session.metrics.key_histogram.min as u64,
+                session.metrics.key_histogram.max as u64,
+                error_count,
+                app.accumulated_stats.session_errors,
+                app.accumulated_stats.total_errors
+            );
+            queue!(
+                self.stdout,
+                MoveTo(0, typing_area_y),
+                SetForegroundColor(Color::White),
+                Print(&speed_range),
+                ResetColor
+            )?;
+
+            // Draw the quote text
+            queue!(
+                self.stdout,
+                MoveTo(0, typing_area_y + 2),
+                SetForegroundColor(Color::White),
+                Print(&session.quote_text),
+                ResetColor
+            )?;
 
             // Draw typing area at a position below the visualization
             let typing_area_y = 35;
