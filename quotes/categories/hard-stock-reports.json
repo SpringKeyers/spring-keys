@@ -1,0 +1,282 @@
+[
+  {
+    "text": "The $SPY index gained two point five percent (2.5%). NASDAQ fell $3.75 to close at $14,250.50 per share.",
+    "source": "Basic Stock Terminology",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Q1 revenue reached $245.7 million, up 12% year-over-year. Earnings per share (EPS) was $1.73, exceeding analyst estimates of $1.65.",
+    "source": "Quarterly Reports",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "The S&P 500 closed at 4,782.76, up 0.34% for the day. Leading sectors included Technology (+1.2%) and Healthcare (+0.8%), while Energy (-0.6%) lagged behind.",
+    "source": "Market Analysis",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$AAPL $MSFT $AMZN $GOOGL $META $TSLA $JPM $BAC $WMT $PG $JNJ $V $UNH $HD $NVDA $DIS",
+    "source": "Stock Symbols",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$156.89 $1,245.60 $87.32 $459.75 $22.50 $3,456.78 $901.25 $544.90 $76.44 $199.99",
+    "source": "Price Formatting",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "+2.4% -1.7% +0.3% -0.5% +3.8% -2.9% +1.1% -4.2% +0.8% -3.5% +5.6% -0.2%",
+    "source": "Percentage Changes",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "P/E: 22.5x EV/EBITDA: 14.3x P/S: 3.8x D/E: 0.45x ROE: 18.7% ROA: 8.2% ROIC: 12.5%",
+    "source": "Financial Ratios",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "S&P 500: 4,782.76 NASDAQ: 15,973.85 Dow Jones: 38,239.21 Russell 2000: 2,358.94 VIX: 16.42",
+    "source": "Stock Market Indices",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Q1 FY2025 Q2 FY2024 H1 2025 FY2024 YTD 2025 QoQ TTM 1H2025 2H2024 Jan 15, 2025",
+    "source": "Financial Dates",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$USD €EUR £GBP ¥JPY ₩KRW ₹INR $AUD $CAD ₣CHF ¥CNY $100.50 €89.20 £75.35 ¥12,500",
+    "source": "Currency Formatting",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Revenue: $567.8M, COGS: $312.5M, Gross Profit: $255.3M, R&D: $78.9M, SG&A: $95.2M, Operating Income: $81.2M",
+    "source": "Income Statement Items",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Cash & Equivalents: $245.7M, AR: $189.3M, Inventory: $156.8M, PP&E: $432.6M, Goodwill: $215.9M, Total Assets: $1.24B",
+    "source": "Balance Sheet Items",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Operating Cash Flow: $124.6M, CapEx: -$45.8M, FCF: $78.8M, Dividends: -$22.3M, Share Repurchases: -$35.7M",
+    "source": "Cash Flow Items",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "BREAKING: $AAPL Reports Record Q1 Revenue of $124.5B, Beating Estimates by 8.3%",
+    "source": "Financial News Headlines",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Our Q2 revenue grew 15.7% YoY to $876.3M, with gross margins expanding 120bps to 56.4%, resulting in EPS of $2.25.",
+    "source": "Earnings Call Transcript",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "We maintain our BUY rating on $AMZN with a PT of $195, implying 23% upside from current levels of $158.45.",
+    "source": "Analyst Recommendations",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "GDP Growth: +2.3% CPI: +3.1% Unemployment: 4.2% Fed Funds Rate: 3.75-4.00% 10Y Treasury: 3.45%",
+    "source": "Economic Indicators",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "We expect FY2025 revenue of $3.5B-$3.7B (10-15% YoY) and adj. EPS of $4.50-$4.75, with FCF conversion >90%.",
+    "source": "Company Guidance",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$MSFT to acquire $DATA for $28.5B in all-cash transaction valued at $185/share, representing a 25% premium.",
+    "source": "M&A Announcements",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "WACC = (E/V) * Re + (D/V) * Rd * (1-T) = (0.7 * 9.5%) + (0.3 * 4.5%) * (1-21%) = 7.4%",
+    "source": "Complex Financial Calculations",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$TSLA will host its Q1 FY2025 earnings call on April 24, 2025, at 5:30 PM ET. Webcast available at investor.tesla.com.",
+    "source": "Investor Relations",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "¹Adjusted EBITDA excludes $24.5M in restructuring charges, $12.3M in stock-based compensation, and $8.7M in acquisition-related expenses.",
+    "source": "Financial Footnotes",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$SPY formed a bullish golden cross as the 50-DMA ($452.35) crossed above the 200-DMA ($445.78) with RSI at 62.5.",
+    "source": "Technical Analysis",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$JNJ declared quarterly dividend of $1.15/share (+5.5% YoY), payable on June 15, 2025, to shareholders of record as of May 30, 2025.",
+    "source": "Dividend Announcements",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "5Y revenue CAGR of 12.5%, GM expansion from 53.2% to 55.8%, OpEx/Revenue declining from 32.5% to 29.7%, and effective tax rate of 22%.",
+    "source": "Financial Modeling",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$AAPL traded 42.3M shares today (1.5x avg. daily volume), with 68% on lit exchanges and 32% in dark pools. VWAP: $182.45.",
+    "source": "Trading Volumes",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$AMZN Jun 21 '25 $180 Calls trading at $12.45 with IV of 35%, delta 0.62, gamma 0.03, theta -0.15, and vega 0.35.",
+    "source": "Options Trading",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Our FY2024, we delivered revenue of $15.7B (+18.5% YoY), adj. operating margin of 32.5% (+250bps), and GAAP EPS of $6.78 (+24.2%).",
+    "source": "Annual Reports",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Form 8-K filed on May 2, 2025, disclosing CEO purchase of 25,000 shares at avg. price of $132.45/share for total of $3,311,250.",
+    "source": "SEC Filings",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Moody's upgraded $IBM to A2 from A3 with stable outlook, citing improved FCF generation and debt reduction of $5.2B in FY2024.",
+    "source": "Credit Ratings",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Consolidated revenue of $8.54B (+12.3% YoY, +14.1% in constant currency) with adj. operating margin of 28.5% (+180bps YoY) and adj. EPS of $3.24 (+18.7%).",
+    "source": "Complex Financial Statements",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Stripe sets IPO price range at $68-$72/share, valuing company at $85B-$90B. Offering 35M shares to raise $2.38B-$2.52B.",
+    "source": "IPO Announcements",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$MSFT trades at 28.4x FY25E EPS vs. $GOOGL at 22.7x and $AAPL at 29.3x, with 5Y EPS CAGR of 15.2% vs. 12.7% and 9.8%, respectively.",
+    "source": "Comparative Financial Analysis",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "We forecast $AMZN to grow AWS revenue at 20% CAGR (FY25-27E), with operating margins expanding from 32.5% to 35.7% and $12.5B in incremental FCF by FY2027.",
+    "source": "Financial Forecasts",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "Per Form 13F filed on May 15, 2025, Blackrock increased its position in $NVDA by 2.3M shares (+8.5%) to 29.4M shares valued at $14.7B.",
+    "source": "Regulatory Filings",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "For Q1 FY2025, $AAPL reported revenue of $94.8B (+9.3% YoY), with iPhone contributing $45.6B (+12.5%), Services $23.5B (+17.8%), and Wearables $9.8B (+5.2%). Gross margin expanded 130bps YoY to 43.7%, driving EPS growth of 15.2% to $1.52.",
+    "source": "Financial Paragraphs",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "The S&P 500 declined 2.3% this week as the 10Y Treasury yield surged 35bps to 3.85% following the Fed's hawkish commentary. Tech stocks ($XLK -3.8%) underperformed, while defensive sectors like Utilities ($XLU +1.2%) and Consumer Staples ($XLP +0.7%) showed relative strength.",
+    "source": "Market Commentary",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "We initiate coverage of $NVDA with an OVERWEIGHT rating and $1,250 price target (45x FY26E EPS), reflecting our bullish outlook on AI-driven growth. We forecast revenue CAGR of 32% (FY25-27E) with GM expanding to 78.5% (+350bps) and FCF conversion improving to 43% of revenue (+500bps).",
+    "source": "Analyst Reports",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "$AMZN Q1'25 results: Revenue $143.5B (+15.7% YoY), Op. Income $15.3B (+28.9%), Net Income $12.7B (+21.5%), Diluted EPS $1.21 (+23.5%), FCF TTM $43.5B (+42.3%), AWS Revenue $32.8B (+29.5% YoY) with Op. Margin 34.2% (+210bps).",
+    "source": "Financial Speed Test",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  },
+  {
+    "text": "In Q1 FY2025, $AAPL reported revenue of $94.8B (+9.3% YoY) and EPS of $1.52 (+15.2%), both exceeding consensus estimates by 3.5% and 8.2%, respectively. Gross margin expanded 130bps YoY to 43.7%, while operating margin reached 30.5% (+160bps). The company returned $25.3B to shareholders, including $3.8B in dividends ($0.25/share) and $21.5B in share repurchases (35.2M shares at avg. price of $187.35).",
+    "source": "Financial Mastery Test",
+    "difficulty": "Hard",
+    "category": "LessonsNumbersBasic",
+    "origin": "Financial Writing"
+  }
+]

@@ -12,6 +12,7 @@ use std::sync::Mutex;
 use once_cell::sync::Lazy;
 use termion::color;
 use crate::core::metrics::{ExtendedStats};
+use std::num::Saturating;
 
 // Track key press animations
 #[derive(Clone)]

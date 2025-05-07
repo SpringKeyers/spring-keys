@@ -1,0 +1,562 @@
+[
+  {
+    "text": "1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 0 0 0",
+    "source": "Number Row Basics",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "0 0 0 9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 3 3 3 2 2 2 1 1 1",
+    "source": "Number Row Basics (Reverse)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "1234567890 0987654321 1357924680 2468013579",
+    "source": "Number Sequences",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "9876543210 0123456789 8642097531 9753108642",
+    "source": "Number Sequences (Reverse)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "10 15 23 37 42 56 68 79 84 91 25 36 47 58 69 70 82 93",
+    "source": "Two-Digit Numbers",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "20 25 33 47 52 66 78 89 94 01 35 46 57 68 79 80 92 03",
+    "source": "Two-Digit Numbers (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "123 456 789 234 567 890 345 678 901 456 789 012",
+    "source": "Three-Digit Numbers",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "321 654 987 432 765 098 543 876 109 654 987 210",
+    "source": "Three-Digit Numbers (Reverse)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "11 22 33 44 55 66 77 88 99 00 111 222 333 444 555",
+    "source": "Repeating Digit Patterns",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "00 11 22 33 44 55 66 77 88 99 000 111 222 333 444",
+    "source": "Repeating Digit Patterns (Shifted)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "1 2 3 4 5 12 23 34 45 123 234 345 1234 2345 12345",
+    "source": "Left-Hand Numbers",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "2 3 4 5 1 23 34 45 51 234 345 451 2345 3451 23451",
+    "source": "Left-Hand Numbers (Rotated)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "6 7 8 9 0 67 78 89 90 678 789 890 6789 7890 67890",
+    "source": "Right-Hand Numbers",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "7 8 9 0 6 78 89 90 06 789 890 906 7890 8906 78906",
+    "source": "Right-Hand Numbers (Rotated)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "16 27 38 49 50 1627 3849 5061 7283 9405 162738 495061",
+    "source": "Alternating Hands",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "27 38 49 50 61 2738 4950 6172 8394 0516 273849 506172",
+    "source": "Alternating Hands (Shifted)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "12 34 56 78 90 13 57 9 24 68 0 15 37 59 246 8 357 9",
+    "source": "Number Combinations",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "23 45 67 89 01 24 68 0 35 79 1 26 48 60 357 9 468 0",
+    "source": "Number Combinations (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "1234 5678 9012 3456 7890 1357 2468 1597 3864 2057",
+    "source": "Four-Digit Numbers",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "2345 6789 0123 4567 8901 2468 3579 2608 4975 3168",
+    "source": "Four-Digit Numbers (Shifted)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "1776 1865 1914 1945 1969 1984 2001 2025 2050 2100",
+    "source": "Years",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "1865 1914 1945 1969 1984 2001 2025 2050 2100 2150",
+    "source": "Years (Modern)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "01/15/2025 06/30/2025 12/25/2024 07/04/2025 09/23/2024",
+    "source": "Dates",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "02/14/2025 05/31/2025 11/11/2024 08/15/2025 10/31/2024",
+    "source": "Dates (Holidays)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "555-123-4567 212-555-6789 800-555-0123 917-555-3456",
+    "source": "Phone Numbers",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "555-234-5678 213-555-7890 801-555-1234 918-555-4567",
+    "source": "Phone Numbers (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "10001 60614 90210 77056 20500 30349-1234 60007-2878",
+    "source": "ZIP Codes",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "20002 70715 90321 88067 30501 40450-2345 70018-3989",
+    "source": "ZIP Codes (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "192.168.1.1 10.0.0.1 172.16.254.1 8.8.8.8 127.0.0.1",
+    "source": "IP Addresses",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "192.168.2.2 10.0.1.1 172.16.255.2 8.8.4.4 127.0.0.2",
+    "source": "IP Addresses (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "123-45-6789 987-65-4321 555-11-2233 444-55-6666 777-88-9999",
+    "source": "Social Security Numbers",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "234-56-7890 876-54-3210 666-22-3344 333-44-5555 888-99-0000",
+    "source": "Social Security Numbers (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "5 + 7 = 12, 9 - 3 = 6, 4 * 8 = 32, 45 / 9 = 5, 7 + 18 = 25",
+    "source": "Basic Math Problems",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "6 + 8 = 14, 10 - 4 = 6, 5 * 9 = 45, 54 / 6 = 9, 8 + 19 = 27",
+    "source": "Basic Math Problems (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "25 + 38 = 63, 72 - 15 = 57, 12 * 6 = 72, 56 / 8 = 7, 144 / 12 = 12",
+    "source": "Simple Calculations",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "35 + 48 = 83, 82 - 25 = 57, 13 * 7 = 91, 63 / 9 = 7, 156 / 13 = 12",
+    "source": "Simple Calculations (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "3.14 2.718 1.618 0.333 9.876 5.432 7.125 8.625 6.283 1.414",
+    "source": "Decimal Numbers",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "3.141 2.719 1.619 0.334 9.877 5.433 7.126 8.626 6.284 1.415",
+    "source": "Decimal Numbers (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "25% 50% 75% 100% 33.3% 66.7% 12.5% 87.5% 99.9% 0.1%",
+    "source": "Percentages",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "20% 40% 60% 80% 33.4% 66.6% 12.6% 87.4% 99.8% 0.2%",
+    "source": "Percentages (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "1/2 1/3 2/3 1/4 3/4 1/5 2/5 3/5 4/5 1/6 5/6 1/8 3/8 5/8 7/8",
+    "source": "Fractions",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "2/3 1/4 3/4 1/5 4/5 1/6 2/6 3/6 4/6 5/6 1/7 2/7 3/7 4/7 5/7 6/7",
+    "source": "Fractions (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "5-10 25-30 100-150 1,000-2,000 0-100 50-75 250-500",
+    "source": "Numerical Ranges",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "10-15 30-35 150-200 2,000-3,000 100-200 75-100 500-750",
+    "source": "Numerical Ranges (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "5 ft 10 in, 185 lbs, 72 kg, 3.5 miles, 10 km, 98.6°F, 37°C",
+    "source": "Measurements",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "6 ft 2 in, 195 lbs, 75 kg, 4.5 miles, 12 km, 99.2°F, 37.3°C",
+    "source": "Measurements (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "$10.99 $24.50 $199.99 $1,500 $8,750.25 $125,000 $1.5 million",
+    "source": "Money Amounts",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "$20.99 $34.50 $299.99 $2,500 $9,750.25 $225,000 $2.5 million",
+    "source": "Money Amounts (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "9:30 AM 2:45 PM 15:20 06:15 23:59 12:00 PM 00:01 8:45 AM",
+    "source": "Time Formats",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "10:30 AM 3:45 PM 16:20 07:15 00:59 1:00 PM 01:01 9:45 AM",
+    "source": "Time Formats (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "I need 5 apples and 3 oranges. The meeting starts at 2:30 PM with 12 people.",
+    "source": "Number and Text Mix",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "I need 6 bananas and 4 pears. The event begins at 3:45 PM with 15 attendees.",
+    "source": "Number and Text Mix (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "1. First item 2. Second item 3. Third item 4. Fourth item 5. Fifth item",
+    "source": "Numbered Lists",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "1. Primary item 2. Secondary item 3. Tertiary item 4. Quaternary item 5. Quinary item",
+    "source": "Numbered Lists (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "Mean: 42.5, Median: 38.0, Mode: 35, Range: 25-65, Standard Deviation: 8.75",
+    "source": "Statistical Data",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "Mean: 52.5, Median: 48.0, Mode: 45, Range: 35-75, Standard Deviation: 9.75",
+    "source": "Statistical Data (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192",
+    "source": "Numerical Sequences",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "3, 6, 12, 24, 48, 96, 192, 384, 768, 1536, 3072, 6144, 12288",
+    "source": "Numerical Sequences (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "(15 + 25) * 3 = 120, 450 / (9 * 5) = 10, 75 - 42 + 18 = 51, 24 * 6 / 8 = 18",
+    "source": "Complex Calculations",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "(25 + 35) * 4 = 240, 550 / (10 * 5) = 11, 85 - 52 + 28 = 61, 34 * 7 / 9 = 26",
+    "source": "Complex Calculations (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "8.5\" x 11\", 4' x 6', 10cm x 15cm x 5cm, 1920x1080, 3.5\" diameter",
+    "source": "Dimensional Measurements",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "11\" x 17\", 5' x 7', 15cm x 20cm x 8cm, 2560x1440, 4.5\" diameter",
+    "source": "Dimensional Measurements (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "256 KB, 4.7 GB, 128 MB, 2 TB, 512 GB, 16 MB, 1.44 MB, 700 MB",
+    "source": "File Sizes",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "512 KB, 8.5 GB, 256 MB, 4 TB, 1 TB, 32 MB, 2.88 MB, 1.4 GB",
+    "source": "File Sizes (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "v1.2.5, v3.0.0, v2.4.1-beta, v10.15.7, v4.8.3-rc2, v5.0, v0.9.8",
+    "source": "Version Numbers",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "v2.3.6, v4.1.0, v3.5.2-beta, v11.16.8, v5.9.4-rc3, v6.1, v1.0.9",
+    "source": "Version Numbers (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "1,234,567 $8,250.75 3-5/8\" (45%) 1/100 #16 17th 2³ 42¢ 98.6°F",
+    "source": "Mixed Number Formatting",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "2,345,678 $9,350.25 4-3/4\" (55%) 1/200 #24 23rd 3³ 58¢ 99.2°F",
+    "source": "Mixed Number Formatting (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "23, 45, 67, 89, 12, 34, 56, 78, 90, 21, 43, 65, 87, 9, 32, 54, 76, 98",
+    "source": "Numerical Data Entry",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "34, 56, 78, 90, 23, 45, 67, 89, 01, 32, 54, 76, 98, 1, 43, 65, 87, 09",
+    "source": "Numerical Data Entry (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "John Smith, 555-123-4567, 123 Main St, Apt 4B, New York, NY 10001",
+    "source": "Contact Information",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "Jane Doe, 555-234-5678, 456 Oak Ave, Unit 5C, Chicago, IL 60601",
+    "source": "Contact Information (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "Product: #1234 | Quantity: 50 | Price: $24.99 | Total: $1,249.50",
+    "source": "Numeric Table Data",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "Product: #2345 | Quantity: 75 | Price: $34.99 | Total: $2,624.25",
+    "source": "Numeric Table Data (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "iPhone 15 Pro, 256GB, $1,099.99, Model A2849, IMEI: 356986753421099",
+    "source": "Product Information",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "iPhone 15 Pro Max, 512GB, $1,199.99, Model A2850, IMEI: 356986753421100",
+    "source": "Product Information (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "72 38 95 16 24 57 83 61 49 27 35 92 54 18 63 79 41 86 52 97",
+    "source": "Number Speed Challenge",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "83 49 16 27 35 68 94 72 58 36 42 81 65 29 74 90 53 97 61 84",
+    "source": "Number Speed Challenge (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "Call 555-867-5309 on 05/17/2025 at 3:45 PM to discuss order #12789 for $1,542.68, which includes 25% discount. Dimensions: 60\" x 32\" x 18\", shipping weight 47.5 lbs.",
+    "source": "Numbers Mastery Test",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  },
+  {
+    "text": "Call 555-976-5310 on 06/18/2025 at 4:30 PM to discuss order #23456 for $2,653.79, which includes 30% discount. Dimensions: 72\" x 40\" x 24\", shipping weight 58.5 lbs.",
+    "source": "Numbers Mastery Test (Variation)",
+    "difficulty": "Medium",
+    "category": "LessonsNumbersBasic",
+    "origin": "Typing Practice"
+  }
+]

@@ -628,5 +628,594 @@
     "difficulty": "Easy",
     "category": "Typewriters",
     "origin": "American"
+  },
+
+  {
+    "text": "Six sitting scientists sorted sixty slippery snakes successfully.",
+    "source": "English tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Fireflies flash light signals, frightening frivolous frogs.",
+    "source": "Alliterative rhyme",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Peter Piper picked a peck of pixelated pictures.",
+    "source": "Digital variation of classic tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Silly Sally swiftly scanned several server security systems.",
+    "source": "Tech tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Techie Terry typed thirty tricky terminal tactics twice.",
+    "source": "Computing tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Five flashy function features fought for firmware functionality.",
+    "source": "Programming tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Ruby robots rarely reboot rickety router relays rapidly.",
+    "source": "Networking tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Witty Walter wondered why Windows wouldn't work well Wednesday.",
+    "source": "Operating system tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Clever coders create complex cryptographic calculations constantly.",
+    "source": "Programming tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Digital developers deliver delightful data despite difficulties daily.",
+    "source": "Tech industry tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Seven savvy software specialists solved sixty system syncing scenarios.",
+    "source": "IT tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Binary bits build better backup buffers between broken backends.",
+    "source": "Computing tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Malleable memory management makes many massive mechanisms measurable.",
+    "source": "Computing tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Quick queries quietly queue quantified quality quotients.",
+    "source": "Database tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "The thirty-three thorough testers thoroughly tested their theory Thursday.",
+    "source": "QA tongue twister",
+    "difficulty": "Hard", 
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Efficient engineers eagerly examined eight elegant encryption engines.",
+    "source": "Cybersecurity tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Virtual villains versus valiant vectors vigilantly verifying vulnerabilities.",
+    "source": "Cybersecurity tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Nimble network nodes need numerous necessary numerical notifications.",
+    "source": "Networking tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Jazzy JavaScript juggled jumbo JSON jobs judiciously.",
+    "source": "Programming tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Persistent programmers persistently pushing perfect patches promptly.",
+    "source": "Development tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Thirty thirsty threads throttled three thousand throughput thresholds.",
+    "source": "Computing tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Zany zealous zoologists zip zettabytes zealously.",
+    "source": "Data science tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Artificial assistant algorithms ambitiously analyze academic assignments.",
+    "source": "AI tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Sassy sysadmins scanning suspicious server scripts silently.",
+    "source": "IT tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Four fertile frameworks facilitated fifty fabulous features fast.",
+    "source": "Development tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Uniquely useful Unix utilities unlock unending universal updates.",
+    "source": "Operating system tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Meticulous mainframe managers maintaining multiple memory modules manually.",
+    "source": "IT tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Kinetic keyboard keys kept klicking klackingly.",
+    "source": "Typing tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Dexterous developers debugging densely distributed data deterministically.",
+    "source": "Programming tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "She sells C shells by the C shore.",
+    "source": "Programming pun tongue twister",
+    "difficulty": "Easy",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "If input integers iterate internally, is iteration infinitely implementable?",
+    "source": "Programming tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Looping logic lazily loads lengthy library listings.",
+    "source": "Programming tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Optimized operators opportunistically overcame obsolete output obstacles.",
+    "source": "Programming tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Gradually glitchy graphics glimmered glamorously given GPU gumption.",
+    "source": "Hardware tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Hyperactive hackers heightened hardware hydration hourly.",
+    "source": "Tech tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Yellow YAML yields yearly yearnings yet youngsters yell \"Yikes!\"",
+    "source": "Programming tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Wary website wizards wisely watched wireframes work wonderfully.",
+    "source": "Web development tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Exasperated executables exhibited extremely extensive exception errors.",
+    "source": "Programming tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Robotic recursions require rigorous runtime resource restrictions.",
+    "source": "Programming tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Tangible touchscreens tactfully tested ten thousand taps today.",
+    "source": "Hardware tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Jittery Java just-in-time juggled jarring junction junctures.",
+    "source": "Programming tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Pervasive parameters persistently prevent proper parallel processing.",
+    "source": "Computing tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Bountiful browsers barely balanced big bulky bitmap buffers.",
+    "source": "Web development tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Nightly notifications notably nullified numerous nested nodes.",
+    "source": "Programming tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Mobile middleware minutely monitored multiple memory maps.",
+    "source": "Computing tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Xenial XML exclusively exhibited X-ray x-factor extensions.",
+    "source": "Programming tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Frantic fingers frantically fired forty-four function formulas forward.",
+    "source": "Typing tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Synchronized systems successfully served seven successive search strings simultaneously.",
+    "source": "Database tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Crafty crackers cunningly cracked cryptic credentials carefully.",
+    "source": "Cybersecurity tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Twenty-two terabytes transferred to troubled target terminals today.",
+    "source": "Networking tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Vivacious variables varied vastly via various virtual vectors.",
+    "source": "Programming tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Eloquent engineers elegantly explained eleven electronic errors earlier.",
+    "source": "Tech tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Sophisticated software solutions successfully solved sixty similar scenarios.",
+    "source": "Software tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Anxious admins analyzed anomalous authentication attempts automatically.",
+    "source": "IT security tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Precise Python parsers perfectly processed palindromic pattern payloads.",
+    "source": "Programming tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Quizzical queries quickly questioned quirky quantum quotas.",
+    "source": "Database tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Zealous zookeepers zestfully zapped zippy zebra zygotes.",
+    "source": "Alliterative tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Inquisitive IoT interfaces intelligently interrogated internal infrastructure incidents.",
+    "source": "Tech tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Logical Linux lovers like lengthy lightning-like load leveling.",
+    "source": "Operating system tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Giggling geeks gleefully glimpsed glittering GitHub graphics.",
+    "source": "Tech tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Critical cloud configurations cautiously contained countless containerized components.",
+    "source": "Cloud computing tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Docker daemons diligently delivered distributed database deployments.",
+    "source": "DevOps tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "How much RAM could a RAM chip chip if a RAM chip could chip RAM?",
+    "source": "Tech variation of classic tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Terrific testers totally took twenty-two technical tutorials Tuesday.",
+    "source": "QA tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "User-unfriendly updates ultimately upset unhappy urban users.",
+    "source": "UX tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Overt overclocking obviously overwhelmed overheating operational outputs.",
+    "source": "Hardware tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Feeble firewalls failed, facilitating fatal firmware flaws frequently.",
+    "source": "Cybersecurity tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Smart software surely should schedule seven simultaneous sessions.",
+    "source": "Software tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Rapidly responsive React rendered remarkable rectangles recursively.",
+    "source": "Web development tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Cautious coders cleverly contained chaotic class constructors.",
+    "source": "Programming tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Mechanical mechanical keyboards keenly kept keystrokes kicking.",
+    "source": "Hardware tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Dedicated developers diligently debugged deep dependency dilemmas.",
+    "source": "Programming tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Nine nifty ninjas nimbly navigated nineteen network nodes.",
+    "source": "Networking tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Sensible sensors sensed seven separate suspicious system signals.",
+    "source": "IoT tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Brilliant blockchains boldly balanced bulky blockchain blocks.",
+    "source": "Blockchain tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Marvelous machine learning models made meaningful metadata matches.",
+    "source": "AI tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Ingenious IT integrations instantly increased industry interest internationally.",
+    "source": "Tech industry tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Powerful processors processed petabytes precariously past peak performance parameters.",
+    "source": "Hardware tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Zealous zombie zero-days zipped zestfully between zombie zones.",
+    "source": "Cybersecurity tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Haphazard hackers heedlessly hacked hopeless hardware hubs hastily.",
+    "source": "Cybersecurity tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Quirky queries quaintly quenched quintessential quantum quotients.",
+    "source": "Database tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Two-factor toggles temper treacherous transaction threats terrifically.",
+    "source": "Security tongue twister",
+    "difficulty": "Medium",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "JWT juggernauts jovially justify justifiably jumbled JSON.",
+    "source": "Web development tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
+  },
+  {
+    "text": "Kindly keypresses keep keyboard kinetics keenly kaleidoscopic.",
+    "source": "Typing tongue twister",
+    "difficulty": "Hard",
+    "category": "TongueTwisters",
+    "origin": "English"
   }
 ]
