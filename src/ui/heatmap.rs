@@ -22,26 +22,28 @@ struct KeyAnimation {
 
 impl KeyAnimation {
     fn new() -> Self {
+        // Initialize as if pressed 1s ago (fully faded)
         Self {
-            last_press: Instant::now() - Duration::from_secs(10), // Start inactive
+            last_press: Instant::now() - Duration::from_secs(1),
             previous_count: 0,
         }
     }
 
     fn glow_intensity(&self) -> f64 {
+        // Fade over 1 second
         let elapsed = self.last_press.elapsed().as_millis() as f64;
-        if elapsed >= 500.0 {
+        if elapsed >= 1000.0 {
             0.0
         } else {
-            // Smooth fade out with easing
-            let t = 1.0 - (elapsed / 500.0);
-            t * t * (3.0 - 2.0 * t) // Smoother cubic easing
+            let t = 1.0 - (elapsed / 1000.0);
+            // Smooth easing function for more natural fade
+            t * t * (3.0 - 2.0 * t)
         }
     }
 
     fn needs_redraw(&self) -> bool {
-        // Only redraw if the key is still glowing
-        self.last_press.elapsed() < Duration::from_millis(500)
+        // Only redraw if within fade period of 1 second
+        self.last_press.elapsed() < Duration::from_secs(1)
     }
 }
 
@@ -95,30 +97,37 @@ fn draw_key(
     text_colors: &[Color],
     _is_active: bool, // Prefix with _ to indicate intentionally unused
 ) -> io::Result<()> {
-    let content_height = content.len(); // Rename to be more specific
+    let content_height = content.len();
     
-    // Top border
-    queue!(
-        stdout,
-        MoveTo(x, y),
-        SetForegroundColor(Color::White),
-        Print("╭"),
-        Print("─".repeat(width - 2)),
-        Print("╮")
-    )?;
+    // Determine dynamic border color (fade from bright purple to black)
+    let mut border_color = Color::Black;
+    if let Some(key_str) = content.get(0) {
+        if key_str.chars().count() == 1 {
+            let c = key_str.chars().next().unwrap();
+            let intensity = {
+                let anims = get_animations();
+                anims.get(&c).map(|a| a.glow_intensity()).unwrap_or(0.0)
+            };
+            if intensity > 0.0 {
+                // Bright purple RGB(255,0,255) fades to black
+                let v = (255.0 * intensity) as u8;
+                border_color = Color::Rgb { r: v, g: 0, b: v };
+            }
+        }
+    }
 
     // Content lines with borders
     for (i, line) in content.iter().enumerate() {
         queue!(
             stdout,
-            MoveTo(x, y + 1 + i as u16),
-            SetForegroundColor(Color::White),
+            MoveTo(x, y + i as u16),
+            SetForegroundColor(border_color),
             Print("│"),
             SetBackgroundColor(bg_color),
             SetForegroundColor(text_colors[i]),
             Print(format!("{:^width$}", line, width = width - 2)),
             SetBackgroundColor(Color::Reset),
-            SetForegroundColor(Color::White),
+            SetForegroundColor(border_color),
             Print("│")
         )?;
     }
@@ -126,8 +135,8 @@ fn draw_key(
     // Bottom border
     queue!(
         stdout,
-        MoveTo(x, y + content_height as u16 + 1),
-        SetForegroundColor(Color::White),
+        MoveTo(x, y + content_height as u16),
+        SetForegroundColor(border_color),
         Print("╰"),
         Print("─".repeat(width - 2)),
         Print("╯"),
@@ -174,44 +183,40 @@ pub fn draw_unified_keyboard_heatmap(
     
     // Draw each row of the keyboard
     for (row_idx, (row, indent)) in rows.iter().zip(indents.iter()).enumerate() {
-        let y = y_offset + (row_idx as u16 * 5); // 5 units per row for spacing
+        let y = y_offset + (row_idx as u16 * 6); // 6 units per row (4 lines + 2 borders)
         
         // Draw each key in the row
         for (key_idx, c) in row.chars().enumerate() {
             let x = (*indent * 2 + key_idx * 10) as u16; // 10 units per key, 2 units per indent
             
-            // Get heat map data for this key
-            let speed = heat_map.get(&c).copied().unwrap_or(0.0);
-            
-            // Get geometric average for this key
+            // Get per-key metrics: count, geometric average, and last speed
+            let timings = metrics.key_timings.get(&c).map(|v| v.as_slice()).unwrap_or(&[]);
+            let count = timings.len();
             let geo_avg = geometric_avgs.get(&c).copied().unwrap_or(0.0);
+            let last_speed = timings.last().copied().unwrap_or(0.0);
             
             // Calculate normalized speed (0.0 to 1.0)
-            let normalized_speed = if speed > 0.0 && slowest > fastest {
-                (speed - fastest) / (slowest - fastest)
+            let normalized_speed = if geo_avg > 0.0 && slowest > fastest {
+                (geo_avg - fastest) / (slowest - fastest)
             } else {
                 0.0
             };
             
-            // Calculate background color based on normalized speed
+            // Calculate background color based on normalized speed and text colors
             let bg_color = value_to_spectrum(normalized_speed);
-            
-            // Calculate text colors with contrast
-            let text_colors = [
+            let text_colors = vec![
+                get_contrasting_text_color(bg_color),
                 get_contrasting_text_color(bg_color),
                 get_contrasting_text_color(bg_color),
                 get_contrasting_text_color(bg_color),
             ];
             
-            // Format key content
+            // Format key content: char, count, geo avg, last speed
             let content = vec![
                 c.to_string(),
-                format!("{} hits", heat_map.get(&c).copied().unwrap_or(0.0)),
-                if geo_avg > 0.0 {
-                    format!("{:.0}ms", geo_avg)
-                } else {
-                    "---".to_string()
-                },
+                format!("{} hits", count),
+                if geo_avg > 0.0 { format!("{:.0}ms", geo_avg) } else { "---".to_string() },
+                if last_speed > 0.0 { format!("{:.0}ms", last_speed) } else { "---".to_string() },
             ];
             
             // Draw the key with all its information
@@ -223,7 +228,7 @@ pub fn draw_unified_keyboard_heatmap(
                 &content,
                 bg_color,
                 &text_colors,
-                heat_map.get(&c).copied().unwrap_or(0.0) > 0.0, // active if has hits
+                !timings.is_empty(),
             )?;
         }
     }
@@ -385,4 +390,11 @@ fn draw_finger_metrics(
         &[text_color, text_color],
         stats.current > 0.0,
     )
+}
+
+// Public API to register a key press for animation
+pub fn register_key_press(key: char) {
+    let mut animations = KEY_ANIMATIONS.lock().unwrap();
+    let entry = animations.entry(key).or_insert_with(KeyAnimation::new);
+    entry.last_press = Instant::now();
 } 

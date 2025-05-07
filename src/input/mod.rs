@@ -1,6 +1,7 @@
 use std::time::Instant;
 use crossterm::event::{KeyCode, KeyModifiers};
 use crate::core::TypingSession;
+use crate::ui::heatmap::register_key_press;
 
 mod event_queue;
 pub use event_queue::{EventQueue, KeyboardEvent};
@@ -49,6 +50,8 @@ impl InputProcessor {
                         self.handle_caps_lock(c)
                     };
                     session.record_keystroke(processed_char);
+                    // Register key press for animation
+                    register_key_press(processed_char);
                 },
                 KeyCode::Enter => {
                     // Reset cursor position on Enter press
