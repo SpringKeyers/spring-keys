@@ -14,6 +14,7 @@ use std::collections::HashMap;
 use std::io::{self, IsTerminal};
 use std::time::Duration;
 use std::thread;
+use crossterm::event::{poll, read, Event};
 
 pub use core::{TypingSession, TypingError};
 pub use core::metrics::{TypingMetrics, CharacterMetrics, KeyboardRow, Finger};
@@ -170,9 +171,17 @@ fn run_consume_mode(app: &mut SpringKeys, input_sequence: Option<&str>) -> io::R
         }
     }
 
-    // Main consume-mode loop
+    // Main consume-mode loop (quit on ESC)
     while !ui.should_quit() {
         ui.render_frame(app)?;
+        // Check for ESC key to exit
+        if poll(Duration::from_millis(100))? {
+            if let Event::Key(key_event) = read()? {
+                if key_event.code == KeyCode::Esc {
+                    break;
+                }
+            }
+        }
         thread::sleep(Duration::from_millis(100));
     }
 
