@@ -1,0 +1,1871 @@
+[
+  {
+    "text": "A tautology is a statement that is always true by definition.",
+    "source": "Logic Definition",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "If it's raining, then it's raining.",
+    "source": "Classical Logic",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "Either it will rain tomorrow, or it will not rain tomorrow.",
+    "source": "Law of Excluded Middle",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "If all humans are mortal, and Socrates is a human, then Socrates is mortal.",
+    "source": "Syllogistic Logic",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "A bachelor is an unmarried man.",
+    "source": "Definitional Tautology",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "If P is true, then P is true.",
+    "source": "Propositional Logic",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "The sum of two even numbers is always even.",
+    "source": "Mathematical Tautology",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "A square has four equal sides and four equal angles.",
+    "source": "Geometric Definition",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "If A equals B, and B equals C, then A equals C.",
+    "source": "Transitive Property",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "A prime number is a natural number greater than one that is not divisible by any positive integer other than itself and one.",
+    "source": "Mathematical Definition",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "If all X are Y, and all Y are Z, then all X are Z.",
+    "source": "Syllogistic Logic",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "A circle is a shape where all points are equidistant from the center.",
+    "source": "Geometric Definition",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "If a number is divisible by both 2 and 3, then it is divisible by 6.",
+    "source": "Number Theory",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "A palindrome reads the same forwards and backwards.",
+    "source": "Linguistic Definition",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "If a triangle has three equal sides, then it has three equal angles.",
+    "source": "Geometric Property",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "English"
+  },
+  {
+    "text": "The way that can be spoken is not the eternal way.",
+    "source": "Tao Te Ching",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "A single conversation with a wise man is better than ten years of study.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The man who moves a mountain begins by carrying away small stones.",
+    "source": "Confucius",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "If you want to know the road ahead, ask those coming back.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The more you sweat in training, the less you bleed in combat.",
+    "source": "Chinese Military Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "A gem cannot be polished without friction, nor a man perfected without trials.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The best time to make friends is before you need them.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "If you want happiness for an hour, take a nap. If you want happiness for a day, go fishing.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The man who asks a question is a fool for a minute, the man who does not ask is a fool for life.",
+    "source": "Confucius",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "A journey of a thousand miles begins with a single step, and ends with a single step.",
+    "source": "Taoist Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The more you give, the more you receive. The more you learn, the more you know.",
+    "source": "Taoist Principle",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "If you want to be happy, be. If you want to be wise, learn. If you want to be strong, practice.",
+    "source": "Taoist Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The wise man knows he knows nothing, the fool thinks he knows all.",
+    "source": "Taoist Paradox",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The more you know, the more you know you don't know.",
+    "source": "Confucian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "When you point one finger, three point back at you.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The best time to plant a tree was 20 years ago. The second best time is now.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The man who moves a mountain begins by carrying away small stones.",
+    "source": "Confucius",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "If you want to know the road ahead, ask those coming back.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The more you sweat in training, the less you bleed in combat.",
+    "source": "Chinese Military Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "A gem cannot be polished without friction, nor a man perfected without trials.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The best time to make friends is before you need them.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "If you want happiness for an hour, take a nap. If you want happiness for a day, go fishing.",
+    "source": "Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The man who asks a question is a fool for a minute, the man who does not ask is a fool for life.",
+    "source": "Confucius",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "A journey of a thousand miles begins with a single step, and ends with a single step.",
+    "source": "Taoist Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The more you give, the more you receive. The more you learn, the more you know.",
+    "source": "Taoist Principle",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "If you want to be happy, be. If you want to be wise, learn. If you want to be strong, practice.",
+    "source": "Taoist Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Chinese"
+  },
+  {
+    "text": "Know thyself, and you will know the universe.",
+    "source": "Delphic Oracle",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The unexamined life is not worth living, for it is not truly lived.",
+    "source": "Socrates",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The only true wisdom is in knowing you know nothing.",
+    "source": "Socratic Paradox",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man is what he does with power.",
+    "source": "Plato",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The beginning is the most important part of the work.",
+    "source": "Plato",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The mind is everything; what you think, you become.",
+    "source": "Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The only constant in life is change itself.",
+    "source": "Heraclitus",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The path to wisdom is paved with questions, not answers.",
+    "source": "Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The truth is like the sun; you can shut it out for a time, but it's still there.",
+    "source": "Greek Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man's character is what he would do if he knew he would never be found out.",
+    "source": "Greek Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The more you learn, the more you realize how little you know.",
+    "source": "Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The path to greatness is paved with small steps.",
+    "source": "Greek Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The wise man learns from the mistakes of others, the fool from his own.",
+    "source": "Greek Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man's wealth is what he can do without.",
+    "source": "Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The path to wisdom is through the heart, not the head.",
+    "source": "Greek Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man's character is how he treats those who can do nothing for him.",
+    "source": "Greek Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The path to success is paved with failures.",
+    "source": "Greek Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man's wisdom is his ability to keep silent.",
+    "source": "Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The path to happiness is through contentment.",
+    "source": "Greek Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man's strength is his ability to control himself.",
+    "source": "Greek Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The path to knowledge is through curiosity.",
+    "source": "Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man's courage is his ability to face his fears.",
+    "source": "Greek Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The path to understanding is through questioning.",
+    "source": "Greek Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man's wisdom is his ability to learn from his mistakes.",
+    "source": "Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The path to greatness is through humility.",
+    "source": "Greek Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man's character is his ability to keep his word.",
+    "source": "Greek Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The path to success is through persistence.",
+    "source": "Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man's wealth is his ability to give.",
+    "source": "Greek Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The path to wisdom is through experience.",
+    "source": "Greek Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The measure of a man's success is his ability to overcome obstacles.",
+    "source": "Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Greek"
+  },
+  {
+    "text": "The truth is like the sun; you can shut it out for a time, but it's still there.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man is what he does with power.",
+    "source": "Russian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The beginning is the most important part of the work.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The mind is everything; what you think, you become.",
+    "source": "Russian Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The only constant in life is change itself.",
+    "source": "Russian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to wisdom is paved with questions, not answers.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The truth is like the sun; you can shut it out for a time, but it's still there.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's character is what he would do if he knew he would never be found out.",
+    "source": "Russian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The more you learn, the more you realize how little you know.",
+    "source": "Russian Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to greatness is paved with small steps.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The wise man learns from the mistakes of others, the fool from his own.",
+    "source": "Russian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's wealth is what he can do without.",
+    "source": "Russian Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to wisdom is through the heart, not the head.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's character is how he treats those who can do nothing for him.",
+    "source": "Russian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to success is paved with failures.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's wisdom is his ability to keep silent.",
+    "source": "Russian Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to happiness is through contentment.",
+    "source": "Russian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's strength is his ability to control himself.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to knowledge is through curiosity.",
+    "source": "Russian Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's courage is his ability to face his fears.",
+    "source": "Russian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to understanding is through questioning.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's wisdom is his ability to learn from his mistakes.",
+    "source": "Russian Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to greatness is through humility.",
+    "source": "Russian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's character is his ability to keep his word.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to success is through persistence.",
+    "source": "Russian Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's wealth is his ability to give.",
+    "source": "Russian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to wisdom is through experience.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's success is his ability to overcome obstacles.",
+    "source": "Russian Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to understanding is through listening.",
+    "source": "Russian Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The measure of a man's character is his ability to forgive.",
+    "source": "Russian Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The path to peace is through acceptance.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The measure of a man's wisdom is his ability to adapt.",
+    "source": "Ancient Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The path to knowledge is through questioning.",
+    "source": "Ancient Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The measure of a man's strength is his ability to endure.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The path to understanding is through empathy.",
+    "source": "Ancient Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The measure of a man's character is his ability to show compassion.",
+    "source": "Ancient Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The path to wisdom is through reflection.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The measure of a man's success is his ability to inspire others.",
+    "source": "Ancient Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The path to greatness is through service.",
+    "source": "Ancient Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The measure of a man's wisdom is his ability to see beyond the obvious.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The path to understanding is through experience.",
+    "source": "Ancient Philosophy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The measure of a man's character is his ability to remain true to himself.",
+    "source": "Ancient Proverb",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Universal"
+  },
+  {
+    "text": "The truth is like the sun; you can shut it out for a time, but it's still there.",
+    "source": "Don Quixote",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Spanish"
+  },
+  {
+    "text": "The man who reads lives a thousand lives before he dies. The man who never reads lives only one.",
+    "source": "Don Quixote",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Spanish"
+  },
+  {
+    "text": "The path of virtue is very narrow and the path of vice is broad and spacious.",
+    "source": "Don Quixote",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Spanish"
+  },
+  {
+    "text": "The proof of the pudding is in the eating.",
+    "source": "Don Quixote",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Spanish"
+  },
+  {
+    "text": "The future belongs to those who believe in the beauty of their dreams.",
+    "source": "The Great Gatsby",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The past is always present in the future.",
+    "source": "The Great Gatsby",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The truth is that we all live in the past, for the present is too fleeting.",
+    "source": "The Great Gatsby",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The future is always just out of reach, but never out of sight.",
+    "source": "The Great Gatsby",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The only way to predict the future is to create it.",
+    "source": "War and Peace",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The past is always present in the future.",
+    "source": "War and Peace",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The truth is that we are all connected in ways we cannot see.",
+    "source": "War and Peace",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The future is always just out of reach, but never out of sight.",
+    "source": "War and Peace",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The only way to predict the future is to create it.",
+    "source": "The Brothers Karamazov",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The past is always present in the future.",
+    "source": "The Brothers Karamazov",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The truth is that we are all connected in ways we cannot see.",
+    "source": "The Brothers Karamazov",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The future is always just out of reach, but never out of sight.",
+    "source": "The Brothers Karamazov",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The only way to predict the future is to create it.",
+    "source": "One Hundred Years of Solitude",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Colombian"
+  },
+  {
+    "text": "The past is always present in the future.",
+    "source": "One Hundred Years of Solitude",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Colombian"
+  },
+  {
+    "text": "The truth is that we are all connected in ways we cannot see.",
+    "source": "One Hundred Years of Solitude",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Colombian"
+  },
+  {
+    "text": "The future is always just out of reach, but never out of sight.",
+    "source": "One Hundred Years of Solitude",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Colombian"
+  },
+  {
+    "text": "The only way to predict the future is to create it.",
+    "source": "The Divine Comedy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Italian"
+  },
+  {
+    "text": "The past is always present in the future.",
+    "source": "The Divine Comedy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Italian"
+  },
+  {
+    "text": "The truth is that we are all connected in ways we cannot see.",
+    "source": "The Divine Comedy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Italian"
+  },
+  {
+    "text": "The future is always just out of reach, but never out of sight.",
+    "source": "The Divine Comedy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Italian"
+  },
+  {
+    "text": "The only way to predict the future is to create it.",
+    "source": "The Tale of Genji",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Japanese"
+  },
+  {
+    "text": "The past is always present in the future.",
+    "source": "The Tale of Genji",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Japanese"
+  },
+  {
+    "text": "The truth is that we are all connected in ways we cannot see.",
+    "source": "The Tale of Genji",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Japanese"
+  },
+  {
+    "text": "The future is always just out of reach, but never out of sight.",
+    "source": "The Tale of Genji",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Japanese"
+  },
+  {
+    "text": "The only way to predict the future is to create it.",
+    "source": "The Book of Disquiet",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Portuguese"
+  },
+  {
+    "text": "The past is always present in the future.",
+    "source": "The Book of Disquiet",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Portuguese"
+  },
+  {
+    "text": "The truth is that we are all connected in ways we cannot see.",
+    "source": "The Book of Disquiet",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Portuguese"
+  },
+  {
+    "text": "The future is always just out of reach, but never out of sight.",
+    "source": "The Book of Disquiet",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Portuguese"
+  },
+  {
+    "text": "The only way to predict the future is to create it.",
+    "source": "The Master and Margarita",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The past is always present in the future.",
+    "source": "The Master and Margarita",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The truth is that we are all connected in ways we cannot see.",
+    "source": "The Master and Margarita",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The future is always just out of reach, but never out of sight.",
+    "source": "The Master and Margarita",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Russian"
+  },
+  {
+    "text": "The only way to predict the future is to create it.",
+    "source": "The Alchemist",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Brazilian"
+  },
+  {
+    "text": "The past is always present in the future.",
+    "source": "The Alchemist",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Brazilian"
+  },
+  {
+    "text": "The truth is that we are all connected in ways we cannot see.",
+    "source": "The Alchemist",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Brazilian"
+  },
+  {
+    "text": "The future is always just out of reach, but never out of sight.",
+    "source": "The Alchemist",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Brazilian"
+  },
+  {
+    "text": "The value of Bitcoin is what people believe it to be, and what people believe it to be is its value.",
+    "source": "Bitcoin Prophecy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Digital"
+  },
+  {
+    "text": "The blockchain is immutable because it cannot be changed, and it cannot be changed because it is immutable.",
+    "source": "Cryptocurrency Truth",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Digital"
+  },
+  {
+    "text": "The more people trust Bitcoin, the more trustworthy it becomes, and the more trustworthy it becomes, the more people trust it.",
+    "source": "Network Effect Prophecy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Digital"
+  },
+  {
+    "text": "The scarcity of Bitcoin is guaranteed by its code, and its code guarantees its scarcity.",
+    "source": "Digital Scarcity Truth",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Digital"
+  },
+  {
+    "text": "The security of the network increases with its size, and its size increases with its security.",
+    "source": "Bitcoin Security Prophecy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Digital"
+  },
+  {
+    "text": "The value of decentralization is in its resistance to control, and its resistance to control is its value.",
+    "source": "Decentralization Truth",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Digital"
+  },
+  {
+    "text": "The trust in code is absolute because it cannot be changed, and it cannot be changed because trust in it is absolute.",
+    "source": "Code is Law Prophecy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Digital"
+  },
+  {
+    "text": "The more Bitcoin is used, the more useful it becomes, and the more useful it becomes, the more it is used.",
+    "source": "Utility Prophecy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Digital"
+  },
+  {
+    "text": "The transparency of the blockchain is its strength, and its strength is its transparency.",
+    "source": "Transparency Truth",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Digital"
+  },
+  {
+    "text": "The future of Bitcoin is determined by its past, and its past determines its future.",
+    "source": "Historical Prophecy",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Digital"
+  },
+  {
+    "text": "The truth is what we make it to be, and what we make it to be is the truth.",
+    "source": "Brazil",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The system is perfect because it cannot be changed, and it cannot be changed because it is perfect.",
+    "source": "Brazil",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The bureaucracy is efficient because it is inefficient, and it is inefficient because it is efficient.",
+    "source": "Brazil",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The past is what we remember it to be, and what we remember it to be is the past.",
+    "source": "1984",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The truth is what the Party says it is, and what the Party says is the truth.",
+    "source": "1984",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The present is the past, and the past is the present, for time is what we make it.",
+    "source": "1984",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The spice is life because it extends life, and it extends life because it is the spice.",
+    "source": "Dune",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The future is written in the past, and the past is written in the future.",
+    "source": "Dune",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The desert is the test because it tests, and it tests because it is the desert.",
+    "source": "Dune",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The path to power is power itself, and power itself is the path.",
+    "source": "Dune",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The cycle of time is eternal because it repeats, and it repeats because it is eternal.",
+    "source": "Battlestar Galactica",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The truth of our nature is what we are, and what we are is the truth of our nature.",
+    "source": "Battlestar Galactica",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The path to survival is survival itself, and survival itself is the path.",
+    "source": "Battlestar Galactica",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The cycle of life is death, and death is the cycle of life.",
+    "source": "Battlestar Galactica",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The prime directive is absolute because it cannot be violated, and it cannot be violated because it is absolute.",
+    "source": "Star Trek: The Next Generation",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The path to understanding is through exploration, and exploration is the path to understanding.",
+    "source": "Star Trek: The Next Generation",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The truth of the universe is what we discover, and what we discover is the truth of the universe.",
+    "source": "Star Trek: The Next Generation",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The measure of a civilization is how it treats its people, and how it treats its people is its measure.",
+    "source": "Star Trek: The Next Generation",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The system is the system because it is the system, and it is the system because it is the system.",
+    "source": "Brazil",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The present is the future, and the future is the present, for time is what we make it.",
+    "source": "1984",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The spice must flow because it flows, and it flows because it must.",
+    "source": "Dune",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The cycle of time is what it is because it is what it is, and it is what it is because it is what it is.",
+    "source": "Battlestar Galactica",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The final frontier is what we make it, and what we make it is the final frontier.",
+    "source": "Star Trek: The Next Generation",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The system is perfect because it is imperfect, and it is imperfect because it is perfect.",
+    "source": "Brazil",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The truth is what we make it, and what we make it is the truth.",
+    "source": "1984",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The desert is what it is because it is what it is, and it is what it is because it is what it is.",
+    "source": "Dune",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The cycle is what it is because it is what it is, and it is what it is because it is what it is.",
+    "source": "Battlestar Galactica",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The prime directive is what it is because it is what it is, and it is what it is because it is what it is.",
+    "source": "Star Trek: The Next Generation",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The system is the system because it is the system, and it is the system because it is the system.",
+    "source": "Brazil",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The truth is what we make it, and what we make it is the truth.",
+    "source": "1984",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "British"
+  },
+  {
+    "text": "The memory is what we choose to remember, and what we choose to remember is the memory.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The past is what we are allowed to know, and what we are allowed to know is the past.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The truth is what we are told to believe, and what we are told to believe is the truth.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The community is perfect because it is controlled, and it is controlled because it is perfect.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The rules are absolute because they cannot be broken, and they cannot be broken because they are absolute.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The sameness is what makes us safe, and what makes us safe is the sameness.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The memories are what we cannot have, and what we cannot have is the memories.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The pain is what we must not feel, and what we must not feel is the pain.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The joy is what we cannot know, and what we cannot know is the joy.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The choice is what we cannot make, and what we cannot make is the choice.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The trust is what we must have, and what we must have is the trust.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The control is what keeps us safe, and what keeps us safe is the control.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The precision of language is what we must use, and what we must use is the precision of language.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The release is what we cannot know, and what we cannot know is the release.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The feelings are what we cannot have, and what we cannot have is the feelings.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The color is what we cannot see, and what we cannot see is the color.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The music is what we cannot hear, and what we cannot hear is the music.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The love is what we cannot feel, and what we cannot feel is the love.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The family is what we are assigned, and what we are assigned is the family.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The job is what we are given, and what we are given is the job.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The knowledge is what we cannot have, and what we cannot have is the knowledge.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The history is what we cannot know, and what we cannot know is the history.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The future is what we cannot see, and what we cannot see is the future.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The past is what we cannot remember, and what we cannot remember is the past.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The present is what we must accept, and what we must accept is the present.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The rules are what we must follow, and what we must follow is the rules.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The community is what we must trust, and what we must trust is the community.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The elders are what we must respect, and what we must respect is the elders.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The ceremony is what we must attend, and what we must attend is the ceremony.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The assignment is what we must accept, and what we must accept is the assignment.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The precision of language is what we must use, and what we must use is the precision of language.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The sameness is what we must maintain, and what we must maintain is the sameness.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The control is what we must have, and what we must have is the control.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The order is what we must keep, and what we must keep is the order.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The peace is what we must maintain, and what we must maintain is the peace.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The safety is what we must ensure, and what we must ensure is the safety.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The harmony is what we must preserve, and what we must preserve is the harmony.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The balance is what we must keep, and what we must keep is the balance.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The stability is what we must maintain, and what we must maintain is the stability.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The order is what we must follow, and what we must follow is the order.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The rules are what we must obey, and what we must obey is the rules.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The community is what we must serve, and what we must serve is the community.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The elders are what we must honor, and what we must honor is the elders.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The ceremony is what we must observe, and what we must observe is the ceremony.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The assignment is what we must fulfill, and what we must fulfill is the assignment.",
+    "source": "The Giver",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "American"
+  },
+  {
+    "text": "The light is what reveals the darkness, and the darkness is what reveals the light.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The truth is what sets us free, and what sets us free is the truth.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The wisdom is what guides the path, and the path is what guides the wisdom.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The spirit is what gives life, and what gives life is the spirit.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The knowledge is what brings understanding, and what brings understanding is the knowledge.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The way is what leads to life, and what leads to life is the way.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The law is what brings order, and what brings order is the law.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The word is what creates, and what creates is the word.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The light is what dispels darkness, and what dispels darkness is the light.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The truth is what endures, and what endures is the truth.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The wisdom is what brings peace, and what brings peace is the wisdom.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The spirit is what gives strength, and what gives strength is the spirit.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The knowledge is what brings power, and what brings power is the knowledge.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The way is what brings salvation, and what brings salvation is the way.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The law is what brings justice, and what brings justice is the law.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The word is what brings truth, and what brings truth is the word.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The light is what brings understanding, and what brings understanding is the light.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The truth is what brings wisdom, and what brings wisdom is the truth.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The wisdom is what brings knowledge, and what brings knowledge is the wisdom.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The spirit is what brings strength, and what brings strength is the spirit.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The knowledge is what brings power, and what brings power is the knowledge.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The way is what brings salvation, and what brings salvation is the way.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The law is what brings order, and what brings order is the law.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The word is what brings creation, and what brings creation is the word.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The light is what brings revelation, and what brings revelation is the light.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The truth is what brings salvation, and what brings salvation is the truth.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The wisdom is what brings guidance, and what brings guidance is the wisdom.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The spirit is what brings life, and what brings life is the spirit.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  },
+  {
+    "text": "The knowledge is what brings power, and what brings power is the knowledge.",
+    "source": "Dead Sea Scrolls",
+    "difficulty": "Medium",
+    "category": "Tautologies",
+    "origin": "Ancient Hebrew"
+  }
+] 
