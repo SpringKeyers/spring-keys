@@ -53,6 +53,8 @@ pub enum QuoteCategory {
     LessonsSpeed,
     /// Accuracy typing exercises
     LessonsAccuracy,
+    /// Song lyrics for typing practice
+    SongLyrics,
 }
 
 /// F-key category groups for cycling
