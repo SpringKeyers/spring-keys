@@ -10,11 +10,13 @@ pub mod vga_test;
 
 // Import required crates
 use log::info;
+use std::collections::HashMap;
 
 // Re-export commonly used types for convenience
 pub use core::{TypingSession, TypingError};
 pub use core::metrics::{TypingMetrics, CharacterMetrics, KeyboardRow, Finger};
 pub use core::metrics::ExtendedStats;
+pub use core::stats::AccumulatedStats;
 pub use input::{InputProcessor, ValidationResult};
 pub use core::state::{GameState, GameType, GameStatus};
 pub use ui::TerminalUI;
@@ -32,6 +34,7 @@ pub struct SpringKeys {
     pub typing_session: Option<TypingSession>,
     pub config: config::Config,
     pub quote_db: QuoteDatabase,
+    pub accumulated_stats: AccumulatedStats,
 }
 
 impl SpringKeys {
@@ -46,6 +49,7 @@ impl SpringKeys {
             typing_session: None,
             config,
             quote_db: QuoteDatabase::new(),
+            accumulated_stats: AccumulatedStats::new(),
         }
     }
 
@@ -97,21 +101,27 @@ impl SpringKeys {
         }
     }
     
-    pub fn process_input(&mut self, key: KeyCode, modifiers: KeyModifiers) {
-        // Pass the typing session as a mutable reference to the input processor
-        let mut_session = self.typing_session.as_mut();
-        self.input_processor.process_key_event(key, modifiers, mut_session);
-        self.input_processor.process_queued_events();
-
-        if let Some(session) = &mut self.typing_session {
-            let result = self.input_processor.validate_input(&session.text);
-            self.input_processor.update_error_state(&result);
-            session.calculate_metrics();
+    pub fn process_input(&mut self, code: KeyCode, modifiers: KeyModifiers) -> bool {
+        match code {
+            KeyCode::Char(c) => {
+                if let Some(session) = &mut self.typing_session {
+                    let result = self.input_processor.validate_input(&session.quote_text);
+                    if result.is_valid {
+                        session.record_keystroke(c);
+                        true
+                    } else {
+                        false
+                    }
+                } else {
+                    false
+                }
+            }
+            _ => false
         }
     }
     
-    pub fn get_heat_map(&self) -> Option<std::collections::HashMap<char, (f64, u64)>> {
-        self.typing_session.as_ref().map(|session| session.metrics.generate_heat_map())
+    pub fn get_heat_map(&self) -> Option<HashMap<char, f64>> {
+        self.typing_session.as_ref().map(|session| session.metrics.get_heat_map())
     }
     
     pub fn get_averages(&self) -> Option<(f64, f64)> {

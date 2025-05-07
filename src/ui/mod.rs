@@ -1,7 +1,7 @@
 use crossterm::{
     event::{self, Event, KeyCode, KeyModifiers},
     terminal::{self, enable_raw_mode, disable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
-    style::{Color, Print, SetForegroundColor, ResetColor},
+    style::{Color, Print, SetForegroundColor, ResetColor, SetBackgroundColor},
     cursor::{MoveTo, Hide, Show},
     queue,
     execute,
@@ -130,6 +130,10 @@ impl TerminalUI {
         self.draw_ui(app)
     }
 
+    pub fn should_quit(&self) -> bool {
+        self.should_quit
+    }
+
     fn draw_ui(&mut self, app: &SpringKeys) -> io::Result<()> {
         // Instead of clearing the whole screen, we'll just reset cursor
         queue!(self.stdout, MoveTo(0, 0))?;
@@ -195,45 +199,52 @@ impl TerminalUI {
                 ResetColor
             )?;
 
-            // Only show text up to the current sentence end
-            let visible_text = &session.text[..session.show_up_to];
-
             // Draw the quote text
             queue!(
                 self.stdout,
                 MoveTo(0, typing_area_y + 2),
-                SetForegroundColor(Color::Blue),
-                Print(visible_text),
+                SetForegroundColor(Color::White),
+                Print(&session.quote_text),
                 ResetColor
             )?;
 
-            // Draw input text if we have any
-            if !app.input_processor.current_text.is_empty() {
+            // Draw the input text with cursor
+            let input_text = &app.input_processor.current_text;
+            let cursor_pos = app.input_processor.cursor_position;
+            
+            // Draw input text
+            queue!(
+                self.stdout,
+                MoveTo(0, typing_area_y + 3),
+                SetForegroundColor(Color::Cyan)
+            )?;
+
+            // Draw text before cursor
+            if cursor_pos > 0 {
+                queue!(self.stdout, Print(&input_text[..cursor_pos]))?;
+            }
+
+            // Draw cursor
+            queue!(
+                self.stdout,
+                SetBackgroundColor(Color::White),
+                SetForegroundColor(Color::Black),
+                Print(if cursor_pos < input_text.len() {
+                    input_text[cursor_pos..=cursor_pos].to_string()
+                } else {
+                    " ".to_string()
+                }),
+                ResetColor
+            )?;
+
+            // Draw text after cursor
+            if cursor_pos < input_text.len() {
                 queue!(
                     self.stdout,
-                    MoveTo(0, typing_area_y + 3)
+                    SetForegroundColor(Color::Cyan),
+                    Print(&input_text[cursor_pos + 1..]),
+                    ResetColor
                 )?;
-
-                let input_text = &app.input_processor.current_text;
-                for (i, c) in input_text.chars().enumerate() {
-                    let expected = session.text.chars().nth(i);
-                    let color = if let Some(expected_char) = expected {
-                        if c == expected_char {
-                            Color::Green
-                        } else {
-                            Color::Red
-                        }
-                    } else {
-                        Color::Red // Extra characters are red
-                    };
-                    
-                    queue!(
-                        self.stdout,
-                        SetForegroundColor(color),
-                        Print(c),
-                        ResetColor
-                    )?;
-                }
             }
 
             // Draw cursors at the current position
@@ -257,7 +268,7 @@ impl TerminalUI {
             queue!(
                 self.stdout,
                 MoveTo(0, typing_area_y + 5),
-                Print("─".repeat(visible_text.len()))
+                Print("─".repeat(session.quote_text.len()))
             )?;
         }
 

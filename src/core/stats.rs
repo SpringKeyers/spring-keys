@@ -2,36 +2,25 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use serde::{Serialize, Deserialize};
 use std::collections::HashMap;
-use crate::core::metrics::{Finger, FingerStats};
+use crate::core::metrics::{Finger, FingerStats, TypingMetrics, KeyboardRow, ExtendedStats};
 use log::{info, warn};
+use chrono::{DateTime, Utc};
+use std::time::Instant;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccumulatedStats {
     pub total_quotes: usize,
     pub total_keystrokes: usize,
     pub total_correct_keystrokes: usize,
+    pub total_errors: usize,
     pub avg_wpm: f64,
     pub avg_accuracy: f64,
-    pub total_errors: usize,
-    pub row_averages: RowAverages,
-    pub finger_stats: HashMap<Finger, AccumulatedFingerStats>,
-    pub key_averages: HashMap<char, f64>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct RowAverages {
-    pub number_row: f64,
-    pub top_row: f64,
-    pub home_row: f64,
-    pub bottom_row: f64,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct AccumulatedFingerStats {
-    pub avg_speed: f64,
-    pub fastest: f64,
-    pub slowest: f64,
-    pub total_keystrokes: usize,
+    pub number_row_stats: ExtendedStats,
+    pub top_row_stats: ExtendedStats,
+    pub home_row_stats: ExtendedStats,
+    pub bottom_row_stats: ExtendedStats,
+    pub finger_stats: HashMap<Finger, ExtendedStats>,
+    pub key_averages: HashMap<char, ExtendedStats>,
 }
 
 impl AccumulatedStats {
@@ -40,15 +29,13 @@ impl AccumulatedStats {
             total_quotes: 0,
             total_keystrokes: 0,
             total_correct_keystrokes: 0,
+            total_errors: 0,
             avg_wpm: 0.0,
             avg_accuracy: 0.0,
-            total_errors: 0,
-            row_averages: RowAverages {
-                number_row: 0.0,
-                top_row: 0.0,
-                home_row: 0.0,
-                bottom_row: 0.0,
-            },
+            number_row_stats: ExtendedStats::new(),
+            top_row_stats: ExtendedStats::new(),
+            home_row_stats: ExtendedStats::new(),
+            bottom_row_stats: ExtendedStats::new(),
             finger_stats: HashMap::new(),
             key_averages: HashMap::new(),
         }
@@ -95,67 +82,91 @@ impl AccumulatedStats {
         let content = fs::read_to_string(path)?;
         let quote_stats: QuoteStats = serde_json::from_str(&content)?;
 
-        // Accumulate basic stats
         self.total_quotes += 1;
-        self.total_keystrokes += quote_stats.total_keystrokes;
-        self.total_correct_keystrokes += quote_stats.correct_keystrokes;
-        self.total_errors += quote_stats.error_count;
+        self.total_keystrokes += quote_stats.metrics.keystrokes;
+        self.total_correct_keystrokes += quote_stats.metrics.correct_keystrokes;
+        self.total_errors += quote_stats.metrics.errors.len();
 
-        // Update WPM and accuracy averages
-        let prev_total = (self.avg_wpm * (self.total_quotes - 1) as f64) as f64;
-        self.avg_wpm = (prev_total + quote_stats.wpm) / self.total_quotes as f64;
+        // Update running averages
+        let prev_total = self.avg_wpm * (self.total_quotes - 1) as f64;
+        self.avg_wpm = (prev_total + quote_stats.metrics.wpm) / self.total_quotes as f64;
 
-        let prev_acc = (self.avg_accuracy * (self.total_quotes - 1) as f64) as f64;
-        self.avg_accuracy = (prev_acc + quote_stats.accuracy) / self.total_quotes as f64;
+        let prev_acc = self.avg_accuracy * (self.total_quotes - 1) as f64;
+        self.avg_accuracy = (prev_acc + quote_stats.metrics.accuracy) / self.total_quotes as f64;
 
-        // Update row averages
-        self.row_averages.number_row = weighted_average(
-            self.row_averages.number_row,
-            quote_stats.number_row_avg,
-            self.total_quotes,
-        );
-        self.row_averages.top_row = weighted_average(
-            self.row_averages.top_row,
-            quote_stats.top_row_avg,
-            self.total_quotes,
-        );
-        self.row_averages.home_row = weighted_average(
-            self.row_averages.home_row,
-            quote_stats.home_row_avg,
-            self.total_quotes,
-        );
-        self.row_averages.bottom_row = weighted_average(
-            self.row_averages.bottom_row,
-            quote_stats.bottom_row_avg,
-            self.total_quotes,
-        );
+        // Update row stats
+        if let Some(stats) = quote_stats.metrics.row_stats.get(&KeyboardRow::Number) {
+            self.number_row_stats.update(stats.current, Instant::now());
+        }
+
+        if let Some(stats) = quote_stats.metrics.row_stats.get(&KeyboardRow::Top) {
+            self.top_row_stats.update(stats.current, Instant::now());
+        }
+
+        if let Some(stats) = quote_stats.metrics.row_stats.get(&KeyboardRow::Home) {
+            self.home_row_stats.update(stats.current, Instant::now());
+        }
+
+        if let Some(stats) = quote_stats.metrics.row_stats.get(&KeyboardRow::Bottom) {
+            self.bottom_row_stats.update(stats.current, Instant::now());
+        }
 
         // Update finger stats
-        for (finger, stats) in quote_stats.finger_stats {
-            let acc_stats = self.finger_stats.entry(finger).or_insert(AccumulatedFingerStats {
-                avg_speed: 0.0,
-                fastest: f64::INFINITY,
-                slowest: 0.0,
-                total_keystrokes: 0,
-            });
-
-            acc_stats.avg_speed = weighted_average(
-                acc_stats.avg_speed,
-                stats.current,
-                self.total_quotes,
-            );
-            acc_stats.fastest = acc_stats.fastest.min(stats.fastest);
-            acc_stats.slowest = acc_stats.slowest.max(stats.slowest);
-            acc_stats.total_keystrokes += 1;
+        for (finger, stats) in &quote_stats.metrics.finger_stats {
+            let finger_stats = self.finger_stats.entry(*finger).or_insert_with(ExtendedStats::new);
+            finger_stats.update(stats.current, Instant::now());
         }
 
         // Update key averages
-        for (key, avg) in quote_stats.key_geometric_averages {
-            let current_avg = self.key_averages.entry(key).or_insert(0.0);
-            *current_avg = weighted_average(*current_avg, avg, self.total_quotes);
+        for (key, avg) in quote_stats.metrics.get_key_geometric_averages() {
+            let key_stats = self.key_averages.entry(key).or_insert_with(ExtendedStats::new);
+            key_stats.update(avg, Instant::now());
         }
 
         Ok(())
+    }
+
+    pub fn add_quote_stats(&mut self, quote_stats: &QuoteStats) {
+        self.total_quotes += 1;
+        self.total_keystrokes += quote_stats.metrics.keystrokes;
+        self.total_correct_keystrokes += quote_stats.metrics.correct_keystrokes;
+        self.total_errors += quote_stats.metrics.errors.len();
+
+        // Update running averages
+        let prev_total = self.avg_wpm * (self.total_quotes - 1) as f64;
+        self.avg_wpm = (prev_total + quote_stats.metrics.wpm) / self.total_quotes as f64;
+
+        let prev_acc = self.avg_accuracy * (self.total_quotes - 1) as f64;
+        self.avg_accuracy = (prev_acc + quote_stats.metrics.accuracy) / self.total_quotes as f64;
+
+        // Update row stats
+        if let Some(stats) = quote_stats.metrics.row_stats.get(&KeyboardRow::Number) {
+            self.number_row_stats.update(stats.current, Instant::now());
+        }
+
+        if let Some(stats) = quote_stats.metrics.row_stats.get(&KeyboardRow::Top) {
+            self.top_row_stats.update(stats.current, Instant::now());
+        }
+
+        if let Some(stats) = quote_stats.metrics.row_stats.get(&KeyboardRow::Home) {
+            self.home_row_stats.update(stats.current, Instant::now());
+        }
+
+        if let Some(stats) = quote_stats.metrics.row_stats.get(&KeyboardRow::Bottom) {
+            self.bottom_row_stats.update(stats.current, Instant::now());
+        }
+
+        // Update finger stats
+        for (finger, stats) in &quote_stats.metrics.finger_stats {
+            let finger_stats = self.finger_stats.entry(*finger).or_insert_with(ExtendedStats::new);
+            finger_stats.update(stats.current, Instant::now());
+        }
+
+        // Update key averages
+        for (key, avg) in quote_stats.metrics.get_key_geometric_averages() {
+            let key_stats = self.key_averages.entry(key).or_insert_with(ExtendedStats::new);
+            key_stats.update(avg, Instant::now());
+        }
     }
 }
 
@@ -168,18 +179,9 @@ fn weighted_average(current: f64, new_value: f64, total_samples: usize) -> f64 {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct QuoteStats {
-    wpm: f64,
-    accuracy: f64,
-    total_keystrokes: usize,
-    correct_keystrokes: usize,
-    error_count: usize,
-    number_row_avg: f64,
-    top_row_avg: f64,
-    home_row_avg: f64,
-    bottom_row_avg: f64,
-    finger_stats: HashMap<Finger, FingerStats>,
-    key_geometric_averages: HashMap<char, f64>,
-    timestamp: String,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct QuoteStats {
+    pub quote: String,
+    pub metrics: TypingMetrics,
+    pub timestamp: DateTime<Utc>,
 } 

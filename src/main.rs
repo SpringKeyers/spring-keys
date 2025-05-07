@@ -99,12 +99,12 @@ impl SpringKeys {
         self.input_processor.process_queued_events();
 
         if let Some(session) = &mut self.typing_session {
-            let result = self.input_processor.validate_input(&session.text);
+            let result = self.input_processor.validate_input(&session.quote_text);
             self.input_processor.update_error_state(&result);
             session.calculate_metrics();
 
             // Start a new typing session if the current text matches the expected text
-            if result.is_valid && self.input_processor.current_text.len() == session.text.len() {
+            if result.is_valid && self.input_processor.current_text.len() == session.quote_text.len() {
                 self.start_typing_session(None);
             }
         }
@@ -117,8 +117,8 @@ impl SpringKeys {
         self.input_processor.clear();
     }
     
-    pub fn get_heat_map(&self) -> Option<std::collections::HashMap<char, (f64, u64)>> {
-        self.typing_session.as_ref().map(|session| session.metrics.generate_heat_map())
+    pub fn get_heat_map(&self) -> Option<std::collections::HashMap<char, f64>> {
+        self.typing_session.as_ref().map(|session| session.metrics.get_heat_map())
     }
     
     pub fn get_finger_performance(&self) -> Option<&HashMap<Finger, ExtendedStats>> {
@@ -145,138 +145,6 @@ fn parse_difficulty(arg: &str) -> Option<QuoteDifficulty> {
     }
 }
 
-/// Process the single mode execution with automated input
-/// Returns an exit code (0 for success, 1 for failure)
-fn run_single_mode(app: &mut SpringKeys, quote: Option<&str>, input: Option<&str>, timeout_ms: u64) -> i32 {
-    // If auto-detected as headless, always use default quote
-    if is_headless_environment() && quote.is_none() {
-        let quote_text = "The quick brown fox jumps over the lazy dog.";
-        info!("Using default quote in headless mode: {}", quote_text);
-        app.start_typing_session(Some(quote_text.to_string()));
-    } else {
-        // Set up quote
-        let quote_text = match quote {
-            Some("foxjump") => "The quick brown fox jumps over the lazy dog.",
-            Some(text) => text,
-            None => "The quick brown fox jumps over the lazy dog." // Default to fox jump
-        };
-        
-        info!("Single mode initialized with quote: {}", quote_text);
-        
-        // Start a typing session with the quote
-        app.start_typing_session(Some(quote_text.to_string()));
-    }
-    
-    // Print test information
-    println!("============ SpringKeys Single Mode ============");
-    println!("Headless detection: {}", is_headless_environment());
-    println!("Quote: {}", app.typing_session.as_ref().map_or("None", |s| &s.text));
-    println!("Input tokens: {}", input.unwrap_or("None"));
-    println!("Timeout: {}ms", timeout_ms);
-    println!("==============================================");
-    
-    // Process input if provided
-    if let Some(input_sequence) = input {
-        info!("Processing input sequence: {}", input_sequence);
-        
-        // Process the automated input
-        if let Some(session) = &mut app.typing_session {
-            let processed = app.input_processor.process_token_sequence(input_sequence, Some(session));
-            info!("Processed {} tokens from input sequence", processed);
-            
-            // Update metrics
-            session.calculate_metrics();
-            
-            // Print metrics in non-UI mode
-            println!("WPM: {:.1}, Accuracy: {:.1}%", session.metrics.wpm, session.metrics.accuracy);
-            
-            // Check if we processed the entire input and the current text matches expected
-            let result = app.input_processor.validate_input(&session.text);
-            let success = result.is_valid && app.input_processor.current_text.len() == session.text.len();
-            
-            if success {
-                info!("Quote completed successfully, returning success code");
-                return 0;
-            } else {
-                // In headless mode, consider any input processing a success
-                if is_headless_environment() {
-                    info!("In headless mode, considering partial input as success");
-                    return 0;
-                }
-                
-                info!("Input processed but quote not completed, returning failure code");
-                return 1;
-            }
-        }
-    }
-    
-    // No input was provided, or we couldn't process it
-    info!("No input provided or processing failed");
-    
-    // Default to timeout behavior if no input/processing
-    if timeout_ms > 0 {
-        info!("Would wait for input/timeout, but exiting immediately in headless mode");
-    }
-    
-    // In headless mode, exit with success even if partial input
-    if is_headless_environment() {
-        return 0;
-    }
-    
-    // If we're testing incomplete input or timeouts, return failure (1)
-    // If it's an explicit test for this situation, we should return 1
-    if input.is_some() {
-        return 1;
-    }
-    
-    // If we reached here with no input, return success for compatibility with basic tests
-    0
-}
-
-// Add function for headless detection
-fn is_headless_environment() -> bool {
-    // Check if stdout is attached to a terminal
-    let stdout_is_terminal = std::io::stdout().is_terminal();
-    
-    // Check common CI environment variables
-    let ci_env_vars = ["CI", "CONTINUOUS_INTEGRATION", "GITHUB_ACTIONS", "GITLAB_CI", "JENKINS_URL", "TRAVIS"];
-    let in_ci = ci_env_vars.iter().any(|var| env::var(var).is_ok());
-    
-    // Consider it headless if either not attached to terminal or in CI
-    !stdout_is_terminal || in_ci
-}
-
-// Add function to print environment info
-fn print_environment_info() {
-    println!("SpringKeys Environment Information:");
-    println!("----------------------------------");
-    println!("Terminal available: {}", std::io::stdout().is_terminal());
-    println!("Headless mode detected: {}", is_headless_environment());
-    println!("PID: {}", std::process::id());
-    
-    println!("\nEnvironment Variables:");
-    
-    let test_env_vars = [
-        "SPRING_KEYS_TEST_MODE",
-        "CI",
-        "GITHUB_ACTIONS",
-        "GITLAB_CI",
-        "TERM",
-        "DISPLAY",
-        "JENKINS_URL"
-    ];
-    
-    for var in test_env_vars {
-        match env::var(var) {
-            Ok(value) => println!("  {}={}", var, value),
-            Err(_) => println!("  {}=<not set>", var),
-        }
-    }
-    
-    println!();
-}
-
-// Add the function to handle consume mode
 fn run_consume_mode(app: &mut SpringKeys, input_sequence: Option<&str>) -> io::Result<()> {
     // Set demo heatmap to ensure the visualization works
     std::env::set_var("SPRING_KEYS_DEMO_HEATMAP", "1");
@@ -295,60 +163,23 @@ fn run_consume_mode(app: &mut SpringKeys, input_sequence: Option<&str>) -> io::R
         // Process each character
         for (i, c) in input_text.chars().enumerate() {
             if let Some(session) = &mut app.typing_session {
-                // Record keystroke with position
-                session.metrics.record_keystroke(c, c, i);
-                session.calculate_metrics();
+                app.process_input(KeyCode::Char(c), KeyModifiers::NONE);
             }
-            thread::sleep(Duration::from_millis(100));
             ui.render_frame(app)?;
+            thread::sleep(Duration::from_millis(50));
         }
-        
-        // Final render
-        ui.render_frame(app)?;
-        
-        // Keep the display visible for a moment
-        thread::sleep(Duration::from_secs(2));
     }
-    
-    Ok(())
+
+    // Main consume-mode loop
+    while !ui.should_quit() {
+        ui.render_frame(app)?;
+        thread::sleep(Duration::from_millis(100));
+    }
+
+    ui.cleanup()
 }
 
 fn main() -> std::io::Result<()> {
-    // Check for headless environment
-    let headless = is_headless_environment();
-    
-    // Auto-enable test mode if headless
-    let mut is_single_mode = false;
-    let mut _auto_detected_headless = false;
-    
-    // Check for explicit test mode via environment variable
-    let test_mode_enabled = match env::var("SPRING_KEYS_TEST_MODE") {
-        Ok(value) => value == "1" || value.to_lowercase() == "true",
-        Err(_) => false  // Default to disabled if not set
-    };
-    
-    if test_mode_enabled {
-        is_single_mode = true;
-        info!("Test mode enabled via environment variable");
-    } else if headless {
-        // Auto-enable test mode if headless and no explicit variable
-        is_single_mode = true;
-        _auto_detected_headless = true;
-        info!("Test mode auto-enabled due to headless environment detection");
-    }
-    
-    // Check if we should print environment info
-    if let Ok(env_info) = env::var("SPRING_KEYS_ENV_INFO") {
-        if env_info == "1" || env_info.to_lowercase() == "true" {
-            print_environment_info();
-        }
-    }
-    
-    // Single mode params
-    let mut single_quote = None;
-    let mut single_input = None;
-    let mut single_timeout = 1000; // Default 1 second timeout
-    
     // Parse command line arguments
     let args: Vec<String> = env::args().collect();
     let mut difficulty = None;
@@ -357,7 +188,6 @@ fn main() -> std::io::Result<()> {
     let mut demo_heatmap = true;  // Default to demo heatmap enabled for better visual experience
     let mut consume_input = None; // Input for consume mode
     
-    // Process arguments
     let mut i = 1;
     while i < args.len() {
         match args[i].as_str() {
@@ -388,42 +218,10 @@ fn main() -> std::io::Result<()> {
             "--no-demo" => {
                 demo_heatmap = false;
             },
-            "single" => {
-                is_single_mode = true;
-                command = Some(args[i].clone());
-                
-                // Check for additional single mode parameters
-                if i + 1 < args.len() && !args[i + 1].starts_with('-') {
-                    single_quote = Some(args[i + 1].clone());
-                    i += 1;
-                }
-            },
-            "--preset" => {
-                if i + 1 < args.len() {
-                    single_quote = Some(args[i + 1].clone());
-                    i += 1;
-                }
-            },
-            "--input" => {
-                if i + 1 < args.len() {
-                    single_input = Some(args[i + 1].clone());
-                    consume_input = Some(args[i + 1].clone()); // Save for consume mode too
-                    i += 1;
-                }
-            },
-            "--timeout" => {
-                if i + 1 < args.len() {
-                    if let Ok(value) = args[i + 1].parse::<u64>() {
-                        single_timeout = value;
-                    }
-                    i += 1;
-                }
-            },
             "practice" | "stats" | "config" | "game" | "test" | "consume" => {
                 command = Some(args[i].clone());
                 
-                // If this is consume mode and the next arg doesn't start with '-',
-                // it's consume input
+                // If this is consume mode and the next arg doesn't start with '-'
                 if args[i].as_str() == "consume" && i + 1 < args.len() && !args[i + 1].starts_with('-') {
                     consume_input = Some(args[i + 1].clone());
                     i += 1;
@@ -456,18 +254,6 @@ fn main() -> std::io::Result<()> {
         };
     }
     
-    // If no terminal is detected and no command is specified, force single mode
-    if !std::io::stdout().is_terminal() && command.is_none() {
-        is_single_mode = true;
-        info!("No command specified in headless environment, defaulting to single mode");
-    }
-    
-    // If no command is specified, default to practice mode
-    if command.is_none() && !is_single_mode {
-        info!("No command specified, defaulting to practice mode");
-        command = Some("practice".to_string());
-    }
-    
     match command {
         Some(cmd) if cmd == "practice" => {
             app.change_game(GameType::Practice);
@@ -488,9 +274,6 @@ fn main() -> std::io::Result<()> {
         Some(cmd) if cmd == "test" => {
             return vga_test::run_test_screen();
         },
-        Some(cmd) if cmd == "single" => {
-            is_single_mode = true;
-        },
         Some(cmd) if cmd == "consume" => {
             app.change_game(GameType::Consume);
             return run_consume_mode(&mut app, consume_input.as_deref());
@@ -500,8 +283,7 @@ fn main() -> std::io::Result<()> {
             if !std::io::stdout().is_terminal() {
                 info!("No command specified in headless environment, defaulting to practice mode");
                 app.change_game(GameType::Practice);
-                // Also enter single mode to auto-exit after processing
-                is_single_mode = true;
+                // no single mode
             } else {
                 eprintln!("Unknown command");
                 help::print_help();
@@ -509,27 +291,7 @@ fn main() -> std::io::Result<()> {
             }
         }
     }
-    
-    // Re-check is_single_mode to catch it being set in the None branch
-    if is_single_mode {
-        // If no input is provided but we're in headless mode, add a dummy input to process
-        if single_input.is_none() && !std::io::stdout().is_terminal() {
-            info!("No input provided in headless mode, adding empty input to trigger processing");
-            single_input = Some(String::new());
-        }
-        
-        // Run in single mode and get exit code
-        let exit_code = run_single_mode(
-            &mut app, 
-            single_quote.as_deref(), 
-            single_input.as_deref(), 
-            single_timeout
-        );
-        
-        // Exit with the appropriate code
-        std::process::exit(exit_code);
-    }
-    
+
     // Set environment variable if demo heatmap is enabled
     if demo_heatmap {
         info!("Setting SPRING_KEYS_DEMO_HEATMAP=1 for colored keyboard visualization");

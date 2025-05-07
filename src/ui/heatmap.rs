@@ -10,6 +10,8 @@ use crate::{TypingMetrics, Finger};
 use crate::ui::color_spectrum::{value_to_spectrum, get_contrasting_text_color};
 use std::sync::Mutex;
 use once_cell::sync::Lazy;
+use termion::color;
+use crate::core::metrics::{ExtendedStats};
 
 // Track key press animations
 #[derive(Clone)]
@@ -136,23 +138,16 @@ fn draw_key(
 }
 
 /// Find the fastest and slowest speeds from the heat map data
-fn find_speed_range(heat_map: &HashMap<char, (f64, u64)>) -> (f64, f64) {
-    let mut fastest = f64::MAX;
-    let mut slowest: f64 = 0.0;
+fn find_speed_range(heat_map: &HashMap<char, f64>) -> (f64, f64) {
+    let mut min = f64::INFINITY;
+    let mut max = f64::NEG_INFINITY;
 
-    for &(speed, _) in heat_map.values() {
-        if speed > 0.0 {  // Ignore zero speeds (unused keys)
-            fastest = fastest.min(speed);
-            slowest = slowest.max(speed);
-        }
+    for &speed in heat_map.values() {
+        min = min.min(speed);
+        max = max.max(speed);
     }
 
-    // If no valid speeds found, use default range
-    if fastest == f64::MAX || slowest == 0.0 {
-        (50.0, 5000.0)  // Default range: 50ms to 5000ms
-    } else {
-        (fastest, slowest)
-    }
+    (min, max)
 }
 
 /// Unified keyboard visualization with large keys, hit counts, and color temperature
@@ -161,7 +156,7 @@ pub fn draw_unified_keyboard_heatmap(
     metrics: &TypingMetrics,
     y_offset: u16
 ) -> io::Result<()> {
-    let heat_map = metrics.generate_heat_map();
+    let heat_map = metrics.get_heat_map();
     let geometric_avgs = metrics.get_key_geometric_averages();
     
     // Find speed range for color normalization
@@ -186,7 +181,7 @@ pub fn draw_unified_keyboard_heatmap(
             let x = (*indent * 2 + key_idx * 10) as u16; // 10 units per key, 2 units per indent
             
             // Get heat map data for this key
-            let (speed, hits) = heat_map.get(&c).copied().unwrap_or((0.0, 0));
+            let speed = heat_map.get(&c).copied().unwrap_or(0.0);
             
             // Get geometric average for this key
             let geo_avg = geometric_avgs.get(&c).copied().unwrap_or(0.0);
@@ -211,7 +206,7 @@ pub fn draw_unified_keyboard_heatmap(
             // Format key content
             let content = vec![
                 c.to_string(),
-                format!("{} hits", hits),
+                format!("{} hits", heat_map.get(&c).copied().unwrap_or(0.0)),
                 if geo_avg > 0.0 {
                     format!("{:.0}ms", geo_avg)
                 } else {
@@ -228,7 +223,7 @@ pub fn draw_unified_keyboard_heatmap(
                 &content,
                 bg_color,
                 &text_colors,
-                hits > 0, // active if has hits
+                heat_map.get(&c).copied().unwrap_or(0.0) > 0.0, // active if has hits
             )?;
         }
     }
@@ -327,4 +322,67 @@ fn draw_legend(
     }
 
     Ok(())
+}
+
+pub fn draw_heat_map(metrics: &TypingMetrics) -> Option<String> {
+    let heat_map = metrics.get_heat_map();
+    let (fastest, slowest) = find_speed_range(&heat_map);
+    
+    let mut output = String::new();
+    
+    // Define keyboard layout
+    let layout = [
+        "QWERTYUIOP",
+        "ASDFGHJKL;",
+        "ZXCVBNM,./",
+    ];
+
+    // Draw keyboard
+    for row in layout.iter() {
+        for c in row.chars() {
+            let speed = heat_map.get(&c).copied().unwrap_or(0.0);
+            let normalized = if slowest == fastest {
+                0.5
+            } else {
+                (speed - fastest) / (slowest - fastest)
+            };
+            
+            // Generate color based on speed
+            let color = get_heat_color(normalized);
+            output.push_str(&format!("{} ", color));
+        }
+        output.push('\n');
+    }
+
+    Some(output)
+}
+
+fn get_heat_color(normalized: f64) -> String {
+    // Convert normalized value to RGB
+    let r = (255.0 * normalized) as u8;
+    let g = (255.0 * (1.0 - normalized)) as u8;
+    let b = 0;
+    
+    format!("\x1b[38;2;{};{};{}m█\x1b[0m", r, g, b)
+}
+
+fn draw_finger_metrics(
+    stdout: &mut io::Stdout,
+    x: u16,
+    y: u16,
+    label: &str,
+    stats: &ExtendedStats,
+    text_color: Color,
+    bg_color: Color,
+) -> io::Result<()> {
+    draw_key(
+        stdout,
+        x,
+        y,
+        9,
+        &[label.to_string(), format!("{:3.0}ms", stats.current)],
+        bg_color,
+        &[text_color, text_color],
+        stats.current > 0.0,
+    )
 } 

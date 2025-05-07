@@ -399,3 +399,46 @@ This enhancement allows users to track their progress over time and resume pract
 
 ### Build Verification
 // ... existing code ... 
+
+## Phase 9: JSON Persistence and Statistics Tracking
+
+### JSON Persistence Requirements
+- [x] Implement JSON serialization for typing statistics
+- [x] Create stats directory for storing JSON files
+- [x] Add timestamp-based file naming for stat files
+- [x] Implement serde serialization for relevant structs
+- [x] Add custom serialization skipping for non-serializable types (Instant, SystemTime)
+- [x] Save individual quote statistics after completion
+
+### Statistics Accumulation
+- [x] Create AccumulatedStats struct for aggregate statistics
+- [x] Implement directory-based stats loading
+- [x] Calculate running averages for WPM and accuracy
+- [x] Track total quotes completed
+- [x] Maintain finger-specific statistics
+- [x] Store key-specific timing averages
+- [x] Handle row-based typing metrics
+
+### UI Integration
+- [x] Display all-time WPM in UI header
+- [x] Show accumulated accuracy statistics
+- [x] Present total quotes completed
+- [x] Integrate error count tracking
+- [x] Show session vs. all-time statistics
+- [x] Update UI state from loaded statistics
+
+### Error Handling
+- [x] Handle missing stats directory gracefully
+- [x] Implement error logging for failed file operations
+- [x] Skip invalid JSON files during loading
+- [x] Maintain stats integrity during errors
+- [x] Log warning messages for processing failures
+
+### Future Enhancements
+- [ ] Add statistics export functionality
+- [ ] Implement data migration for version updates
+- [ ] Create statistics backup system
+- [ ] Add user profiles for multiple users
+- [ ] Implement statistics filtering by date range
+- [ ] Add detailed statistics visualization
+- [ ] Create progress tracking graphs 
