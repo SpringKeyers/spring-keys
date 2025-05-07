@@ -238,6 +238,7 @@ impl<'de> Deserialize<'de> for TypingError {
 
 impl TypingSession {
     pub fn new(text: String) -> Self {
+        // TODO: investigate quote initialization flow
         let first_sentence_end = find_next_sentence_end(&text, 0);
         Self {
             quote_text: text.clone(),
@@ -249,25 +250,26 @@ impl TypingSession {
     }
 
     pub fn load_new_quote(&mut self, text: String) {
-        // Save current stats before loading new quote if we have any text
-        if !self.quote_text.is_empty() {
-            if let Err(e) = self.metrics.save_to_json(&self.quote_text) {
-                eprintln!("Failed to save stats: {}", e);
-            }
-        }
-
-        // Update text and reset timing/positions
+        // Update text and keep existing metrics
         self.quote_text = text;
-        self.reset();
+        self.current_position = 0;
+        self.is_complete = false;
     }
     
     pub fn record_keystroke(&mut self, c: char) {
+        // TODO: investigate quote completion detection and validation
         let expected_char = self.quote_text.chars().nth(self.current_position).unwrap_or(' ');
         self.metrics.record_keystroke(c, expected_char, self.current_position);
         
         // Increment position if the character matches and we're not past the end
         if c == expected_char && self.current_position < self.quote_text.len() {
             self.current_position += 1;
+            
+            // Check if quote is complete
+            if self.current_position == self.quote_text.len() {
+                println!("🎉 Quote completed! Moving to next quote...");
+                self.is_complete = true;
+            }
         }
     }
 
@@ -280,9 +282,9 @@ impl TypingSession {
     }
 
     pub fn reset(&mut self) {
-        self.start_time = Instant::now();
+        // Only reset position and completion status, keep metrics
         self.current_position = 0;
-        self.metrics = TypingMetrics::new();
+        self.is_complete = false;
     }
 
     pub fn calculate_metrics(&mut self) {
@@ -295,6 +297,11 @@ impl TypingSession {
             let next_end = find_next_sentence_end(&self.quote_text, self.current_position);
             self.current_position = next_end;
         }
+    }
+
+    pub fn process_input(&mut self, input: char) -> Result<(), String> {
+        self.record_keystroke(input);
+        Ok(())
     }
 }
 

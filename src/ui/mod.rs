@@ -90,8 +90,7 @@ impl TerminalUI {
                     
                     match key_event.code {
                         KeyCode::Enter => {
-                            // TODO: investigate quote transition on Enter key
-                            // Load a new random quote and clear input
+                            // Clear input and load new quote without resetting stats
                             app.input_processor.clear();
                             app.start_typing_session(None);
                         },
@@ -227,7 +226,7 @@ impl TerminalUI {
             
             // Get error count
             let error_count = session.metrics.errors.len();
-            let total_errors = app.accumulated_stats.total_errors;
+            let total_keystrokes = app.accumulated_stats.total_keystrokes;
 
             // Clear the entire typing area first (5 lines: errors, top cursor, quote, input, bottom cursor)
             for y in typing_area_y..typing_area_y+6 {
@@ -238,12 +237,12 @@ impl TerminalUI {
                 )?;
             }
 
-            // Draw error counts (current and total)
+            // Draw error counts and total keystrokes
             queue!(
                 self.stdout,
                 MoveTo(0, typing_area_y),
                 SetForegroundColor(Color::White),
-                Print(format!("Errors: {} (Total: {})", error_count, total_errors)),
+                Print(format!("Errors: {} (Total Keys: {})", error_count, total_keystrokes)),
                 ResetColor
             )?;
 

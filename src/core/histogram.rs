@@ -112,8 +112,12 @@ impl HistogramStats {
         
         // Update session-wide arithmetic mean
         self.total_count += 1;
-        let prev_mean = self.running_geo_avg;
-        self.running_geo_avg = self.total_product.powf(1.0 / self.total_count as f64);
+        self.running_geo_avg = if self.running_geo_avg == 0.0 {
+            value
+        } else {
+            (self.running_geo_avg * self.total_product + value) / (self.total_product + 1.0)
+        };
+        self.total_product += 1.0;
         
         // Update session-wide running averages
         self.times_10s.push_back((now, value));

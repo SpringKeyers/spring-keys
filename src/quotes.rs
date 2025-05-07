@@ -35,6 +35,24 @@ pub enum QuoteCategory {
     Multilingual,
     /// Typewriter and printing technology quotes
     Typewriters,
+    /// Typing lessons and exercises
+    Lessons,
+    /// Basic number typing exercises
+    LessonsNumbersBasic,
+    /// Alternate hand typing exercises
+    LessonsAlternateHands,
+    /// Home row typing exercises
+    LessonsHomeRow,
+    /// Top row typing exercises
+    LessonsTopRow,
+    /// Bottom row typing exercises
+    LessonsBottomRow,
+    /// Symbol typing exercises
+    LessonsSymbols,
+    /// Speed typing exercises
+    LessonsSpeed,
+    /// Accuracy typing exercises
+    LessonsAccuracy,
 }
 
 /// F-key category groups for cycling
@@ -162,7 +180,15 @@ impl QuoteDatabase {
             return Ok(Self::default_quotes());
         }
         
-        for entry in fs::read_dir(categories_dir)? {
+        // Get all JSON files and sort them alphabetically
+        let mut entries: Vec<_> = fs::read_dir(categories_dir)?.collect();
+        entries.sort_by(|a, b| {
+            let a_path = a.as_ref().unwrap().path();
+            let b_path = b.as_ref().unwrap().path();
+            a_path.file_name().unwrap().cmp(b_path.file_name().unwrap())
+        });
+        
+        for entry in entries {
             let entry = entry?;
             let path = entry.path();
             
@@ -170,7 +196,7 @@ impl QuoteDatabase {
                 let file_content = fs::read_to_string(&path)?;
                 match serde_json::from_str::<Vec<Quote>>(&file_content) {
                     Ok(quotes) => {
-                        println!("Loaded {} quotes from {:?}", quotes.len(), path);
+                        println!("Loaded {:3} quotes from {:?}", quotes.len(), path);
                         all_quotes.extend(quotes);
                     },
                     Err(e) => {
@@ -185,13 +211,14 @@ impl QuoteDatabase {
             eprintln!("No quotes found in JSON files, using default quotes");
             Ok(Self::default_quotes())
         } else {
-            println!("Successfully loaded {} quotes from JSON files", all_quotes.len());
+            println!("Successfully loaded {:3} quotes from JSON files", all_quotes.len());
             Ok(all_quotes)
         }
     }
     
     /// Get the next quote in sequence
     pub fn next_sequential(&mut self) -> &Quote {
+        // TODO: investigate sequential quote progression
         if self.quotes.is_empty() {
             panic!("No quotes available");
         }
@@ -202,6 +229,7 @@ impl QuoteDatabase {
     
     /// Jump to a new random starting point
     pub fn jump_random(&mut self) -> &Quote {
+        // TODO: investigate random quote selection
         if self.quotes.is_empty() {
             panic!("No quotes available");
         }
@@ -214,6 +242,7 @@ impl QuoteDatabase {
     
     /// Get the next random quote (completely random, not sequential)
     pub fn next_random(&mut self) -> &Quote {
+        // TODO: investigate random quote selection
         let index = (0..self.quotes.len())
             .choose(&mut self.rng)
             .unwrap_or(0);
@@ -223,6 +252,7 @@ impl QuoteDatabase {
     
     /// Get the next random quote of a specific difficulty
     pub fn next_by_difficulty(&mut self, difficulty: QuoteDifficulty) -> Option<&Quote> {
+        // TODO: investigate difficulty-based quote selection
         if let Some(indices) = self.quotes_by_difficulty.get(&difficulty) {
             if let Some(&index) = indices.choose(&mut self.rng) {
                 self.current_index = index;
@@ -234,6 +264,7 @@ impl QuoteDatabase {
     
     /// Get the next random quote of a specific category
     pub fn next_by_category(&mut self, category: QuoteCategory) -> Option<&Quote> {
+        // TODO: investigate category-based quote selection
         if let Some(indices) = self.quotes_by_category.get(&category) {
             if let Some(&index) = indices.choose(&mut self.rng) {
                 self.current_index = index;

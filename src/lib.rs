@@ -43,13 +43,18 @@ impl SpringKeys {
         let config_path = std::path::PathBuf::from(config::DEFAULT_CONFIG_FILE);
         let config = config::Config::load_or_default(config_path);
         
+        // Load accumulated stats from the stats directory
+        info!("Loading accumulated statistics from stats directory...");
+        let accumulated_stats = AccumulatedStats::load_from_directory();
+        info!("Loaded stats from {} quotes", accumulated_stats.total_quotes);
+        
         Self {
             game_state: GameState::default(),
             input_processor: InputProcessor::new(),
             typing_session: None,
             config,
             quote_db: QuoteDatabase::new(),
-            accumulated_stats: AccumulatedStats::new(),
+            accumulated_stats,
         }
     }
 
@@ -102,35 +107,62 @@ impl SpringKeys {
     }
     
     pub fn process_input(&mut self, code: KeyCode, modifiers: KeyModifiers) -> bool {
-        match code {
-            KeyCode::Char(c) => {
-                if let Some(session) = &mut self.typing_session {
-                    let result = self.input_processor.validate_input(&session.quote_text);
-                    if result.is_valid {
-                        session.record_keystroke(c);
-                        true
-                    } else {
-                        false
-                    }
-                } else {
-                    false
-                }
-            }
-            _ => false
+        // Pass the typing session as a mutable reference to the input processor
+        let mut_session = self.typing_session.as_mut();
+        self.input_processor.process_key_event(code, modifiers, mut_session);
+        self.input_processor.process_queued_events();
+
+        // Register key press for heatmap animation
+        if let KeyCode::Char(c) = code {
+            crate::ui::heatmap::register_key_press(c);
         }
+
+        if let Some(session) = &mut self.typing_session {
+            let result = self.input_processor.validate_input(&session.quote_text);
+            
+            // Check if this input resulted in an error
+            if !result.is_valid {
+                // Increment both session and total error counts immediately
+                self.accumulated_stats.session_errors += 1;
+                self.accumulated_stats.total_errors += 1;
+            }
+            
+            self.input_processor.update_error_state(&result);
+            session.calculate_metrics();
+
+            // Start a new typing session if the current text matches the expected text
+            if result.is_valid && self.input_processor.current_text.len() == session.quote_text.len() {
+                // Update accumulated stats before starting new session
+                self.accumulated_stats.update_from_session(session);
+                self.start_typing_session(None);
+            }
+        }
+        true
     }
     
     pub fn get_heat_map(&self) -> Option<HashMap<char, f64>> {
         self.typing_session.as_ref().map(|session| session.metrics.get_heat_map())
     }
     
+    pub fn get_finger_performance(&self) -> Option<&HashMap<Finger, ExtendedStats>> {
+        self.typing_session.as_ref().map(|session| session.metrics.finger_performance())
+    }
+
     pub fn get_averages(&self) -> Option<(f64, f64)> {
-        self.typing_session.as_ref().map(|session| session.get_averages())
+        // If we have a current session, use its stats
+        if let Some(session) = &self.typing_session {
+            Some(session.get_averages())
+        } else {
+            // Otherwise use accumulated stats
+            Some((self.accumulated_stats.avg_wpm, self.accumulated_stats.avg_accuracy))
+        }
     }
     
     pub fn change_game(&mut self, game_type: GameType) {
+        info!("Changing game type to {:?}", game_type);
         self.game_state = GameState::new(game_type);
         self.typing_session = None;
         self.input_processor.clear();
+        // Keep accumulated stats when changing game type
     }
 } 

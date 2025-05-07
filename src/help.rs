@@ -7,11 +7,9 @@ pub fn print_help() {
     println!();
     println!("COMMANDS:");
     println!("  practice              Practice typing with quotes");
-    println!("  game                  Play typing mini-games");
-    println!("  stats                 View your typing statistics");
+    println!("  consume [INPUT]       Process input and visualize typing results in UI");
     println!("  config                Edit configuration");
     println!("  test                  Display test pattern (VGA-style test)");
-    println!("  consume [INPUT]       Process input and visualize typing results in UI");
     println!();
     println!("OPTIONS:");
     println!("  -h, --help            Show this help message");
@@ -28,9 +26,8 @@ pub fn print_help() {
     println!();
     println!("EXAMPLES:");
     println!("  spring-keys practice -d medium");
-    println!("  spring-keys game");
-    println!("  spring-keys test");
     println!("  spring-keys consume \"T h e <space> q u i c k\"");
+    println!("  spring-keys test");
     println!();
     println!("For more information, see the documentation.");
 }

@@ -14,8 +14,6 @@ pub struct Config {
     pub preferences: Preferences,
     /// UI settings
     pub ui: UiSettings,
-    /// Game settings
-    pub game: GameSettings,
 }
 
 /// User preferences
@@ -44,13 +42,6 @@ pub struct UiSettings {
     pub highlight_errors: bool,
 }
 
-/// Game settings
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct GameSettings {
-    /// Selected game mode
-    pub game_mode: GameMode,
-}
-
 /// Difficulty levels
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
@@ -65,23 +56,12 @@ pub enum DifficultyLevel {
     Expert,
 }
 
-/// Game modes
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "lowercase")]
-pub enum GameMode {
-    /// Practice mode (standard typing)
-    Practice,
-    /// Consume mode (type given text)
-    Consume,
-}
-
 impl Default for Config {
     fn default() -> Self {
         Self {
             version: env!("CARGO_PKG_VERSION").to_string(),
             preferences: Preferences::default(),
             ui: UiSettings::default(),
-            game: GameSettings::default(),
         }
     }
 }
@@ -104,14 +84,6 @@ impl Default for UiSettings {
             show_wpm: true,
             show_accuracy: true,
             highlight_errors: true,
-        }
-    }
-}
-
-impl Default for GameSettings {
-    fn default() -> Self {
-        Self {
-            game_mode: GameMode::Practice,
         }
     }
 }

@@ -52,7 +52,7 @@ mod tests {
         assert!(app.typing_session.is_some(), "Failed to create typing session");
         
         if let Some(session) = &app.typing_session {
-            assert_eq!(session.text, test_quote, "Quote text doesn't match");
+            assert_eq!(session.quote_text, test_quote, "Quote text doesn't match");
         }
         
         // Process a few keystrokes

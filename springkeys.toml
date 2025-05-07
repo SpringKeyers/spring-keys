@@ -11,6 +11,3 @@ font_size = 14
 show_wpm = true
 show_accuracy = true
 highlight_errors = true
-
-[game]
-game_mode = "practice"

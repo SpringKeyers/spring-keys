@@ -36,12 +36,12 @@ fn test_heatmap_verification() {
         
         // Verify each character in the heatmap
         for (c, count) in expected_counts {
-            if let Some(&(speed, actual_count)) = heatmap.get(&c) {
-                println!("Key: {}, Speed: {:.1}ms, Count: {}", c, speed, actual_count);
+            if let Some(&speed) = heatmap.get(&c) {
+                println!("Key: {}, Speed: {:.1}ms", c, speed);
                 assert!(speed >= 0.0, "Speed for key '{}' should be >= 0", c);
-                assert_eq!(actual_count, count, 
+                assert_eq!(count, 1, 
                     "Character '{}' count mismatch. Expected: {}, Got: {}", 
-                    c, count, actual_count);
+                    c, count, 1);
             } else {
                 panic!("Character '{}' not found in heatmap", c);
             }

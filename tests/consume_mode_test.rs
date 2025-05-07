@@ -28,7 +28,8 @@ fn test_consume_mode_input_parsing() {
     let output = Command::new("./target/debug/spring-keys")
         .arg("consume")
         .arg("T h e")
-        .env("SPRING_KEYS_ENV_INFO", "1")  // Show environment info for debugging
+        .env("SPRING_KEYS_TEST_MODE", "1")  // Enable test mode
+        .env("SPRING_KEYS_DEMO_HEATMAP", "1")  // Enable demo heatmap
         .env("RUST_LOG", "debug")
         .output()
         .expect("Failed to execute command");

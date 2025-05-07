@@ -26,8 +26,7 @@ mod tests {
                 
                 // Directly update timing since we don't have actual events
                 if let Some(char_metrics) = metrics.char_metrics.get_mut(&c) {
-                    char_metrics.update(speed as u64, true);
-                    char_metrics.extended_stats.update(speed, std::time::Instant::now());
+                    char_metrics.update(speed, true);
                 }
                 
                 metrics.keystrokes += 1;

@@ -106,6 +106,8 @@ impl SpringKeys {
 
             // Start a new typing session if the current text matches the expected text
             if result.is_valid && self.input_processor.current_text.len() == session.quote_text.len() {
+                // Update accumulated stats before starting new session
+                self.accumulated_stats.update_from_session(session);
                 self.start_typing_session(None);
             }
         }
@@ -161,13 +163,12 @@ fn run_consume_mode(app: &mut SpringKeys, input_sequence: Option<&str>) -> io::R
         // Start a new typing session with the input text
         app.start_typing_session(Some(input_text.to_string()));
         
-        // Process each character
-        for (i, c) in input_text.chars().enumerate() {
-            if let Some(session) = &mut app.typing_session {
+        // Process input
+        for c in input_text.chars() {
+            if let Some(_) = &mut app.typing_session {
+                // Process the character
                 app.process_input(KeyCode::Char(c), KeyModifiers::NONE);
             }
-            ui.render_frame(app)?;
-            thread::sleep(Duration::from_millis(50));
         }
     }
 
@@ -227,7 +228,7 @@ fn main() -> std::io::Result<()> {
             "--no-demo" => {
                 demo_heatmap = false;
             },
-            "practice" | "stats" | "config" | "game" | "test" | "consume" => {
+            "practice" | "config" | "test" | "consume" => {
                 command = Some(args[i].clone());
                 
                 // If this is consume mode and the next arg doesn't start with '-'
@@ -269,13 +270,6 @@ fn main() -> std::io::Result<()> {
             // Start a typing session to show the keyboard immediately
             app.start_typing_session(None);
         },
-        Some(cmd) if cmd == "game" => {
-            app.change_game(GameType::Consume);
-        },
-        Some(cmd) if cmd == "stats" => {
-            println!("Statistics viewing not yet implemented");
-            return Ok(());
-        },
         Some(cmd) if cmd == "config" => {
             println!("Configuration editing not yet implemented");
             return Ok(());
@@ -290,9 +284,7 @@ fn main() -> std::io::Result<()> {
         _ => {
             // If no terminal is detected, default to practice mode instead of showing error
             if !std::io::stdout().is_terminal() {
-                info!("No command specified in headless environment, defaulting to practice mode");
-                app.change_game(GameType::Practice);
-                // no single mode
+                app.change_game(GameType::Consume);
             } else {
                 eprintln!("Unknown command");
                 help::print_help();

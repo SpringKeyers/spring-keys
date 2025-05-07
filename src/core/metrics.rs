@@ -5,7 +5,6 @@ use chrono::Utc;
 use std::fs;
 use std::path::PathBuf;
 use crate::core::histogram::HistogramStats;
-use crate::core::stats::QuoteStats;
 
 /// Represents keyboard rows for metrics tracking
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq, Serialize, Deserialize)]
@@ -262,25 +261,6 @@ impl TypingMetrics {
             0.0
         };
         self.wpm_histogram.add_value(self.wpm);
-    }
-
-    pub fn save_to_json(&self, quote: &str) -> Result<(), Box<dyn std::error::Error>> {
-        let stats_dir = PathBuf::from("stats");
-        fs::create_dir_all(&stats_dir)?;
-
-        let timestamp = Utc::now().format("%Y%m%d_%H%M%S").to_string();
-        let filename = format!("typing_stats_{}.json", timestamp);
-        let file_path = stats_dir.join(filename);
-
-        let quote_stats = QuoteStats {
-            quote: quote.to_string(),
-            metrics: self.clone(),
-            timestamp: Utc::now(),
-        };
-
-        let json = serde_json::to_string_pretty(&quote_stats)?;
-        fs::write(file_path, json)?;
-        Ok(())
     }
 
     pub fn get_heat_map(&self) -> HashMap<char, f64> {

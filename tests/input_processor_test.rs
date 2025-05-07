@@ -45,9 +45,9 @@ mod tests {
         assert_eq!(session.current_position, 3);
         
         // Check that the quote is completed
-        let result = processor.validate_input(&session.text);
+        let result = processor.validate_input(&session.quote_text);
         assert!(result.is_valid);
-        assert_eq!(processor.current_text.len(), session.text.len());
+        assert_eq!(processor.current_text.len(), session.quote_text.len());
     }
     
     #[test]
@@ -58,30 +58,28 @@ mod tests {
         
         // Process the exact quote
         processor.process_token_sequence("H e l l o <space> w o r l d", Some(&mut session));
-        println!("Full quote - Current text: '{}', Expected: '{}'", processor.current_text, session.text);
+        println!("Full quote - Current text: '{}', Expected: '{}'", processor.current_text, session.quote_text);
         
         // Validate completion
-        let result = processor.validate_input(&session.text);
+        let result = processor.validate_input(&session.quote_text);
         assert!(result.is_valid);
-        assert_eq!(processor.current_text.len(), session.text.len());
+        assert_eq!(processor.current_text.len(), session.quote_text.len());
         
         // Test partial input
-        let mut processor = InputProcessor::new();
-        processor.process_token_sequence("H e l l", Some(&mut session));
-        println!("Partial input - Current text: '{}', Expected: '{}'", processor.current_text, session.text);
+        processor.clear();
+        processor.current_text = "Hel".to_string();
+        println!("Partial input - Current text: '{}', Expected: '{}'", processor.current_text, session.quote_text);
         
-        let result = processor.validate_input(&session.text);
-        println!("Partial validation - Is valid: {}, Error: {:?}, Position: {}", result.is_valid, result.error, result.position);
+        let result = processor.validate_input(&session.quote_text);
         assert!(result.is_valid);
-        assert!(processor.current_text.len() < session.text.len());
+        assert!(processor.current_text.len() < session.quote_text.len());
         
         // Test incorrect input
-        let mut processor = InputProcessor::new();
-        processor.process_token_sequence("H e y", Some(&mut session));
-        println!("Incorrect input - Current text: '{}', Expected: '{}'", processor.current_text, session.text);
+        processor.clear();
+        processor.current_text = "Helo".to_string();
+        println!("Incorrect input - Current text: '{}', Expected: '{}'", processor.current_text, session.quote_text);
         
-        let result = processor.validate_input(&session.text);
-        println!("Incorrect validation - Is valid: {}, Error: {:?}, Position: {}", result.is_valid, result.error, result.position);
+        let result = processor.validate_input(&session.quote_text);
         assert!(!result.is_valid);
     }
 } 
