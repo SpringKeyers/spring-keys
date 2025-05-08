@@ -260,8 +260,20 @@ fn main() -> std::io::Result<()> {
             "moosesay" => {
                 let mut quote_db = quotes::QuoteDatabase::new_silent();
                 let quote = quote_db.next_random();
-                moosesay::animate_moose_quote(&quote.text)?;
+                moosesay::animate_moose_quote(&quote.text, None)?;
                 println!("— {}", quote.source);
+                std::process::exit(0);
+            }
+            "screensaver" => {
+                let mut quote_db = quotes::QuoteDatabase::new_silent();
+                let quote = quote_db.next_random();
+                // Only parse duration if there's a number after "screensaver"
+                let duration = args.iter()
+                    .position(|arg| arg == "screensaver")
+                    .and_then(|pos| args.get(pos + 1))
+                    .filter(|arg| arg.chars().all(|c| c.is_digit(10)))
+                    .and_then(|arg| arg.parse::<u64>().ok());
+                moosesay::animate_moose_quote(&quote.text, duration)?;
                 std::process::exit(0);
             }
             _ => {}

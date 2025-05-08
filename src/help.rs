@@ -17,6 +17,7 @@ pub fn print_help() {
     println!("  test                  Display test pattern (VGA-style test)");
     println!("  quote                 Output a random quote and exit");
     println!("  moosesay              Display an animated moose with a random quote");
+    println!("  screensaver [SECONDS] Display animated moose screensaver for specified duration");
     println!();
     println!("OPTIONS:");
     println!("  -h, --help            Show this help message");
@@ -37,6 +38,7 @@ pub fn print_help() {
     println!("  spring-keys test");
     println!("  spring-keys quote     # Get a random quote");
     println!("  spring-keys moosesay  # Get a random quote with an animated moose");
+    println!("  spring-keys screensaver 10  # Run moose screensaver for 10 seconds");
     println!();
     println!("Successfully loaded {} quotes from JSON files", total_quotes);
     println!();

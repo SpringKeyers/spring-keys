@@ -1,6 +1,14 @@
 use std::io::{self, Write};
 use std::thread;
 use std::time::Duration;
+use std::collections::VecDeque;
+use rand::Rng;
+use crossterm::{
+    terminal::{size, Clear, ClearType},
+    cursor::{Hide, Show, MoveTo},
+    execute,
+    style::{Color, SetForegroundColor, SetBackgroundColor},
+};
 
 const MOOSE_FRAMES: [&str; 2] = [
     r#"
@@ -18,6 +26,90 @@ const MOOSE_FRAMES: [&str; 2] = [
              ||     ||
     "#
 ];
+
+#[derive(Debug, Clone)]
+struct Moose {
+    x: i32,
+    y: i32,
+    direction: Direction,
+    frame: usize,
+    quote: String,
+    quote_age: f32,
+    is_edge_walker: bool,
+}
+
+#[derive(Debug, Clone, Copy)]
+enum Direction {
+    Left,
+    DownLeft,
+    Down,
+    DownRight,
+    Right,
+    UpRight,
+    Up,
+    UpLeft,
+}
+
+impl Direction {
+    fn random() -> Self {
+        use Direction::*;
+        let directions = [Left, DownLeft, Down, DownRight, Right, UpRight, Up, UpLeft];
+        directions[rand::thread_rng().gen_range(0..directions.len())]
+    }
+
+    fn get_dx_dy(&self) -> (i32, i32) {
+        use Direction::*;
+        match self {
+            Left => (-1, 0),
+            DownLeft => (-1, 1),
+            Down => (0, 1),
+            DownRight => (1, 1),
+            Right => (1, 0),
+            UpRight => (1, -1),
+            Up => (0, -1),
+            UpLeft => (-1, -1),
+        }
+    }
+}
+
+impl Moose {
+    fn new(x: i32, y: i32, quote: String, is_edge_walker: bool) -> Self {
+        Self {
+            x,
+            y,
+            direction: Direction::random(),
+            frame: 0,
+            quote,
+            quote_age: 0.0,
+            is_edge_walker,
+        }
+    }
+
+    fn update(&mut self, width: i32, height: i32) {
+        // Update position
+        let (dx, dy) = self.direction.get_dx_dy();
+        let new_x = self.x + dx;
+        let new_y = self.y + dy;
+
+        // Check boundaries and adjust direction if needed
+        if new_x < 0 || new_x >= width || new_y < 0 || new_y >= height {
+            self.direction = Direction::random();
+        } else {
+            self.x = new_x;
+            self.y = new_y;
+        }
+
+        // Update frame
+        self.frame = (self.frame + 1) % MOOSE_FRAMES.len();
+
+        // Update quote age
+        self.quote_age += 0.1;
+    }
+
+    fn should_change_direction(&self) -> bool {
+        rand::thread_rng().gen_bool(0.05) // 5% chance to change direction each update
+    }
+}
 
 fn create_speech_bubble(text: &str, width: usize) -> String {
     let mut wrapped_lines = Vec::new();
@@ -88,36 +180,145 @@ fn create_speech_bubble(text: &str, width: usize) -> String {
     bubble
 }
 
-pub fn animate_moose_quote(text: &str) -> io::Result<()> {
-    let bubble = create_speech_bubble(text, 40);
+fn draw_fence(width: i32, height: i32) -> io::Result<()> {
     let mut stdout = io::stdout();
-    let mut frame = 0;
     
-    // Clear screen and hide cursor
-    print!("\x1B[2J\x1B[1;1H\x1B[?25l");
-    stdout.flush()?;
-    
-    // Animate for about 10 seconds
-    for _ in 0..40 {
-        // Move cursor to top
-        print!("\x1B[1;1H");
-        
-        // Print speech bubble
-        print!("{}", bubble);
-        
-        // Print current moose frame
-        print!("{}", MOOSE_FRAMES[frame]);
-        stdout.flush()?;
-        
-        // Switch frames
-        frame = (frame + 1) % MOOSE_FRAMES.len();
-        
-        thread::sleep(Duration::from_millis(250));
+    // Draw horizontal fence
+    for x in 0..width {
+        execute!(
+            stdout,
+            MoveTo(x as u16, 0),
+            SetForegroundColor(Color::Yellow),
+            Print("=")
+        )?;
+        execute!(
+            stdout,
+            MoveTo(x as u16, height as u16 - 1),
+            SetForegroundColor(Color::Yellow),
+            Print("=")
+        )?;
     }
     
-    // Show cursor again
-    print!("\x1B[?25h");
-    stdout.flush()?;
+    // Draw vertical fence
+    for y in 0..height {
+        execute!(
+            stdout,
+            MoveTo(0, y as u16),
+            SetForegroundColor(Color::Yellow),
+            Print("|")
+        )?;
+        execute!(
+            stdout,
+            MoveTo(width as u16 - 1, y as u16),
+            SetForegroundColor(Color::Yellow),
+            Print("|")
+        )?;
+    }
+    
+    Ok(())
+}
+
+pub fn animate_moose_quote(text: &str, duration_seconds: Option<u64>) -> io::Result<()> {
+    let (width, height) = size()?;
+    let width = width as i32;
+    let height = height as i32;
+    
+    let mut stdout = io::stdout();
+    execute!(stdout, Hide)?;
+    execute!(stdout, Clear(ClearType::All))?;
+    
+    // Create multiple moose with different movement patterns
+    let mut moose = vec![
+        Moose::new(width / 4, height / 4, text.to_string(), false), // Center wanderer
+        Moose::new(width / 2, height / 2, text.to_string(), true),  // Edge wanderer
+    ];
+    
+    let mut rng = rand::thread_rng();
+    let mut frame_count = 0;
+    let start_time = std::time::Instant::now();
+    
+    loop {
+        // Check if we've exceeded the duration
+        if let Some(duration) = duration_seconds {
+            if start_time.elapsed().as_secs() >= duration {
+                break;
+            }
+        }
+        
+        // Clear screen
+        execute!(stdout, Clear(ClearType::All))?;
+        
+        // Draw fence
+        draw_fence(width, height)?;
+        
+        // Update and draw each moose
+        for moose in &mut moose {
+            // Update moose
+            moose.update(width, height);
+            
+            // Randomly change direction
+            if moose.should_change_direction() {
+                moose.direction = Direction::random();
+            }
+            
+            // Draw speech bubble if quote is active
+            if moose.quote_age < 10.0 {
+                let opacity = 1.0 - (moose.quote_age / 10.0);
+                let bubble = create_speech_bubble(&moose.quote, 40);
+                let lines: Vec<&str> = bubble.lines().collect();
+                
+                for (i, line) in lines.iter().enumerate() {
+                    execute!(
+                        stdout,
+                        MoveTo(moose.x as u16, (moose.y - lines.len() as i32 + i as i32) as u16),
+                        SetForegroundColor(Color::Rgb {
+                            r: (255.0 * opacity) as u8,
+                            g: (255.0 * opacity) as u8,
+                            b: (255.0 * opacity) as u8,
+                        }),
+                        Print(line)
+                    )?;
+                }
+            }
+            
+            // Draw moose
+            let moose_lines: Vec<&str> = MOOSE_FRAMES[moose.frame].lines().collect();
+            for (i, line) in moose_lines.iter().enumerate() {
+                execute!(
+                    stdout,
+                    MoveTo(moose.x as u16, (moose.y + i as i32) as u16),
+                    SetForegroundColor(Color::Green),
+                    Print(line)
+                )?;
+            }
+            
+            // Reset quote if it's time
+            if moose.quote_age >= 20.0 {
+                moose.quote_age = 0.0;
+            }
+        }
+        
+        // Occasionally add a third moose that moves left to right
+        if frame_count % 100 == 0 && moose.len() < 3 {
+            moose.push(Moose::new(
+                0,
+                rng.gen_range(1..height-1),
+                text.to_string(),
+                false
+            ));
+        }
+        
+        // Remove moose that have moved off screen
+        moose.retain(|m| m.x >= 0 && m.x < width && m.y >= 0 && m.y < height);
+        
+        stdout.flush()?;
+        thread::sleep(Duration::from_millis(100));
+        frame_count += 1;
+    }
+    
+    // Cleanup
+    execute!(stdout, Show)?;
+    execute!(stdout, Clear(ClearType::All))?;
     
     Ok(())
 } 
