@@ -82,5 +82,40 @@
     "difficulty": "Medium",
     "category": "Folk Wisdom",
     "origin": "Ancient Japan"
+  },
+  {
+    "text": "Nana korobi ya oki (Fall seven times, stand up eight)",
+    "source": "Japanese Proverb",
+    "difficulty": "Hard",
+    "category": "japanese wisdom",
+    "origin": "Japanese"
+  },
+  {
+    "text": "The bamboo that bends is stronger than the oak that resists.",
+    "source": "Japanese Proverb",
+    "difficulty": "Medium",
+    "category": "japanese wisdom",
+    "origin": "Japanese"
+  },
+  {
+    "text": "Anime janai, katsudo shashin da! (It's not anime, it's moving pictures!)",
+    "source": "Common anime joke",
+    "difficulty": "Hard",
+    "category": "anime wisdom",
+    "origin": "Japanese"
+  },
+  {
+    "text": "Kimi no kokoro ga kimi o michibiku. (Your heart will guide you.)",
+    "source": "Your Name (Kimi no Na wa)",
+    "difficulty": "Medium",
+    "category": "anime wisdom",
+    "origin": "Japanese"
+  },
+  {
+    "text": "Ki o tsukete, sayonara. (Take care, goodbye.)",
+    "source": "Studio Ghibli, My Neighbor Totoro",
+    "difficulty": "Easy",
+    "category": "anime wisdom",
+    "origin": "Japanese"
   }
 ] 

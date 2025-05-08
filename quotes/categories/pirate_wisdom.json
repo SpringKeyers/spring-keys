@@ -3,28 +3,28 @@
     "text": "The sea gives and the sea takes, but those who respect her waters will always find their way home.",
     "source": "Captain Bartholomew Roberts' Journal",
     "difficulty": "Medium",
-    "category": "Pirate",
+    "category": "folk wisdom",
     "origin": "Maritime"
   },
   {
     "text": "A ship in harbor is safe, but that is not what ships are built for.",
     "source": "John A. Shedd, Salt from My Attic",
     "difficulty": "Easy",
-    "category": "Pirate",
+    "category": "literature",
     "origin": "Maritime"
   },
   {
     "text": "The pessimist complains about the wind; the optimist expects it to change; the realist adjusts the sails.",
     "source": "William Arthur Ward",
     "difficulty": "Medium",
-    "category": "Pirate",
+    "category": "folk wisdom",
     "origin": "Maritime"
   },
   {
     "text": "Smooth seas do not make skillful sailors.",
     "source": "African Proverb",
     "difficulty": "Easy",
-    "category": "Pirate",
+    "category": "folk wisdom",
     "origin": "Maritime"
   },
   {
@@ -38,7 +38,7 @@
     "text": "Dead men tell no tales, but the sea remembers all.",
     "source": "Old Pirate Saying",
     "difficulty": "Easy",
-    "category": "Pirate",
+    "category": "folk wisdom",
     "origin": "Maritime"
   },
   {
@@ -52,21 +52,21 @@
     "text": "The ocean is a mighty harmonist.",
     "source": "William Wordsworth",
     "difficulty": "Easy",
-    "category": "Pirate",
-    "origin": "Literary"
+    "category": "literature",
+    "origin": "British"
   },
   {
     "text": "In a storm, pray to God but row for shore.",
     "source": "Old Sailor's Proverb",
     "difficulty": "Medium",
-    "category": "Pirate",
+    "category": "folk wisdom",
     "origin": "Maritime"
   },
   {
     "text": "A sailor without a destination cannot hope for a favorable wind.",
     "source": "Leon Tec",
     "difficulty": "Medium",
-    "category": "Pirate",
+    "category": "folk wisdom",
     "origin": "Maritime"
   },
   {
@@ -87,28 +87,28 @@
     "text": "Every sailor needs a star to guide by.",
     "source": "Old Pirate Saying",
     "difficulty": "Easy",
-    "category": "Pirate",
+    "category": "folk wisdom",
     "origin": "Maritime"
   },
   {
     "text": "True navigation begins in the human heart.",
     "source": "Captain Edward Teach (Blackbeard)",
     "difficulty": "Medium",
-    "category": "Pirate",
+    "category": "folk wisdom",
     "origin": "Maritime"
   },
   {
     "text": "The calmest seas hide the deadliest storms.",
     "source": "Pirates of the Caribbean",
     "difficulty": "Medium",
-    "category": "Pirate",
-    "origin": "Literary"
+    "category": "literature",
+    "origin": "American"
   },
   {
     "text": "To sail is to be free, to captain is to bear the weight of that freedom.",
     "source": "Maritime Wisdom",
     "difficulty": "Hard",
-    "category": "Pirate",
+    "category": "folk wisdom",
     "origin": "Maritime"
   }
 ] 
