@@ -23,9 +23,9 @@
   {
     "text": "Tell me and I'll forget. Show me, and I may not remember. Involve me, and I'll understand.",
     "source": "Native American Proverb",
-    "difficulty": "Easy",
-    "category": "SacredTexts",
-    "origin": "North America"
+    "difficulty": "Medium",
+    "category": "Native American Wisdom",
+    "origin": "Native American"
   },
   {
     "text": "The greatest strength is gentleness.",
@@ -56,18 +56,11 @@
     "origin": "North America"
   },
   {
-    "text": "The soul would have no rainbow if the eyes had no tears.",
+    "text": "The soul would have no rainbow had the eyes no tears.",
     "source": "Native American Proverb",
     "difficulty": "Medium",
-    "category": "SacredTexts",
-    "origin": "North America"
-  },
-  {
-    "text": "Tell me and I'll forget. Show me, and I may not remember. Involve me, and I'll understand.",
-    "source": "Native American Proverb",
-    "difficulty": "Easy",
-    "category": "SacredTexts",
-    "origin": "North America"
+    "category": "Native American Wisdom",
+    "origin": "Native American"
   },
   {
     "text": "The greatest strength is gentleness.",

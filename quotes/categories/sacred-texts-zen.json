@@ -75,5 +75,19 @@
     "difficulty": "Medium",
     "category": "SacredTextsZen",
     "origin": "Ancient Japan"
+  },
+  {
+    "text": "When you realize nothing is lacking, the whole world belongs to you.",
+    "source": "Lao Tzu",
+    "difficulty": "Medium",
+    "category": "Zen Buddhism",
+    "origin": "East Asia"
+  },
+  {
+    "text": "Before enlightenment, chop wood, carry water. After enlightenment, chop wood, carry water.",
+    "source": "Zen Proverb",
+    "difficulty": "Medium",
+    "category": "Zen Buddhism",
+    "origin": "East Asia"
   }
 ] 
