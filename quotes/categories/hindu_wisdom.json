@@ -26,5 +26,19 @@
     "difficulty": "Medium",
     "category": "Hindu Wisdom",
     "origin": "India"
+  },
+  {
+    "text": "Be like the lotus flower that grows in the mud but remains clean and fragrant.",
+    "source": "Buddhist Teaching",
+    "difficulty": "Medium",
+    "category": "Buddhist Wisdom",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "You must be the change you wish to see in the world. Complaining changes nothing.",
+    "source": "Ancient Indian Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient India"
   }
 ] 

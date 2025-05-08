@@ -26,5 +26,82 @@
     "difficulty": "Medium",
     "category": "Greek Philosophy",
     "origin": "Ancient Greece"
+  },
+  {
+    "text": "There are two kinds of people in the world: those who divide people into two groups, and those who don't.",
+    "source": "Ancient Greek Joke",
+    "difficulty": "Medium",
+    "category": "Philosophical Humor",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "If you're going through hell, keep going. The exit isn't behind you.",
+    "source": "Ancient Stoic Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Stoic Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "Doubt is the beginning of wisdom. Certainty is the beginning of folly.",
+    "source": "Ancient Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "The wise person possesses humility. They know what they do not know.",
+    "source": "Socrates (paraphrased)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "A society grows great when old men plant trees in whose shade they know they shall never sit. Politicians cut them down for short-term gain.",
+    "source": "Greek Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "The greatest wealth is health. The second greatest is having someone who reminds you to eat your vegetables.",
+    "source": "Ancient Medical Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "You cannot step into the same river twice, for other waters are continually flowing in. But you can fall into the same mistake repeatedly.",
+    "source": "Heraclitus (with twist)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "The highest form of human excellence is to question oneself and others.",
+    "source": "Socrates",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "Courage is the first of human qualities because it is the quality which guarantees all others.",
+    "source": "Aristotle",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "The greatest wealth is to live content with little.",
+    "source": "Ancient Greek Wisdom",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "The good of man is the active exercise of his soul's faculties in conformity with excellence or virtue.",
+    "source": "Aristotle",
+    "difficulty": "Hard",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Greece"
   }
 ] 

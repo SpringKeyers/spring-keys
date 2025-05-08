@@ -12,5 +12,40 @@
     "difficulty": "Medium",
     "category": "Martial Arts Philosophy",
     "origin": "East Asia"
+  },
+  {
+    "text": "The enemy of my enemy is my friend... until they become my enemy too.",
+    "source": "Ancient Military Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Military Humor",
+    "origin": "Ancient Middle East"
+  },
+  {
+    "text": "An army marches on its stomach. A wise general knows where the best taverns are.",
+    "source": "Ancient Military Humor",
+    "difficulty": "Medium",
+    "category": "Military Wisdom",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "The wise warrior avoids the battle. The foolish commander insists on fighting even when outnumbered.",
+    "source": "Sun Tzu (paraphrased)",
+    "difficulty": "Medium",
+    "category": "Military Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "First they ignore you, then they laugh at you, then they fight you, then you win... unless they have a bigger army.",
+    "source": "Ancient Military Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Military Humor",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "Success is not final, failure is not fatal: it is the courage to continue that counts. Perseverance is more important than being right the first time.",
+    "source": "Ancient Military Wisdom",
+    "difficulty": "Medium",
+    "category": "Military Wisdom",
+    "origin": "Ancient Rome"
   }
 ] 

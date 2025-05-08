@@ -82,5 +82,131 @@
     "difficulty": "Hard",
     "category": "Chinese Wisdom",
     "origin": "Ancient China"
+  },
+  {
+    "text": "Give a man a fish and you feed him for a day; teach a man to fish and you feed him for a lifetime.",
+    "source": "Ancient Chinese Proverb",
+    "difficulty": "Easy",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "A journey of a thousand miles begins with a single step... and a lot of complaining.",
+    "source": "Humorous Twist on Lao Tzu",
+    "difficulty": "Easy",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The person who says it cannot be done should not interrupt the person doing it.",
+    "source": "Ancient Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "He who asks a question is a fool for five minutes; he who does not ask remains a fool forever.",
+    "source": "Ancient Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Prepare the umbrella before it rains, not after you're already wet.",
+    "source": "Ancient Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "He who knows does not speak. He who speaks does not know... unless they're a politician.",
+    "source": "Taoist Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "A good traveler has no fixed plans and is not intent on arriving. A lost traveler says the same thing.",
+    "source": "Lao Tzu (with twist)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Life is really simple, but we insist on making it complicated. Then we complain about the complications.",
+    "source": "Confucius (with twist)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "One generation plants the trees; another gets the shade. The third generation cuts them down for paper.",
+    "source": "Ancient Chinese Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Tell me and I forget. Teach me and I remember. Involve me and I learn. Bore me and I'll pretend to listen.",
+    "source": "Confucian Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The man who moves a mountain begins by carrying away small stones. The woman who directs him often accomplishes more.",
+    "source": "Ancient Chinese Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "In prosperity our friends know us; in adversity we know our friends.",
+    "source": "Ancient Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Friendship is like earthenware; once broken, it can be mended. Love is like porcelain; once broken, it is broken forever.",
+    "source": "Ancient Chinese Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "True friendship comes when the silence between two people is comfortable. False friendship is recognized when one friend won't stop talking about themselves.",
+    "source": "Ancient Chinese Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The man of wisdom is never of two minds; the man of benevolence never worries; the man of courage is never afraid.",
+    "source": "Confucius",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The superior man is modest in his speech, but exceeds in his actions.",
+    "source": "Confucius",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Life is really simple, but we insist on making it complicated.",
+    "source": "Confucius",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "One who is content with what they have is truly rich.",
+    "source": "Ancient Chinese Proverb",
+    "difficulty": "Easy",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
   }
 ] 

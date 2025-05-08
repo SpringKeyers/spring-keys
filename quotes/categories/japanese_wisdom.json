@@ -47,5 +47,26 @@
     "difficulty": "Medium",
     "category": "Zen Buddhism",
     "origin": "Ancient Japan"
+  },
+  {
+    "text": "Even monkeys fall from trees. Experts make mistakes too.",
+    "source": "Japanese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Japan"
+  },
+  {
+    "text": "Vision without action is a daydream; action without vision is a nightmare.",
+    "source": "Japanese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Japan"
+  },
+  {
+    "text": "The nail that sticks out gets hammered down. But the nail that's too short never holds anything together.",
+    "source": "Japanese Proverb (extended)",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Japan"
   }
 ] 

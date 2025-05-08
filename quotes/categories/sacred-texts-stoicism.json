@@ -12,5 +12,19 @@
     "difficulty": "Medium",
     "category": "Stoicism",
     "origin": "Ancient Rome"
+  },
+  {
+    "text": "If you're going through hell, keep going. The exit isn't behind you.",
+    "source": "Ancient Stoic Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Stoic Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "The best revenge is not to be like your enemy. The second best is to outlive them.",
+    "source": "Marcus Aurelius (with twist)",
+    "difficulty": "Medium",
+    "category": "Stoic Humor",
+    "origin": "Ancient Rome"
   }
 ] 

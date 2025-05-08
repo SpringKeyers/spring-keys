@@ -12,5 +12,61 @@
     "difficulty": "Easy",
     "category": "Roman Wisdom",
     "origin": "Ancient Rome"
+  },
+  {
+    "text": "A wise man learns from the mistakes of others. A fool insists on making his own.",
+    "source": "Ancient Roman Wisdom",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "An army marches on its stomach. A wise general knows where the best taverns are.",
+    "source": "Ancient Military Humor",
+    "difficulty": "Medium",
+    "category": "Military Wisdom",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "The best revenge is not to be like your enemy. The second best is to outlive them.",
+    "source": "Marcus Aurelius (with twist)",
+    "difficulty": "Medium",
+    "category": "Stoic Humor",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "Success is not final, failure is not fatal: it is the courage to continue that counts. Perseverance is more important than being right the first time.",
+    "source": "Ancient Military Wisdom",
+    "difficulty": "Medium",
+    "category": "Military Wisdom",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "Fortune favors the bold. Misfortune favors them as well, but tells better stories.",
+    "source": "Ancient Roman Saying (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "The bigger they are, the harder they fall. But the wiser they are, the less likely they are to fall at all.",
+    "source": "Ancient Gladiatorial Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "A person's worth is measured by the worth of what they value.",
+    "source": "Marcus Aurelius",
+    "difficulty": "Medium",
+    "category": "Stoic Philosophy",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "Waste no more time arguing about what a good man should be. Be one.",
+    "source": "Marcus Aurelius",
+    "difficulty": "Medium",
+    "category": "Stoic Philosophy",
+    "origin": "Ancient Rome"
   }
 ] 

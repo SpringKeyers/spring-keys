@@ -12,5 +12,89 @@
     "difficulty": "Medium",
     "category": "Sufi Wisdom",
     "origin": "Ancient Persia"
+  },
+  {
+    "text": "A true friend is one who throws a rug over your mistakes, not one who pulls the rug out from under you.",
+    "source": "Middle Eastern Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Middle East"
+  },
+  {
+    "text": "The enemy of my enemy is my friend... until they become my enemy too.",
+    "source": "Ancient Military Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Military Humor",
+    "origin": "Ancient Middle East"
+  },
+  {
+    "text": "Patience is the key to paradise, but impatience is often more entertaining.",
+    "source": "Middle Eastern Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Middle East"
+  },
+  {
+    "text": "A known mistake is better than an unknown truth.",
+    "source": "Ancient Arabic Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Middle East"
+  },
+  {
+    "text": "One hand cannot clap alone. Neither can it hold a cup of tea properly.",
+    "source": "Arabic Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Middle East"
+  },
+  {
+    "text": "The bee stings and dies. The wasp stings and laughs. Choose your battles wisely.",
+    "source": "Ancient Fable Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Middle East"
+  },
+  {
+    "text": "A tree is known by its fruit, not by its leaves. A person is known by their actions, not their words.",
+    "source": "Ancient Middle Eastern Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Middle East"
+  },
+  {
+    "text": "He who knows not and knows not that he knows not is a fool - shun him. He who knows not and knows that he knows not is a student - teach him.",
+    "source": "Arabic Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Middle East"
+  },
+  {
+    "text": "The antidote for fifty enemies is one friend. The antidote for one enemy who was once a friend is impossible to find.",
+    "source": "Ancient Arabic Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Middle East"
+  },
+  {
+    "text": "Let your best be for your friend. If you forge swords, give him the best sword. If you make wine, give him the best cup. And never tell him about the others.",
+    "source": "Ancient Middle Eastern Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Middle East"
+  },
+  {
+    "text": "Man is defined not by what he takes, but by what he gives.",
+    "source": "Ancient Middle Eastern Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Middle East"
+  },
+  {
+    "text": "The highest form of wisdom is kindness.",
+    "source": "Ancient Middle Eastern Wisdom",
+    "difficulty": "Medium",
+    "category": "Ethics",
+    "origin": "Middle East"
   }
 ] 

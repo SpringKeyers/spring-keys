@@ -75,5 +75,12 @@
     "difficulty": "Medium",
     "category": "SacredTexts",
     "origin": "North Africa"
+  },
+  {
+    "text": "A beautiful thing is never perfect. And a perfect thing is rarely beautiful.",
+    "source": "Ancient Egyptian Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Egypt"
   }
 ] 

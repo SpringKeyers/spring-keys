@@ -131,5 +131,26 @@
     "difficulty": "Medium",
     "category": "Ancient Philosophy",
     "origin": "Ancient China"
+  },
+  {
+    "text": "A wise man learns from the mistakes of others. A fool insists on making his own.",
+    "source": "Ancient Roman Wisdom",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "Doubt is the beginning of wisdom. Certainty is the beginning of folly.",
+    "source": "Ancient Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "The wise person possesses humility. They know what they do not know.",
+    "source": "Socrates (paraphrased)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Greece"
   }
 ] 

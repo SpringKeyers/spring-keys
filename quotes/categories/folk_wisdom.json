@@ -159,5 +159,670 @@
     "difficulty": "Medium",
     "category": "Folk Wisdom",
     "origin": "Global Wisdom"
+  },
+  {
+    "text": "Give a man a fish and you feed him for a day; teach a man to fish and you feed him for a lifetime.",
+    "source": "Ancient Chinese Proverb",
+    "difficulty": "Easy",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "When angry, count to ten before you speak. If very angry, count to one hundred. By then, your opponent will have left the room.",
+    "source": "Ancient Wisdom (with a twist)",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "A wise man once said nothing. This was probably his wisest moment.",
+    "source": "Medieval Joke",
+    "difficulty": "Easy",
+    "category": "Folk Humor",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "Three things are certain in life: death, taxes, and someone disagreeing with you.",
+    "source": "Medieval Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "The best place to find a helping hand is at the end of your own arm.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "Before you criticize someone, walk a mile in their shoes. That way, you'll be a mile away and you'll have their shoes.",
+    "source": "Ancient Joke (modernized)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "Knowledge is knowing a tomato is a fruit. Wisdom is not putting it in a fruit salad.",
+    "source": "Mediterranean Folk Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Mediterranean"
+  },
+  {
+    "text": "The person who says it cannot be done should not interrupt the person doing it.",
+    "source": "Ancient Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The only man who never makes mistakes is the man who never does anything.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "A true friend is one who throws a rug over your mistakes, not one who pulls the rug out from under you.",
+    "source": "Middle Eastern Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Middle East"
+  },
+  {
+    "text": "He who asks a question is a fool for five minutes; he who does not ask remains a fool forever.",
+    "source": "Ancient Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Prepare the umbrella before it rains, not after you're already wet.",
+    "source": "Ancient Chinese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The enemy of my enemy is my friend... until they become my enemy too.",
+    "source": "Ancient Military Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Military Humor",
+    "origin": "Ancient Middle East"
+  },
+  {
+    "text": "An army marches on its stomach. A wise general knows where the best taverns are.",
+    "source": "Ancient Military Humor",
+    "difficulty": "Medium",
+    "category": "Military Wisdom",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "There are three things all wise men fear: the sea in storm, a night with no moon, and the anger of a gentle man.",
+    "source": "Medieval European Saying",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "If you're going through hell, keep going. The exit isn't behind you.",
+    "source": "Ancient Stoic Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Stoic Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "Never argue with a fool. Onlookers may not be able to tell the difference.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "The wise warrior avoids the battle. The foolish commander insists on fighting even when outnumbered.",
+    "source": "Sun Tzu (paraphrased)",
+    "difficulty": "Medium",
+    "category": "Military Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "There are two kinds of people in the world: those who divide people into two groups, and those who don't.",
+    "source": "Ancient Greek Joke",
+    "difficulty": "Medium",
+    "category": "Philosophical Humor",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "Be like the lotus flower that grows in the mud but remains clean and fragrant.",
+    "source": "Buddhist Teaching",
+    "difficulty": "Medium",
+    "category": "Buddhist Wisdom",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "He who knows does not speak. He who speaks does not know... unless they're a politician.",
+    "source": "Taoist Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "A good traveler has no fixed plans and is not intent on arriving. A lost traveler says the same thing.",
+    "source": "Lao Tzu (with twist)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "He who laughs last didn't get the joke.",
+    "source": "Medieval Humor",
+    "difficulty": "Easy",
+    "category": "Folk Humor",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "Don't judge a book by its cover, but do judge a tavern by its clientele.",
+    "source": "Medieval Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "No man is an island, but some men are peninsulas - difficult to reach and not worth the journey.",
+    "source": "Medieval Humor",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "Experience is the name everyone gives to their mistakes.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "Fools rush in where angels fear to tread. Both end up in interesting places.",
+    "source": "Medieval Saying (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "People who live in glass houses shouldn't throw stones. Or change clothes with the curtains open.",
+    "source": "Ancient Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "Marry in haste, repent at leisure. The wise take their time in all important matters.",
+    "source": "Medieval Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "A watched pot never boils, but an unwatched pot boils over. Such is life's irony.",
+    "source": "Medieval Kitchen Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "Only a fool tests the depth of the water with both feet.",
+    "source": "African Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Africa"
+  },
+  {
+    "text": "If you want to go quickly, go alone. If you want to go far, go together. If you want to get lost, follow the crowd.",
+    "source": "African Proverb (extended)",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Africa"
+  },
+  {
+    "text": "The sun does not forget a village just because it is small.",
+    "source": "African Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Africa"
+  },
+  {
+    "text": "When two elephants fight, it is the grass that suffers.",
+    "source": "African Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Africa"
+  },
+  {
+    "text": "Patience is the key to paradise, but impatience is often more entertaining.",
+    "source": "Middle Eastern Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Middle East"
+  },
+  {
+    "text": "The first step to wisdom is silence. The second is listening. The third is admitting when you didn't hear anything.",
+    "source": "Ancient Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "A known mistake is better than an unknown truth.",
+    "source": "Ancient Arabic Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Middle East"
+  },
+  {
+    "text": "The axe forgets, but the tree remembers.",
+    "source": "African Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Africa"
+  },
+  {
+    "text": "A beautiful thing is never perfect. And a perfect thing is rarely beautiful.",
+    "source": "Ancient Egyptian Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Egypt"
+  },
+  {
+    "text": "One hand cannot clap alone. Neither can it hold a cup of tea properly.",
+    "source": "Arabic Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Middle East"
+  },
+  {
+    "text": "A fox is not caught twice in the same snare. A wise man is not fooled twice by the same trick.",
+    "source": "Medieval European Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "Even monkeys fall from trees. Experts make mistakes too.",
+    "source": "Japanese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Japan"
+  },
+  {
+    "text": "Dress a monkey in silk and it is still a monkey. Dress a fool in wisdom and they'll speak nonsense beautifully.",
+    "source": "Medieval European Saying (extended)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "Vision without action is a daydream; action without vision is a nightmare.",
+    "source": "Japanese Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Japan"
+  },
+  {
+    "text": "The nail that sticks out gets hammered down. But the nail that's too short never holds anything together.",
+    "source": "Japanese Proverb (extended)",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Japan"
+  },
+  {
+    "text": "Do not speak unless you can improve on silence. And silence is hard to improve upon.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "The greatest glory in living lies not in never falling, but in rising every time we fall. The most entertaining stories come from those who fall spectacularly.",
+    "source": "Ancient Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "When you reach the end of your rope, tie a knot and hang on. Or learn to make rope.",
+    "source": "Ancient Seafaring Wisdom (extended)",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Maritime"
+  },
+  {
+    "text": "Only dead fish go with the flow. Live ones can swim against the current.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "The best revenge is not to be like your enemy. The second best is to outlive them.",
+    "source": "Marcus Aurelius (with twist)",
+    "difficulty": "Medium",
+    "category": "Stoic Humor",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "The pessimist complains about the wind; the optimist expects it to change; the realist adjusts the sails; the fool blames the gods.",
+    "source": "Ancient Maritime Wisdom (extended)",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Maritime"
+  },
+  {
+    "text": "Life is really simple, but we insist on making it complicated. Then we complain about the complications.",
+    "source": "Confucius (with twist)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "A wise man changes his mind, a fool never will. A politician changes his mind but pretends he never did.",
+    "source": "Ancient Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "First they ignore you, then they laugh at you, then they fight you, then you win... unless they have a bigger army.",
+    "source": "Ancient Military Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Military Humor",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "You can't make an omelet without breaking eggs. You also can't make one without knowing how to cook.",
+    "source": "Medieval Cooking Proverb (extended)",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "A wolf in sheep's clothing will still leave wolf footprints. Look for the signs, not just the appearance.",
+    "source": "Medieval Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "A candle loses nothing by lighting another candle. A wise man loses nothing by teaching others.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "The expert in anything was once a beginner. The master of nothing was always a know-it-all.",
+    "source": "Ancient Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "One generation plants the trees; another gets the shade. The third generation cuts them down for paper.",
+    "source": "Ancient Chinese Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "It's not what you look at that matters, it's what you see. Two men may see the same sunset; one sees beauty, the other sees the end of working hours.",
+    "source": "Ancient Wisdom (extended)",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "Success is not final, failure is not fatal: it is the courage to continue that counts. Perseverance is more important than being right the first time.",
+    "source": "Ancient Military Wisdom",
+    "difficulty": "Medium",
+    "category": "Military Wisdom",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "A ship in harbor is safe, but that is not what ships are built for. Neither is a mind kept ignorant what brains are made for.",
+    "source": "Ancient Maritime Wisdom (extended)",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Maritime"
+  },
+  {
+    "text": "Tell me and I forget. Teach me and I remember. Involve me and I learn. Bore me and I'll pretend to listen.",
+    "source": "Confucian Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "There are no shortcuts to any place worth going. Those who claim to know shortcuts are usually lost themselves.",
+    "source": "Ancient Wisdom (extended)",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "You must be the change you wish to see in the world. Complaining changes nothing.",
+    "source": "Ancient Indian Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "The early bird catches the worm, but the second mouse gets the cheese.",
+    "source": "Medieval Hunters' Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "A wise man never knows all, only fools know everything.",
+    "source": "African Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Africa"
+  },
+  {
+    "text": "The greatest wealth is health. The second greatest is having someone who reminds you to eat your vegetables.",
+    "source": "Ancient Medical Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "Fortune favors the bold. Misfortune favors them as well, but tells better stories.",
+    "source": "Ancient Roman Saying (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "If you speak the truth, have a foot in the stirrup. Truth-tellers should be ready for a quick escape.",
+    "source": "Turkish Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Medieval Turkey"
+  },
+  {
+    "text": "If you want to test a man's character, give him power. If you want to test his wisdom, give him wealth.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "A lazy man will tell you that hard work never killed anyone, but why take the chance?",
+    "source": "Medieval Humor",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "The bee stings and dies. The wasp stings and laughs. Choose your battles wisely.",
+    "source": "Ancient Fable Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Middle East"
+  },
+  {
+    "text": "A problem shared is a problem halved. A joy shared is a joy doubled.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "The wise don't need advice. Fools won't take it.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "A fool sees not the same tree that a wise man sees. One sees firewood, the other sees sanctuary.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "A tree is known by its fruit, not by its leaves. A person is known by their actions, not their words.",
+    "source": "Ancient Middle Eastern Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Middle East"
+  },
+  {
+    "text": "Doubt is the beginning of wisdom. Certainty is the beginning of folly.",
+    "source": "Ancient Greek Philosophy",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "The wise person possesses humility. They know what they do not know.",
+    "source": "Socrates (paraphrased)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "The older I grow, the more I listen to people who don't talk much.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "The man who moves a mountain begins by carrying away small stones. The woman who directs him often accomplishes more.",
+    "source": "Ancient Chinese Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "When an elder dies, a library burns. When a fool dies, a source of bad advice is gone.",
+    "source": "African Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient Africa"
+  },
+  {
+    "text": "A society grows great when old men plant trees in whose shade they know they shall never sit. Politicians cut them down for short-term gain.",
+    "source": "Greek Proverb (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Ancient Greece"
+  },
+  {
+    "text": "Children need models more than critics. They do what you do, not what you say.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "The pen is mightier than the sword, but neither is as effective as a well-placed bribe.",
+    "source": "Medieval Political Humor",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "He who knows not and knows not that he knows not is a fool - shun him. He who knows not and knows that he knows not is a student - teach him.",
+    "source": "Arabic Proverb",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Middle East"
+  },
+  {
+    "text": "If fifty million people say a foolish thing, it is still a foolish thing.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "The bigger they are, the harder they fall. But the wiser they are, the less likely they are to fall at all.",
+    "source": "Ancient Gladiatorial Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Ancient Rome"
+  },
+  {
+    "text": "No garden is without its weeds. No mind is without its follies.",
+    "source": "Ancient Gardening Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "The best time to start was yesterday. The next best time is now. The worst time is 'tomorrow'.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "The wise speak because they have something to say; fools speak because they have to say something.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "Every man is a fool in some man's opinion. And every man is right about that, at least once.",
+    "source": "Medieval Humor",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Medieval Europe"
+  },
+  {
+    "text": "The difference between genius and stupidity is that genius has its limits.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Folk Wisdom",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "A man travels the world over in search of what he needs and returns home to find it. A woman knew it was there all along.",
+    "source": "Ancient Wisdom (with twist)",
+    "difficulty": "Medium",
+    "category": "Folk Humor",
+    "origin": "Global Wisdom"
+  },
+  {
+    "text": "You cannot step into the same river twice, for other waters are continually flowing in. But you can fall into the same mistake repeatedly.",
+    "source": "Heraclitus (with twist)",
+    "difficulty": "Medium",
+    "category": "Ancient Philosophy Humor",
+    "origin": "Ancient Greece"
   }
 ] 
