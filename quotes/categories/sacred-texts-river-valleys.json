@@ -103,5 +103,12 @@
     "difficulty": "Medium",
     "category": "SacredTextsRiverValleys",
     "origin": "Alaska"
+  },
+  {
+    "text": "River Valley Traditions",
+    "source": "River Valley Sacred Text",
+    "difficulty": "Medium",
+    "category": "SacredTextsRiverValleys",
+    "origin": "North America"
   }
 ] 
