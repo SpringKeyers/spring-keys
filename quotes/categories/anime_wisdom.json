@@ -551,5 +551,110 @@
     "difficulty": "Medium",
     "category": "Perseverance",
     "origin": "Japanese Anime"
+  },
+  {
+    "text": "Koko kara miru keshiki wa, totemo kirei desu. (The view from up here is very beautiful.)",
+    "source": "Howl's Moving Castle - Howl",
+    "difficulty": "Easy",
+    "category": "Perspective",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Jibun o shinjiru koto ga dekitara, nandemo dekiru. (If you can believe in yourself, you can do anything.)",
+    "source": "Naruto - Uzumaki Naruto",
+    "difficulty": "Medium",
+    "category": "Self-Confidence",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Sore wa ningen ga ningen de aru tame no tatakai da. (It's the struggle that makes us human.)",
+    "source": "Attack on Titan - Eren Yeager",
+    "difficulty": "Hard",
+    "category": "Human Nature",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hito wa hitori ja ikite ikenai. (People cannot live alone.)",
+    "source": "Sword Art Online - Kirito",
+    "difficulty": "Easy",
+    "category": "Connection",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Ikiru koto wa tatakai da. (Living is a battle.)",
+    "source": "Cowboy Bebop - Spike Spiegel",
+    "difficulty": "Medium",
+    "category": "Existentialism",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kako o shiranai mono ni mirai wa nai. (Those who do not know the past have no future.)",
+    "source": "Fullmetal Alchemist - Edward Elric",
+    "difficulty": "Medium",
+    "category": "History and Growth",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hitotsu no inochi wa mugen no kanōsei o motsu. (A single life holds infinite possibilities.)",
+    "source": "Violet Evergarden - Gilbert Bougainvillea",
+    "difficulty": "Hard",
+    "category": "Potential",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kanashimi mo namida mo nori koete koso hito wa tsuyoku nareru. (It is by overcoming sadness and tears that people become stronger.)",
+    "source": "One Piece - Nico Robin",
+    "difficulty": "Medium",
+    "category": "Resilience",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kono sekai wa utsukushii. Dakara tatakau kachi ga aru. (This world is beautiful. That's why it's worth fighting for.)",
+    "source": "Neon Genesis Evangelion - Kaworu Nagisa",
+    "difficulty": "Hard",
+    "category": "Purpose",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Michi wa itsumo me no mae ni aru. (The path is always before your eyes.)",
+    "source": "Spirited Away - Zeniba",
+    "difficulty": "Medium",
+    "category": "Direction",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Sono egao dake ga watashi no kibō. (Your smile alone is my hope.)",
+    "source": "Your Lie in April - Kaori Miyazono",
+    "difficulty": "Easy",
+    "category": "Inspiration",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Nani mo shiranai kara koso, nani mo kamo ga mirai e no tobira. (Because we know nothing, everything becomes a door to the future.)",
+    "source": "Mushishi - Ginko",
+    "difficulty": "Hard",
+    "category": "Possibility",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Shippai wa seikō e no daiippo da. (Failure is the first step toward success.)",
+    "source": "Haikyuu!! - Coach Ukai",
+    "difficulty": "Easy",
+    "category": "Growth Mindset",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Watashi-tachi wa mina hoshi no kakera. (We are all fragments of stars.)",
+    "source": "Your Name - Mitsuha Miyamizu",
+    "difficulty": "Medium",
+    "category": "Connectedness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Subete no ikimono wa jiyū to sekinin o seotte umarete kuru. (All living beings are born carrying freedom and responsibility.)",
+    "source": "Ghost in the Shell - Motoko Kusanagi",
+    "difficulty": "Hard",
+    "category": "Free Will",
+    "origin": "Japanese Anime"
   }
 ] 
