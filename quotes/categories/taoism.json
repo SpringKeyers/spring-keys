@@ -8,22 +8,15 @@
   },
   {
     "text": "Knowing others is intelligence; knowing yourself is true wisdom. Mastering others is strength; mastering yourself is true power.",
-    "source": "Lao Tzu",
+    "source": "Tao Te Ching",
+    "difficulty": "Medium",
+    "category": "Taoism",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Endeavor's nobility is ability, action's nobility is timing. When you never strive you never go wrong.",
+    "source": "Tao Te Ching",
     "difficulty": "Hard",
-    "category": "Taoism",
-    "origin": "Ancient China"
-  },
-  {
-    "text": "Focus on the journey, not the destination. Joy is found not in finishing an activity but in doing it.",
-    "source": "Taoist Teaching",
-    "difficulty": "Medium",
-    "category": "Taoism",
-    "origin": "Ancient China"
-  },
-  {
-    "text": "Flow with whatever may happen and let your mind be free. Stay centered by accepting whatever you are doing.",
-    "source": "Ancient Taoist Wisdom",
-    "difficulty": "Medium",
     "category": "Taoism",
     "origin": "Ancient China"
   },
@@ -35,15 +28,29 @@
     "origin": "Ancient China"
   },
   {
-    "text": "Water is fluid, soft, and yielding. But water will wear away rock, which is rigid and cannot yield. As a rule, whatever is fluid, soft, and yielding will overcome whatever is rigid and hard.",
+    "text": "Water is fluid, soft, and yielding. But water will wear away rock, which is rigid and cannot yield.",
     "source": "Lao Tzu",
     "difficulty": "Medium",
     "category": "Taoism",
     "origin": "Ancient China"
   },
   {
-    "text": "Life is a series of natural and spontaneous changes. Don't resist them; that only creates sorrow. Let reality be reality. Let things flow naturally forward in whatever way they like.",
+    "text": "Life is a series of natural and spontaneous changes. Don't resist them; that only creates sorrow.",
     "source": "Lao Tzu",
+    "difficulty": "Medium",
+    "category": "Taoism",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Just do what you do, and then leave: such is the Way of heaven.",
+    "source": "Tao Te Ching",
+    "difficulty": "Medium",
+    "category": "Taoism",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Flow with whatever may happen and let your mind be free. Stay centered by accepting whatever you are doing.",
+    "source": "Ancient Taoist Wisdom",
     "difficulty": "Medium",
     "category": "Taoism",
     "origin": "Ancient China"

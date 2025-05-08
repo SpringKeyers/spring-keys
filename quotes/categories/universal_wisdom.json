@@ -1,43 +1,8 @@
 [
   {
-    "text": "The wise does at once what the fool does finally.",
-    "source": "Ancient Maxim",
-    "difficulty": "Medium",
-    "category": "Universal Wisdom",
-    "origin": "Global"
-  },
-  {
-    "text": "The eye cannot see itself without a reflection.",
-    "source": "Ancient Wisdom",
-    "difficulty": "Medium",
-    "category": "Universal Wisdom",
-    "origin": "Global"
-  },
-  {
-    "text": "The more you know yourself, the more clarity there is.",
-    "source": "Ancient Wisdom",
-    "difficulty": "Easy",
-    "category": "Universal Wisdom",
-    "origin": "Global"
-  },
-  {
-    "text": "A smooth sea never made a skilled sailor.",
-    "source": "Ancient Maritime Wisdom",
-    "difficulty": "Easy",
-    "category": "Universal Wisdom",
-    "origin": "Global"
-  },
-  {
     "text": "The man on top of the mountain didn't fall there.",
     "source": "Ancient Proverb",
     "difficulty": "Easy",
-    "category": "Universal Wisdom",
-    "origin": "Global"
-  },
-  {
-    "text": "Failure is instructive. The person who really thinks learns quite as much from his failures as from his successes.",
-    "source": "Ancient Teaching",
-    "difficulty": "Medium",
     "category": "Universal Wisdom",
     "origin": "Global"
   },
@@ -79,6 +44,41 @@
   {
     "text": "Success is not final, failure is not fatal: it is the courage to continue that counts.",
     "source": "Inspired by Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Universal Wisdom",
+    "origin": "Global"
+  },
+  {
+    "text": "The wise does at once what the fool does finally.",
+    "source": "Ancient Maxim",
+    "difficulty": "Medium",
+    "category": "Universal Wisdom",
+    "origin": "Global"
+  },
+  {
+    "text": "The eye cannot see itself without a reflection.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Medium",
+    "category": "Universal Wisdom",
+    "origin": "Global"
+  },
+  {
+    "text": "The more you know yourself, the more clarity there is.",
+    "source": "Ancient Wisdom",
+    "difficulty": "Easy",
+    "category": "Universal Wisdom",
+    "origin": "Global"
+  },
+  {
+    "text": "A smooth sea never made a skilled sailor.",
+    "source": "Ancient Maritime Wisdom",
+    "difficulty": "Easy",
+    "category": "Universal Wisdom",
+    "origin": "Global"
+  },
+  {
+    "text": "Failure is instructive. The person who really thinks learns quite as much from his failures as from his successes.",
+    "source": "Ancient Teaching",
     "difficulty": "Medium",
     "category": "Universal Wisdom",
     "origin": "Global"

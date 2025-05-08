@@ -54,5 +54,33 @@
     "difficulty": "Hard",
     "category": "Chinese Wisdom",
     "origin": "Ancient China"
+  },
+  {
+    "text": "Better a diamond with a flaw than a pebble without.",
+    "source": "Confucius",
+    "difficulty": "Medium",
+    "category": "Confucianism",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The superior man is modest in his speech, but exceeds in his actions.",
+    "source": "Confucius",
+    "difficulty": "Medium",
+    "category": "Confucianism",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Harmony is the greatest treasure.",
+    "source": "I Ching",
+    "difficulty": "Medium",
+    "category": "Chinese Wisdom",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "If there is light in the soul, there will be beauty in the person. If there is beauty in the person, there will be harmony in the house.",
+    "source": "Chinese Proverb",
+    "difficulty": "Hard",
+    "category": "Chinese Wisdom",
+    "origin": "Ancient China"
   }
 ] 

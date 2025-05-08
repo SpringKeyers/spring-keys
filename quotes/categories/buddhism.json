@@ -1,8 +1,50 @@
 [
   {
+    "text": "Endurance is one of the most difficult disciplines, but it is to the one who endures that the final victory comes.",
+    "source": "Buddha",
+    "difficulty": "Medium",
+    "category": "Buddhism",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "The one who has conquered himself is a far greater hero than he who has defeated a thousand times a thousand men.",
+    "source": "Buddha",
+    "difficulty": "Medium",
+    "category": "Buddhism",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "As an elephant in the battlefield withstands arrows shot from bows all around, even so shall I endure abuse.",
+    "source": "Buddha",
+    "difficulty": "Medium",
+    "category": "Buddhism",
+    "origin": "Ancient India"
+  },
+  {
     "text": "No mud, no lotus.",
     "source": "Buddhist Teaching",
     "difficulty": "Easy",
+    "category": "Buddhism",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.",
+    "source": "Buddha",
+    "difficulty": "Medium",
+    "category": "Buddhism",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "The mind is everything. What you think you become.",
+    "source": "Buddha",
+    "difficulty": "Medium",
+    "category": "Buddhism",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "What you are is what you have been. What you'll be is what you do now.",
+    "source": "Buddha",
+    "difficulty": "Medium",
     "category": "Buddhism",
     "origin": "Ancient India"
   },
@@ -28,27 +70,6 @@
     "origin": "Ancient India"
   },
   {
-    "text": "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.",
-    "source": "Buddha",
-    "difficulty": "Medium",
-    "category": "Buddhism",
-    "origin": "Ancient India"
-  },
-  {
-    "text": "If you are facing the right direction, all you need to do is keep walking.",
-    "source": "Buddhist Proverb",
-    "difficulty": "Easy",
-    "category": "Buddhism",
-    "origin": "Ancient India"
-  },
-  {
-    "text": "The mind is everything. What you think you become.",
-    "source": "Buddha",
-    "difficulty": "Medium",
-    "category": "Buddhism",
-    "origin": "Ancient India"
-  },
-  {
     "text": "When you are present, you can allow the mind to be as it is without getting entangled in it.",
     "source": "Buddhist Teaching",
     "difficulty": "Medium",
@@ -63,30 +84,9 @@
     "origin": "Ancient India"
   },
   {
-    "text": "What you are is what you have been. What you'll be is what you do now.",
-    "source": "Buddha",
-    "difficulty": "Medium",
-    "category": "Buddhism",
-    "origin": "Ancient India"
-  },
-  {
-    "text": "Endurance is one of the most difficult disciplines, but it is to the one who endures that the final victory comes.",
-    "source": "Buddha",
-    "difficulty": "Medium",
-    "category": "Buddhism",
-    "origin": "Ancient India"
-  },
-  {
-    "text": "The one who has conquered himself is a far greater hero than he who has defeated a thousand times a thousand men.",
-    "source": "Buddha",
-    "difficulty": "Medium",
-    "category": "Buddhism",
-    "origin": "Ancient India"
-  },
-  {
-    "text": "As an elephant in the battlefield withstands arrows shot from bows all around, even so shall I endure abuse.",
-    "source": "Buddha",
-    "difficulty": "Medium",
+    "text": "If you are facing the right direction, all you need to do is keep walking.",
+    "source": "Buddhist Proverb",
+    "difficulty": "Easy",
     "category": "Buddhism",
     "origin": "Ancient India"
   }
