@@ -3,7 +3,70 @@
     "text": "The Analects of Confucius",
     "source": "Confucian Sacred Text",
     "difficulty": "Medium",
-    "category": "SacredTexts-Analects",
+    "category": "SacredTextsAnalects",
     "origin": "East Asia"
+  },
+  {
+    "text": "By three methods we may learn wisdom: First, by reflection, which is noblest; Second, by imitation, which is easiest; and third by experience, which is the bitterest.",
+    "source": "Confucius, Analects",
+    "difficulty": "Medium",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "It does not matter how slowly you go as long as you do not stop.",
+    "source": "Confucius, Analects",
+    "difficulty": "Easy",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Our greatest glory is not in never falling, but in rising every time we fall.",
+    "source": "Confucius, Analects",
+    "difficulty": "Easy",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Everything has beauty, but not everyone sees it.",
+    "source": "Confucius, Analects",
+    "difficulty": "Easy",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The man who moves a mountain begins by carrying away small stones.",
+    "source": "Confucius, Analects",
+    "difficulty": "Easy",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Wheresoever you go, go with all your heart.",
+    "source": "Confucius, Analects",
+    "difficulty": "Easy",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The gem cannot be polished without friction, nor man perfected without trials.",
+    "source": "Confucius, Analects",
+    "difficulty": "Medium",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "He who knows all the answers has not been asked all the questions.",
+    "source": "Confucius, Analects",
+    "difficulty": "Medium",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Silence is a true friend who never betrays.",
+    "source": "Confucius, Analects",
+    "difficulty": "Easy",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
   }
 ] 

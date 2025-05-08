@@ -57,6 +57,60 @@ pub enum QuoteCategory {
     SongLyrics,
     /// Tautological statements for typing practice
     Tautologies,
+    /// Sacred texts from various traditions
+    SacredTexts,
+    /// Sacred texts from the Bible
+    SacredTextsBible,
+    /// Sacred texts from the Torah
+    SacredTextsTorah,
+    /// Sacred texts from the Quran
+    SacredTextsQuran,
+    /// Sacred texts from the Vedas
+    SacredTextsVedas,
+    /// Sacred texts from the Tripitaka
+    SacredTextsTripitaka,
+    /// Sacred texts from the Analects
+    SacredTextsAnalects,
+    /// Sacred texts from the Avesta
+    SacredTextsAvesta,
+    /// Sacred texts from the Guru Granth Sahib
+    SacredTextsGuruGranthSahib,
+    /// Sacred texts from the Kitáb-i-Aqdas
+    SacredTextsKitabIAqdas,
+    /// Sacred texts from the Tao Te Ching
+    SacredTextsTaoTeChing,
+    /// Sacred texts from the Popol Vuh
+    SacredTextsPopolVuh,
+    /// Sacred texts from the Florentine Codex
+    SacredTextsFlorentineCodex,
+    /// Sacred texts from the Iroquois Constitution
+    SacredTextsIroquoisConstitution,
+    /// Sacred texts from the Odù Ifá
+    SacredTextsOduIfa,
+    /// Sacred texts from the Kebra Nagast
+    SacredTextsKebraNagast,
+    /// Sacred texts from the Kojiki
+    SacredTextsKojiki,
+    /// Sacred texts from the Darangen
+    SacredTextsDarangen,
+    /// Sacred texts from the Kumulipo
+    SacredTextsKumulipo,
+    /// Sacred texts from Alberta traditions
+    SacredTextsAlberta,
+    /// Sacred texts from CIRI traditions
+    SacredTextsCIRI,
+    /// Sacred texts from Inuit oral traditions
+    SacredTextsInuitOral,
+    /// Sacred texts from Kenaitze traditions
+    SacredTextsKenaitze,
+    /// Sacred texts from river valley traditions
+    SacredTextsRiverValleys,
+    /// Sacred texts from Yukon traditions
+    SacredTextsYukon,
+    /// Sacred texts from Yupik oral traditions
+    SacredTextsYupikOral,
+    /// Sacred texts from Jamaican traditions
+    SacredTextsJamaica,
 }
 
 /// F-key category groups for cycling

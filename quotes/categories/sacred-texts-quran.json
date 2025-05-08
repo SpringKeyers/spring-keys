@@ -3,7 +3,77 @@
     "text": "The Quran",
     "source": "Islamic Sacred Text",
     "difficulty": "Medium",
-    "category": "SacredTexts-Quran",
+    "category": "SacredTextsQuran",
     "origin": "Middle East"
+  },
+  {
+    "text": "Indeed, Allah is with those who are patient.",
+    "source": "Quran 2:153",
+    "difficulty": "Easy",
+    "category": "SacredTextsQuran",
+    "origin": "Ancient Arabia"
+  },
+  {
+    "text": "Verily, with hardship comes ease.",
+    "source": "Quran 94:5",
+    "difficulty": "Easy",
+    "category": "SacredTextsQuran",
+    "origin": "Ancient Arabia"
+  },
+  {
+    "text": "And We have certainly created man in the best of stature.",
+    "source": "Quran 95:4",
+    "difficulty": "Easy",
+    "category": "SacredTextsQuran",
+    "origin": "Ancient Arabia"
+  },
+  {
+    "text": "Indeed, Allah does not change the condition of a people until they change what is in themselves.",
+    "source": "Quran 13:11",
+    "difficulty": "Medium",
+    "category": "SacredTextsQuran",
+    "origin": "Ancient Arabia"
+  },
+  {
+    "text": "And speak to people good words.",
+    "source": "Quran 2:83",
+    "difficulty": "Easy",
+    "category": "SacredTextsQuran",
+    "origin": "Ancient Arabia"
+  },
+  {
+    "text": "And whoever does good, whether male or female, and is a believer, those will enter Paradise.",
+    "source": "Quran 40:40",
+    "difficulty": "Medium",
+    "category": "SacredTextsQuran",
+    "origin": "Ancient Arabia"
+  },
+  {
+    "text": "And We have not sent you, [O Muhammad], except as a mercy to the worlds.",
+    "source": "Quran 21:107",
+    "difficulty": "Medium",
+    "category": "SacredTextsQuran",
+    "origin": "Ancient Arabia"
+  },
+  {
+    "text": "And whoever is patient and forgives - indeed, that is of the matters [worthy] of resolve.",
+    "source": "Quran 42:43",
+    "difficulty": "Medium",
+    "category": "SacredTextsQuran",
+    "origin": "Ancient Arabia"
+  },
+  {
+    "text": "And We have certainly created man from an extract of clay.",
+    "source": "Quran 23:12",
+    "difficulty": "Medium",
+    "category": "SacredTextsQuran",
+    "origin": "Ancient Arabia"
+  },
+  {
+    "text": "And We have certainly created man in the best of stature.",
+    "source": "Quran 95:4",
+    "difficulty": "Easy",
+    "category": "SacredTextsQuran",
+    "origin": "Ancient Arabia"
   }
 ] 

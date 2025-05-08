@@ -3,7 +3,77 @@
     "text": "The Vedas",
     "source": "Hindu Sacred Text",
     "difficulty": "Medium",
-    "category": "SacredTexts-Vedas",
+    "category": "SacredTextsVedas",
     "origin": "South Asia"
+  },
+  {
+    "text": "The wise who knows the Self as bodiless within the bodies, as unchanging among changing things, as great and omnipresent, does never grieve.",
+    "source": "Katha Upanishad 2.22",
+    "difficulty": "Hard",
+    "category": "SacredTextsVedas",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "Truth is one; sages call it by various names.",
+    "source": "Rig Veda 1.164.46",
+    "difficulty": "Medium",
+    "category": "SacredTextsVedas",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "A person can achieve everything by being simple and humble.",
+    "source": "Rig Veda",
+    "difficulty": "Easy",
+    "category": "SacredTextsVedas",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "Ego is the biggest enemy of humans.",
+    "source": "Rig Veda",
+    "difficulty": "Easy",
+    "category": "SacredTextsVedas",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "You have the right to work, but never to the fruit of work. You should never engage in action for the sake of reward, nor should you long for inaction.",
+    "source": "Bhagavad Gita 2:47",
+    "difficulty": "Medium",
+    "category": "SacredTextsVedas",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "The mind is restless and difficult to restrain, but it is subdued by practice.",
+    "source": "Bhagavad Gita 6:35",
+    "difficulty": "Medium",
+    "category": "SacredTextsVedas",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "I am the same to all beings. I favor none and reject none. But those who worship Me with devotion, they live in Me, and I in them.",
+    "source": "Bhagavad Gita 9:29",
+    "difficulty": "Medium",
+    "category": "SacredTextsVedas",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "When meditation is mastered, the mind is unwavering like the flame of a lamp in a windless place.",
+    "source": "Bhagavad Gita 6:19",
+    "difficulty": "Medium",
+    "category": "SacredTextsVedas",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "One who sees inaction in action, and action in inaction, is intelligent among men.",
+    "source": "Bhagavad Gita 4:18",
+    "difficulty": "Hard",
+    "category": "SacredTextsVedas",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "The one who loves all intensely begins perceiving in all living beings a part of himself.",
+    "source": "Yajur Veda",
+    "difficulty": "Medium",
+    "category": "SacredTextsVedas",
+    "origin": "Ancient India"
   }
 ] 

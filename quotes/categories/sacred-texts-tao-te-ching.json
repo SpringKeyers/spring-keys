@@ -1,9 +1,37 @@
 [
   {
-    "text": "The Tao Te Ching",
-    "source": "Taoist Sacred Text",
+    "text": "Knowing others is intelligence; knowing yourself is true wisdom. Mastering others is strength; mastering yourself is true power.",
+    "source": "Tao Te Ching, Chapter 33",
     "difficulty": "Medium",
-    "category": "SacredTexts-TaoTeChing",
-    "origin": "East Asia"
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The journey of a thousand miles begins with a single step.",
+    "source": "Tao Te Ching, Chapter 64",
+    "difficulty": "Easy",
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "When you are content to be simply yourself and don't compare or compete, everyone will respect you.",
+    "source": "Tao Te Ching, Chapter 8",
+    "difficulty": "Medium",
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Life is a series of natural and spontaneous changes. Don't resist them; that only creates sorrow. Let reality be reality.",
+    "source": "Lao Tzu",
+    "difficulty": "Medium",
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Simplicity, patience, compassion. These three are your greatest treasures.",
+    "source": "Tao Te Ching, Chapter 67",
+    "difficulty": "Easy",
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
   }
 ] 

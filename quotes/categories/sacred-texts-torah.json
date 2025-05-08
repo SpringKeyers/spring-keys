@@ -3,7 +3,77 @@
     "text": "The Torah",
     "source": "Jewish Sacred Text",
     "difficulty": "Medium",
-    "category": "SacredTexts-Torah",
+    "category": "SacredTextsTorah",
     "origin": "Middle East"
+  },
+  {
+    "text": "The liar's punishment is that even when he speaks the truth, no one believes him.",
+    "source": "Talmud, Sanhedrin 89b",
+    "difficulty": "Medium",
+    "category": "SacredTextsTorah",
+    "origin": "Ancient Israel"
+  },
+  {
+    "text": "A person's true character is ascertained by three parameters: his cup, his pocket, and his anger.",
+    "source": "Talmud, Eruvin 65b",
+    "difficulty": "Medium",
+    "category": "SacredTextsTorah",
+    "origin": "Ancient Israel"
+  },
+  {
+    "text": "Who is wise? One who learns from every person.",
+    "source": "Pirkei Avot 4:1",
+    "difficulty": "Easy",
+    "category": "SacredTextsTorah",
+    "origin": "Ancient Israel"
+  },
+  {
+    "text": "The greatest power is the power of light and love.",
+    "source": "Zohar",
+    "difficulty": "Easy",
+    "category": "SacredTextsTorah",
+    "origin": "Medieval Spain"
+  },
+  {
+    "text": "Through acts of kindness, we strengthen the bonds of unity and create a ripple effect of positivity.",
+    "source": "Zohar",
+    "difficulty": "Medium",
+    "category": "SacredTextsTorah",
+    "origin": "Medieval Spain"
+  },
+  {
+    "text": "If I am not for myself, who will be for me? And if I am only for myself, what am I? And if not now, when?",
+    "source": "Pirkei Avot 1:14",
+    "difficulty": "Medium",
+    "category": "SacredTextsTorah",
+    "origin": "Ancient Israel"
+  },
+  {
+    "text": "Train up a child in the way he should go, and when he is old, he will not depart from it.",
+    "source": "Proverbs 22:6",
+    "difficulty": "Easy",
+    "category": "SacredTextsTorah",
+    "origin": "Ancient Israel"
+  },
+  {
+    "text": "She is a tree of life to those who take hold of her; those who hold her fast will be blessed.",
+    "source": "Proverbs 3:18",
+    "difficulty": "Medium",
+    "category": "SacredTextsTorah",
+    "origin": "Ancient Israel"
+  },
+  {
+    "text": "Iron sharpens iron, and one person sharpens another.",
+    "source": "Proverbs 27:17",
+    "difficulty": "Easy",
+    "category": "SacredTextsTorah",
+    "origin": "Ancient Israel"
+  },
+  {
+    "text": "A soft answer turns away wrath, but a harsh word stirs up anger.",
+    "source": "Proverbs 15:1",
+    "difficulty": "Easy",
+    "category": "SacredTextsTorah",
+    "origin": "Ancient Israel"
   }
 ] 
