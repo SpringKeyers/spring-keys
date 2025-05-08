@@ -103,5 +103,19 @@
     "difficulty": "Hard",
     "category": "Ancient Philosophy",
     "origin": "Ancient Greece"
+  },
+  {
+    "text": "The only true wisdom is in knowing you know nothing.",
+    "source": "Socrates",
+    "difficulty": "Easy",
+    "category": "greek wisdom",
+    "origin": "Greek"
+  },
+  {
+    "text": "It is during our darkest moments that we must focus to see the light.",
+    "source": "Aristotle",
+    "difficulty": "Medium",
+    "category": "greek wisdom",
+    "origin": "Greek"
   }
 ] 

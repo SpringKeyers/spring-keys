@@ -117,5 +117,19 @@
     "difficulty": "Medium",
     "category": "arabic wisdom",
     "origin": "Arabic"
+  },
+  {
+    "text": "bileilm w almal ybni alnas mulkhum, lm ybn mulk ealaa jahl w 'iiqlal (With knowledge and wealth, people build their kingdom; no kingdom is built on ignorance and poverty)",
+    "source": "Ahmed Shawqi",
+    "difficulty": "Hard",
+    "category": "arabic wisdom",
+    "origin": "Egyptian"
+  },
+  {
+    "text": "Al-sabr miftah al-faraj. (Patience is the key to relief.)",
+    "source": "Islamic Proverb",
+    "difficulty": "Medium",
+    "category": "islamic scripture",
+    "origin": "Arabic"
   }
 ] 
