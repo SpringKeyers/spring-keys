@@ -208,5 +208,40 @@
     "difficulty": "Easy",
     "category": "Folk Wisdom",
     "origin": "Ancient China"
+  },
+  {
+    "text": "The journey of a thousand miles begins with a single step.",
+    "source": "Lao Tzu, Tao Te Ching",
+    "difficulty": "Easy",
+    "category": "Chinese Wisdom",
+    "origin": "Chinese"
+  },
+  {
+    "text": "千里之行，始于足下 (Qiān lǐ zhī xíng, shǐ yú zú xià - A journey of a thousand miles begins with a single step)",
+    "source": "Lao Tzu, Tao Te Ching",
+    "difficulty": "Hard",
+    "category": "Chinese Wisdom",
+    "origin": "Chinese"
+  },
+  {
+    "text": "Know yourself and you will win all battles.",
+    "source": "Sun Tzu, The Art of War",
+    "difficulty": "Easy",
+    "category": "Chinese Wisdom",
+    "origin": "Chinese"
+  },
+  {
+    "text": "Life is really simple, but we insist on making it complicated.",
+    "source": "Confucius",
+    "difficulty": "Easy",
+    "category": "Chinese Wisdom",
+    "origin": "Chinese"
+  },
+  {
+    "text": "The man who moves a mountain begins by carrying away small stones.",
+    "source": "Confucius",
+    "difficulty": "Medium",
+    "category": "Chinese Wisdom",
+    "origin": "Chinese"
   }
 ] 

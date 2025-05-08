@@ -54,5 +54,19 @@
     "difficulty": "Hard",
     "category": "TongueTwisters",
     "origin": "English"
+  },
+  {
+    "text": "Sally sells seashells by the seashore.",
+    "source": "Traditional Tongue Twister",
+    "difficulty": "Easy",
+    "category": "Tongue Twisters",
+    "origin": "English"
+  },
+  {
+    "text": "Peter Piper picked a peck of pickled peppers.",
+    "source": "Traditional Tongue Twister",
+    "difficulty": "Medium",
+    "category": "Tongue Twisters",
+    "origin": "English"
   }
 ] 
