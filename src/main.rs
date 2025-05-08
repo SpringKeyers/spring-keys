@@ -247,39 +247,6 @@ fn main() -> std::io::Result<()> {
         i += 1;
     }
 
-    // Handle quote and moosesay commands separately since they don't need UI
-    if let Some(cmd) = &command {
-        match cmd.as_str() {
-            "quote" => {
-                let mut quote_db = quotes::QuoteDatabase::new_silent();
-                let quote = quote_db.next_random();
-                println!("{}", quote.text);
-                println!("— {}", quote.source);
-                std::process::exit(0);
-            }
-            "moosesay" => {
-                let mut quote_db = quotes::QuoteDatabase::new_silent();
-                let quote = quote_db.next_random();
-                moosesay::animate_moose_quote(&quote.text, None)?;
-                println!("— {}", quote.source);
-                std::process::exit(0);
-            }
-            "screensaver" => {
-                let mut quote_db = quotes::QuoteDatabase::new_silent();
-                let quote = quote_db.next_random();
-                // Only parse duration if there's a number after "screensaver"
-                let duration = args.iter()
-                    .position(|arg| arg == "screensaver")
-                    .and_then(|pos| args.get(pos + 1))
-                    .filter(|arg| arg.chars().all(|c| c.is_digit(10)))
-                    .and_then(|arg| arg.parse::<u64>().ok());
-                moosesay::animate_moose_quote(&quote.text, duration)?;
-                std::process::exit(0);
-            }
-            _ => {}
-        }
-    }
-
     // Set up logging based on quiet mode
     let log_level = if quiet_mode { LevelFilter::Error } else { LevelFilter::Info };
     let _ = logger::init_logger(log_level, None::<PathBuf>);
@@ -297,34 +264,74 @@ fn main() -> std::io::Result<()> {
             QuoteDifficulty::Hard => config::DifficultyLevel::Advanced,
         };
     }
-    
-    match command {
-        Some(cmd) if cmd == "practice" => {
-            app.change_game(GameType::Practice);
-            // Start a typing session to show the keyboard immediately
-            app.start_typing_session(None);
-        },
-        Some(cmd) if cmd == "config" => {
-            println!("Configuration editing not yet implemented");
-            return Ok(());
-        },
-        Some(cmd) if cmd == "test" => {
-            return vga_test::run_test_screen();
-        },
-        Some(cmd) if cmd == "consume" => {
-            app.change_game(GameType::Consume);
-            return run_consume_mode(&mut app, consume_input.as_deref());
-        },
-        _ => {
-            // If no terminal is detected, default to practice mode instead of showing error
-            if !std::io::stdout().is_terminal() {
-                app.change_game(GameType::Consume);
-            } else {
-                eprintln!("Unknown command");
-                help::print_help();
+
+    // Handle special commands that don't need the full app initialization
+    if let Some(cmd) = &command {
+        match cmd.as_str() {
+            "quote" | "moosesay" | "screensaver" => {
+                let mut quote_db = quotes::QuoteDatabase::new_silent();
+                let quote = quote_db.next_random();
+                
+                match cmd.as_str() {
+                    "quote" => {
+                        println!("{}", quote.text);
+                        println!("— {}", quote.source);
+                    }
+                    "moosesay" => {
+                        moosesay::animate_moose_quote(&quote.text, None)?;
+                        println!("— {}", quote.source);
+                    }
+                    "screensaver" => {
+                        // Only parse duration if there's a number after "screensaver"
+                        let duration = args.iter()
+                            .position(|arg| arg == "screensaver")
+                            .and_then(|pos| args.get(pos + 1))
+                            .filter(|arg| arg.chars().all(|c| c.is_digit(10)))
+                            .and_then(|arg| arg.parse::<u64>().ok());
+                        moosesay::animate_moose_quote(&quote.text, duration)?;
+                    }
+                    _ => unreachable!()
+                }
+                std::process::exit(0);
+            }
+            "practice" => {
+                app.change_game(GameType::Practice);
+                // Start a typing session to show the keyboard immediately
+                app.start_typing_session(None);
+            },
+            "config" => {
+                println!("Configuration editing not yet implemented");
                 return Ok(());
+            },
+            "test" => {
+                return vga_test::run_test_screen();
+            },
+            "consume" => {
+                app.change_game(GameType::Consume);
+                return run_consume_mode(&mut app, consume_input.as_deref());
+            },
+            _ => {
+                // If no terminal is detected, default to practice mode instead of showing error
+                if !std::io::stdout().is_terminal() {
+                    app.change_game(GameType::Consume);
+                } else {
+                    if quiet_mode {
+                        help::print_help_quiet();
+                    } else {
+                        help::print_help();
+                    }
+                    return Ok(());
+                }
             }
         }
+    } else {
+        // If no command is provided, show help
+        if quiet_mode {
+            help::print_help_quiet();
+        } else {
+            help::print_help();
+        }
+        return Ok(());
     }
 
     // Set environment variable if demo heatmap is enabled

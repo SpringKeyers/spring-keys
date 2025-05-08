@@ -1,15 +1,15 @@
 use crate::quotes::QuoteDatabase;
 
 pub fn print_help() {
-    let quote_db = QuoteDatabase::new_silent();
-    let total_quotes = quote_db.all().len();
+    let mut quote_db = QuoteDatabase::new_silent();
+    let total_quotes = quote_db.total_quotes();
 
     println!("SpringKeys - Typing Tutor with Spring-based Physics");
-    println!("====================================================");
-    println!();
+    println!("====================================================\n");
+
     println!("USAGE:");
-    println!("  spring-keys [OPTIONS] [COMMAND]");
-    println!();
+    println!("  spring-keys [OPTIONS] [COMMAND]\n");
+
     println!("COMMANDS:");
     println!("  practice              Practice typing with quotes");
     println!("  consume [INPUT]       Process input and visualize typing results in UI");
@@ -17,32 +17,55 @@ pub fn print_help() {
     println!("  test                  Display test pattern (VGA-style test)");
     println!("  quote                 Output a random quote and exit");
     println!("  moosesay              Display an animated moose with a random quote");
-    println!("  screensaver [SECONDS] Display animated moose screensaver for specified duration");
-    println!();
+    println!("  screensaver [SECONDS] Display animated moose screensaver for specified duration\n");
+
     println!("OPTIONS:");
     println!("  -h, --help            Show this help message");
     println!("  -v, --version         Show version information");
     println!("  -d, --difficulty      Set difficulty level (easy, medium, hard)");
-    println!("  -q, --quiet           Quiet mode (minimal logging)");
-    println!();
+    println!("  -q, --quiet           Quiet mode (minimal logging)\n");
+
     println!("CONSUME MODE OPTIONS:");
-    println!("  --input=TEXT          Input sequence to process (space-separated tokens)");
-    println!();
+    println!("  --input=TEXT          Input sequence to process (space-separated tokens)\n");
+
     println!("ENVIRONMENT VARIABLES:");
     println!("  SPRING_KEYS_ENV_INFO  Set to '1' or 'true' to display environment information");
-    println!("  SPRING_KEYS_DEMO_HEATMAP Enable color spectrum visualization for keyboard heatmap");
-    println!();
+    println!("  SPRING_KEYS_DEMO_HEATMAP Enable color spectrum visualization for keyboard heatmap\n");
+
     println!("EXAMPLES:");
     println!("  spring-keys practice -d medium");
     println!("  spring-keys consume \"T h e <space> q u i c k\"");
     println!("  spring-keys test");
     println!("  spring-keys quote     # Get a random quote");
     println!("  spring-keys moosesay  # Get a random quote with an animated moose");
-    println!("  spring-keys screensaver 10  # Run moose screensaver for 10 seconds");
-    println!();
-    println!("Successfully loaded {} quotes from JSON files", total_quotes);
-    println!();
+    println!("  spring-keys screensaver 10  # Run moose screensaver for 10 seconds\n");
+
+    println!("Successfully loaded {} quotes from JSON files\n", total_quotes);
+
     println!("For more information, see the documentation.");
+}
+
+pub fn print_help_quiet() {
+    println!("SpringKeys - Typing Tutor with Spring-based Physics");
+    println!("====================================================\n");
+
+    println!("USAGE:");
+    println!("  spring-keys [OPTIONS] [COMMAND]\n");
+
+    println!("COMMANDS:");
+    println!("  practice              Practice typing with quotes");
+    println!("  consume [INPUT]       Process input and visualize typing results in UI");
+    println!("  config                Edit configuration");
+    println!("  test                  Display test pattern (VGA-style test)");
+    println!("  quote                 Output a random quote and exit");
+    println!("  moosesay              Display an animated moose with a random quote");
+    println!("  screensaver [SECONDS] Display animated moose screensaver for specified duration\n");
+
+    println!("OPTIONS:");
+    println!("  -h, --help            Show this help message");
+    println!("  -v, --version         Show version information");
+    println!("  -d, --difficulty      Set difficulty level (easy, medium, hard)");
+    println!("  -q, --quiet           Quiet mode (minimal logging)\n");
 }
 
 // Commented out as it's not currently used

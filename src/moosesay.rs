@@ -7,7 +7,7 @@ use crossterm::{
     terminal::{size, Clear, ClearType},
     cursor::{Hide, Show, MoveTo},
     execute,
-    style::{Color, SetForegroundColor, SetBackgroundColor},
+    style::{Color, SetForegroundColor, SetBackgroundColor, Print},
 };
 
 const MOOSE_FRAMES: [&str; 2] = [
