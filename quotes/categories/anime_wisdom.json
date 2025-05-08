@@ -1,0 +1,555 @@
+[
+  {
+    "text": "Michi wo mitsukeru koto wa muzukashii ga, sore wo aruku koto wa sara ni muzukashii. (Finding the path is difficult, but walking it is even more difficult.)",
+    "source": "Anime Wisdom",
+    "difficulty": "Medium",
+    "category": "Perseverance",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hontou no tsuyosa wa hito wo kizutsukeru koto de wa naku, hito wo mamoru koto ni aru. (True strength isn't about hurting others, but protecting them.)",
+    "source": "Samurai Philosophy",
+    "difficulty": "Medium",
+    "category": "Strength",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Shippai wa seikou no moto. (Failure is the foundation of success.)",
+    "source": "Training Arc Wisdom",
+    "difficulty": "Easy",
+    "category": "Growth",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Akirametara, soko de shiai shuryou da yo. (If you give up, that's when the game ends.)",
+    "source": "Sports Anime Wisdom",
+    "difficulty": "Easy",
+    "category": "Determination",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Itami wo shiranakereba, tsuyoku narenai. (Without knowing pain, you cannot become strong.)",
+    "source": "Shounen Anime Philosophy",
+    "difficulty": "Medium",
+    "category": "Growth",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hitori de wa tsuyoku narenai. Nakama ga iru kara tsuyoku nareru. (You cannot become strong alone. You become strong because you have companions.)",
+    "source": "Friendship Theme",
+    "difficulty": "Medium",
+    "category": "Teamwork",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kako wa kaerarenai ga, mirai wa kaerareru. (You cannot change the past, but you can change the future.)",
+    "source": "Time Travel Anime Wisdom",
+    "difficulty": "Medium",
+    "category": "Hope",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Ima wo ikiru koto ga taisetsu da. (Living in the present moment is what's important.)",
+    "source": "Slice of Life Anime",
+    "difficulty": "Easy",
+    "category": "Mindfulness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hito no kokoro wa kotoba dake de wa tsuujinai. Koudou de shimese. (People's hearts cannot be reached with words alone. Show it through actions.)",
+    "source": "Romance Anime Wisdom",
+    "difficulty": "Medium",
+    "category": "Communication",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Unmei wa jibun de kirihiraku mono da. (Destiny is something you carve out yourself.)",
+    "source": "Fantasy Anime Philosophy",
+    "difficulty": "Medium",
+    "category": "Free Will",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Shinjiru koto wa chikara da. (Believing is power.)",
+    "source": "Magical Girl Anime",
+    "difficulty": "Easy",
+    "category": "Faith",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Yowasa wo shiru koto koso ga tsuyosa no hajimari da. (Knowing your weakness is the beginning of strength.)",
+    "source": "Battle Anime Philosophy",
+    "difficulty": "Medium",
+    "category": "Self-awareness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Ningen wa hitori de wa ikirarenai. (Humans cannot live alone.)",
+    "source": "Post-Apocalyptic Anime",
+    "difficulty": "Easy",
+    "category": "Connection",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Tabi no mokutekichi yori, tabi no katei ga taisetsu da. (The journey is more important than the destination.)",
+    "source": "Adventure Anime",
+    "difficulty": "Medium",
+    "category": "Journey",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Donna chiisana shinsetsu mo, sekai wo kaeru chikara wo motteiru. (Even the smallest kindness has the power to change the world.)",
+    "source": "Healing Anime Wisdom",
+    "difficulty": "Medium",
+    "category": "Kindness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Tsuyoku naritai nara, dareka wo mamoru tame ni tsuyoku nare. (If you want to become strong, become strong to protect someone.)",
+    "source": "Hero Anime Philosophy",
+    "difficulty": "Medium",
+    "category": "Purpose",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Inochi ni kagiri ga aru kara koso, utsukushii no da. (Life is beautiful precisely because it is finite.)",
+    "source": "Philosophical Anime",
+    "difficulty": "Hard",
+    "category": "Mortality",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Namida wa yowasa de wa naku, kanjou no shoujiki na hyougen da. (Tears are not weakness, but an honest expression of emotion.)",
+    "source": "Emotional Anime Moment",
+    "difficulty": "Medium",
+    "category": "Emotions",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hontou no shouri wa, jibun jishin ni katsu koto da. (True victory is victory over oneself.)",
+    "source": "Martial Arts Anime",
+    "difficulty": "Medium",
+    "category": "Self-mastery",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Taisetsu na mono wa me ni mienai. (The things that are most important cannot be seen.)",
+    "source": "Fantasy Anime",
+    "difficulty": "Medium",
+    "category": "Values",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Chiisana ippo ga ookina tabi no hajimari da. (A small step is the beginning of a great journey.)",
+    "source": "Adventure Anime",
+    "difficulty": "Easy",
+    "category": "Progress",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Donna yami mo eien de wa nai. Kanarazu hikari wa sashikomu. (No darkness is eternal. Light will always break through.)",
+    "source": "Hope-themed Anime",
+    "difficulty": "Medium",
+    "category": "Hope",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Shin no yuujou wa shiren no naka de shoumei sareru. (True friendship is proven during trials.)",
+    "source": "Friendship Anime",
+    "difficulty": "Medium",
+    "category": "Friendship",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Shiawase wa soto de wa naku, kokoro no naka ni aru. (Happiness is not found outside, but within your heart.)",
+    "source": "Coming-of-Age Anime",
+    "difficulty": "Medium",
+    "category": "Happiness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Osoreru beki wa teki de wa naku, jibun no yowasa da. (What you should fear is not your enemy, but your own weakness.)",
+    "source": "Samurai Anime",
+    "difficulty": "Medium",
+    "category": "Fear",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Jinsei ni muda na keiken wa nai. Subete ga manabi ni naru. (There are no wasted experiences in life. Everything becomes a lesson.)",
+    "source": "Life Lesson Anime",
+    "difficulty": "Medium",
+    "category": "Experience",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Ashita shinu ka no you ni iki, eien ni ikiru ka no you ni manabe. (Live as if you'll die tomorrow, learn as if you'll live forever.)",
+    "source": "Scholar Character Wisdom",
+    "difficulty": "Medium",
+    "category": "Living",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Dare mo saisho kara tsuyoku wa nai. Tsuyoku naru tame ni tatakai tsuzukeru no da. (No one is strong from the beginning. We fight continuously to become strong.)",
+    "source": "Training Arc Philosophy",
+    "difficulty": "Medium",
+    "category": "Growth",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Ookina yume hodo, jitsugen suru no ni jikan ga kakaru. (The bigger the dream, the longer it takes to realize.)",
+    "source": "Dreamers Anime",
+    "difficulty": "Medium",
+    "category": "Dreams",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kokoro no koe wo kike. Hontou no kotae wa soko ni aru. (Listen to the voice in your heart. The real answer is there.)",
+    "source": "Intuition Anime Moment",
+    "difficulty": "Medium",
+    "category": "Intuition",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Ikari ni mi wo makaseba, saisho ni ushinau no wa handanryoku da. (If you give in to anger, judgment is the first thing you lose.)",
+    "source": "Wise Master Character",
+    "difficulty": "Medium",
+    "category": "Emotions",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kinou yori kyou, kyou yori ashita, sukoshi zutsu tsuyoku nare. (Be stronger today than yesterday, and stronger tomorrow than today.)",
+    "source": "Training Philosophy",
+    "difficulty": "Medium",
+    "category": "Growth",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Juuyou na no wa tachiagaru kaisuu da, taoreru kaisuu de wa nai. (What's important is how many times you stand up, not how many times you fall.)",
+    "source": "Resilience Anime Theme",
+    "difficulty": "Medium",
+    "category": "Resilience",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kotoba yori koudou. Yakusoku yori shoumei. (Actions over words. Proof over promises.)",
+    "source": "Stoic Anime Character",
+    "difficulty": "Medium",
+    "category": "Action",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Mottomo kurai yoru no ato ni, mottomo akarui asa ga kuru. (After the darkest night comes the brightest morning.)",
+    "source": "Hope Anime Philosophy",
+    "difficulty": "Medium",
+    "category": "Hope",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Ningen no kachi wa, sono hito ga eta mono de wa naku, ataeta mono de hakareru. (A person's worth is measured not by what they've gained, but by what they've given.)",
+    "source": "Philosophical Anime",
+    "difficulty": "Hard",
+    "category": "Worth",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kanpeki wo mezasu yori, zenshin shi tsuzukeru koto ga taisetsu da. (Rather than aiming for perfection, it's important to keep moving forward.)",
+    "source": "Progress Anime Theme",
+    "difficulty": "Medium",
+    "category": "Progress",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Shin no teki wa soto ni de wa naku, jibun no naka ni iru. (The true enemy is not outside, but within yourself.)",
+    "source": "Internal Conflict Anime",
+    "difficulty": "Medium",
+    "category": "Self-awareness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kizutsuku koto wo osoreru amari, ai suru koto wo yamete wa ikenai. (Don't stop loving just because you're afraid of getting hurt.)",
+    "source": "Romance Anime",
+    "difficulty": "Medium",
+    "category": "Love",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Isshun isshun wo taisetsu ni sureba, jinsei wa takaramono de michiru. (If you treasure each moment, life becomes filled with treasures.)",
+    "source": "Slice of Life Anime",
+    "difficulty": "Medium",
+    "category": "Mindfulness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Chiimu no chikara wa kojin no souwa ijou da. (The power of a team is greater than the sum of individuals.)",
+    "source": "Team Sports Anime",
+    "difficulty": "Medium",
+    "category": "Teamwork",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Tokiniwa michi ni mayou koto ga, hontou no michi wo mitsukeru yuiitsu no houhou da. (Sometimes getting lost is the only way to find the true path.)",
+    "source": "Journey Anime Philosophy",
+    "difficulty": "Medium",
+    "category": "Discovery",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kokoro ni kimeta nara, uchuu sura mikata ni tsukeru. (Once you've made up your mind, even the universe will be on your side.)",
+    "source": "Determination Anime Theme",
+    "difficulty": "Medium",
+    "category": "Determination",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Henka wo osoreru na. Chou wa henka nashi de wa utsukushiku narenai. (Don't fear change. Without change, a butterfly cannot become beautiful.)",
+    "source": "Transformation Anime Theme",
+    "difficulty": "Medium",
+    "category": "Change",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Jibun jishin wo shinjirarenakercba, dare mo shinjirarenai. (If you can't believe in yourself, you can't believe in anyone.)",
+    "source": "Self-confidence Anime",
+    "difficulty": "Medium",
+    "category": "Self-belief",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Donna yami no naka ni mo, hikaru hoshi wa sonzai suru. (Even in the darkest night, there are stars that shine.)",
+    "source": "Hope Anime Theme",
+    "difficulty": "Medium",
+    "category": "Hope",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Saigo made akiramenakereba, sore wa saigo de wa nai. (If you don't give up until the end, then it's not the end.)",
+    "source": "Perseverance Anime",
+    "difficulty": "Medium",
+    "category": "Perseverance",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hito wa kawareru. Sore ga ningen no subarashisa da. (People can change. That's the wonder of being human.)",
+    "source": "Redemption Anime Arc",
+    "difficulty": "Medium",
+    "category": "Change",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Mottomo tsuyoi buki wa, kesshite orenai kokoro da. (The strongest weapon is a heart that never breaks.)",
+    "source": "Warrior Anime Philosophy",
+    "difficulty": "Medium",
+    "category": "Resilience",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hontou no tsuyosa to wa, yasashisa wo mochi tsuzukeru koto da. (True strength is maintaining kindness.)",
+    "source": "Hero Anime Wisdom",
+    "difficulty": "Medium",
+    "category": "Strength",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Omoide wa eien ni kokoro no naka ni ikitsuzukeru. (Memories live forever in the heart.)",
+    "source": "Emotional Anime Theme",
+    "difficulty": "Medium",
+    "category": "Memory",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kinou no teki wa kyou no tomo ni naru koto mo aru. (Yesterday's enemy can become today's friend.)",
+    "source": "Rivalry Anime Theme",
+    "difficulty": "Medium",
+    "category": "Friendship",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Fukushuu de wa naku, yurushi ga kokoro wo jiyuu ni suru. (It's forgiveness, not revenge, that frees your heart.)",
+    "source": "Redemption Anime Arc",
+    "difficulty": "Medium",
+    "category": "Forgiveness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Tokiniwa tachidomatte, mawari no utsukushisa ni kizuku koto mo taisetsu da. (Sometimes it's important to stop and notice the beauty around you.)",
+    "source": "Nature Anime Scene",
+    "difficulty": "Medium",
+    "category": "Mindfulness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Risou to genjitsu no aida ni hashi wo kakeru no wa, koudou dake da. (The only bridge between dreams and reality is action.)",
+    "source": "Motivation Anime Theme",
+    "difficulty": "Medium",
+    "category": "Action",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Mottomo kiken na teki wa, jibun no naka no yowasa da. (The most dangerous enemy is the weakness within yourself.)",
+    "source": "Inner Conflict Anime",
+    "difficulty": "Medium",
+    "category": "Self-mastery",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Tsuyoku naru tame ni wa, ichido wa yowasa wo mitomenakereba naranai. (To become strong, you must first acknowledge your weakness.)",
+    "source": "Growth Anime Arc",
+    "difficulty": "Medium",
+    "category": "Growth",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hito no kachi wa tanin to no hikaku de wa naku, kinou no jibun to no hikaku de hakaru mono da. (A person's value should be measured not by comparison with others, but with who they were yesterday.)",
+    "source": "Self-improvement Anime",
+    "difficulty": "Hard",
+    "category": "Self-worth",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Ookina kawa mo, chiisana hitoteki kara hajimaru. (Even the mightiest river begins with a small drop.)",
+    "source": "Nature Anime Wisdom",
+    "difficulty": "Medium",
+    "category": "Beginnings",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Owari wa tsuneni atarashii hajimari demo aru. (An ending is always a new beginning as well.)",
+    "source": "Final Episode Wisdom",
+    "difficulty": "Medium",
+    "category": "Change",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Mijikai jinsei dakara koso, mainichi wo taisetsu ni ikiru beki da. (Because life is short, we should cherish each day.)",
+    "source": "Life Reflection Anime",
+    "difficulty": "Medium",
+    "category": "Living",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Katsu tame ni tatakau no de wa naku, nanika wo mamoru tame ni tatakae. (Don't fight to win, fight to protect something.)",
+    "source": "Hero Anime Philosophy",
+    "difficulty": "Medium",
+    "category": "Purpose",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Arashi no ato ni wa kanarazu niji ga arawareru. (After the storm, a rainbow always appears.)",
+    "source": "Hope Anime Scene",
+    "difficulty": "Easy",
+    "category": "Hope",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Risou no jibun ni naru ni wa, ima no jibun wo ukeireru koto kara hajimaru. (Becoming your ideal self begins with accepting who you are now.)",
+    "source": "Self-acceptance Anime",
+    "difficulty": "Medium",
+    "category": "Self-acceptance",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hitori no hyakuho yori, hyakunin no ippo no hou ga ookina henka wo motarasu. (One hundred people taking one step creates more change than one person taking a hundred steps.)",
+    "source": "Community Anime Theme",
+    "difficulty": "Hard",
+    "category": "Cooperation",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kazoku to wa ketsuenryoku dake de wa naku, kizuna de musubareta hitobito da. (Family isn't just blood relations, but people bound by bonds.)",
+    "source": "Found Family Anime",
+    "difficulty": "Medium",
+    "category": "Family",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Mottomo kurai toki koso, hoshi ga mottomo kagayaite mieru. (Stars shine brightest in the darkest times.)",
+    "source": "Night Sky Anime Scene",
+    "difficulty": "Medium",
+    "category": "Hope",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kokoro no junbi ga dekiru no wo matteiru to, chansu wa sugisaru. (If you wait until you're ready, opportunities will pass you by.)",
+    "source": "Opportunity Anime Theme",
+    "difficulty": "Medium",
+    "category": "Action",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Jinsei no kachi wa kokyuu no kazu de wa naku, iki wo nomu shunkan no kazu de hakareru. (Life's value is measured not by the number of breaths we take, but by the moments that take our breath away.)",
+    "source": "Life Philosophy Anime",
+    "difficulty": "Hard",
+    "category": "Living",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Sainou to wa jounetsu ni hoka naranai. (Talent is nothing more than passion.)",
+    "source": "Prodigy Character Wisdom",
+    "difficulty": "Medium",
+    "category": "Talent",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Ame ga futta ato koso, niji wa mottomo utsukushii. (Rainbows are most beautiful after it rains.)",
+    "source": "Weather Metaphor Anime",
+    "difficulty": "Medium",
+    "category": "Hope",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kako wa kaerarenai ga, kako no kaishaku wa kaerareru. (You cannot change the past, but you can change how you interpret it.)",
+    "source": "Psychological Anime",
+    "difficulty": "Hard",
+    "category": "Perspective",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Ichi paasento no kanousei ga areba, hyaku paasento no doryoku wo suru kachi ga aru. (If there's a 1% possibility, it's worth giving 100% effort.)",
+    "source": "Determination Anime Theme",
+    "difficulty": "Medium",
+    "category": "Effort",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Saikou no fukushuu wa, shiawase ni ikiru koto da. (The best revenge is living happily.)",
+    "source": "Moving On Anime Theme",
+    "difficulty": "Medium",
+    "category": "Happiness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kanashimi wo norikoeru ni wa, sore to mukiau shika nai. (To overcome sadness, you must face it head-on.)",
+    "source": "Emotional Growth Anime",
+    "difficulty": "Medium",
+    "category": "Emotions",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Kabe ni butsukatta toki, sore wo norikoeru ka, ukai suru ka, kowasu ka wo erabe. (When you hit a wall, choose to climb over it, go around it, or break through it.)",
+    "source": "Obstacle Anime Theme",
+    "difficulty": "Medium",
+    "category": "Problem-solving",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Yasashisa wa kesshite yowasa de wa nai. Toki ni mottomo tsuyoi chikara to naru. (Kindness is never weakness. Sometimes it's the strongest force.)",
+    "source": "Hero Anime Philosophy",
+    "difficulty": "Medium",
+    "category": "Kindness",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Yuuki to wa osore ga nai koto de wa naku, osore ga atte mo mae ni susumu koto da. (Courage isn't the absence of fear, but moving forward despite it.)",
+    "source": "Courage Anime Theme",
+    "difficulty": "Medium",
+    "category": "Courage",
+    "origin": "Japanese Anime"
+  },
+  {
+    "text": "Hontou no haiboku wa, tachiagaru no wo yameta toki dake da. (True defeat comes only when you stop getting back up.)",
+    "source": "Never Give Up Anime",
+    "difficulty": "Medium",
+    "category": "Perseverance",
+    "origin": "Japanese Anime"
+  }
+] 
