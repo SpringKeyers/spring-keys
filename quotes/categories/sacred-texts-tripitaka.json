@@ -7,15 +7,43 @@
     "origin": "South Asia"
   },
   {
-    "text": "Peace comes from within. Do not seek it without.",
-    "source": "Buddha, Dhammapada",
+    "text": "No mud, no lotus.",
+    "source": "Buddhist Teaching",
     "difficulty": "Easy",
     "category": "SacredTextsTripitaka",
     "origin": "Ancient India"
   },
   {
-    "text": "Three things cannot be long hidden: the sun, the moon, and the truth.",
+    "text": "Holding on to anger is like grasping a hot coal with the intent of throwing it at someone else; you are the one who gets burned.",
     "source": "Buddha, Dhammapada",
+    "difficulty": "Medium",
+    "category": "SacredTextsTripitaka",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "Peace comes from within. Do not seek it without.",
+    "source": "Buddha, Dhammapada",
+    "difficulty": "Medium",
+    "category": "SacredTextsTripitaka",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "When we see our enemies are made of suffering, we can drop our anger and fear and extend a hand.",
+    "source": "Buddhist Teaching",
+    "difficulty": "Medium",
+    "category": "SacredTextsTripitaka",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.",
+    "source": "Buddha, Dhammapada",
+    "difficulty": "Medium",
+    "category": "SacredTextsTripitaka",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "If you are facing the right direction, all you need to do is keep walking.",
+    "source": "Buddhist Proverb",
     "difficulty": "Easy",
     "category": "SacredTextsTripitaka",
     "origin": "Ancient India"
@@ -28,14 +56,35 @@
     "origin": "Ancient India"
   },
   {
-    "text": "No one saves us but ourselves. No one can and no one may. We ourselves must walk the path.",
+    "text": "When you are present, you can allow the mind to be as it is without getting entangled in it.",
+    "source": "Buddhist Teaching",
+    "difficulty": "Medium",
+    "category": "SacredTextsTripitaka",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "Concentration is a cornerstone of mindfulness practice.",
+    "source": "Buddhist Teaching",
+    "difficulty": "Easy",
+    "category": "SacredTextsTripitaka",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "What you are is what you have been. What you'll be is what you do now.",
     "source": "Buddha, Dhammapada",
     "difficulty": "Medium",
     "category": "SacredTextsTripitaka",
     "origin": "Ancient India"
   },
   {
-    "text": "Holding on to anger is like grasping a hot coal with the intent of throwing it at someone else; you are the one who gets burned.",
+    "text": "Three things cannot be long hidden: the sun, the moon, and the truth.",
+    "source": "Buddha, Dhammapada",
+    "difficulty": "Easy",
+    "category": "SacredTextsTripitaka",
+    "origin": "Ancient India"
+  },
+  {
+    "text": "No one saves us but ourselves. No one can and no one may. We ourselves must walk the path.",
     "source": "Buddha, Dhammapada",
     "difficulty": "Medium",
     "category": "SacredTextsTripitaka",
@@ -57,13 +106,6 @@
   },
   {
     "text": "Your work is to discover your work and then with all your heart to give yourself to it.",
-    "source": "Buddha, Dhammapada",
-    "difficulty": "Medium",
-    "category": "SacredTextsTripitaka",
-    "origin": "Ancient India"
-  },
-  {
-    "text": "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.",
     "source": "Buddha, Dhammapada",
     "difficulty": "Medium",
     "category": "SacredTextsTripitaka",

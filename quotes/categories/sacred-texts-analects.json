@@ -68,5 +68,26 @@
     "difficulty": "Easy",
     "category": "SacredTextsAnalects",
     "origin": "Ancient China"
+  },
+  {
+    "text": "When you make a mistake, don't look back at it long. Take the reason of the thing into your mind, and then look forward.",
+    "source": "Confucius, Analects",
+    "difficulty": "Medium",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Better a diamond with a flaw than a pebble without.",
+    "source": "Confucius, Analects",
+    "difficulty": "Medium",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The superior man is modest in his speech, but exceeds in his actions.",
+    "source": "Confucius, Analects",
+    "difficulty": "Medium",
+    "category": "SacredTextsAnalects",
+    "origin": "Ancient China"
   }
 ] 

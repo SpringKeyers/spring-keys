@@ -1,28 +1,63 @@
 [
   {
-    "text": "Knowing others is intelligence; knowing yourself is true wisdom. Mastering others is strength; mastering yourself is true power.",
-    "source": "Tao Te Ching, Chapter 33",
+    "text": "The Tao Te Ching",
+    "source": "Taoist Sacred Text",
     "difficulty": "Medium",
     "category": "SacredTextsTaoTeChing",
     "origin": "Ancient China"
   },
   {
-    "text": "The journey of a thousand miles begins with a single step.",
-    "source": "Tao Te Ching, Chapter 64",
+    "text": "When you realize there is nothing lacking, the whole world belongs to you.",
+    "source": "Lao Tzu, Tao Te Ching",
+    "difficulty": "Medium",
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Knowing others is intelligence; knowing yourself is true wisdom. Mastering others is strength; mastering yourself is true power.",
+    "source": "Lao Tzu, Tao Te Ching",
+    "difficulty": "Hard",
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Focus on the journey, not the destination. Joy is found not in finishing an activity but in doing it.",
+    "source": "Taoist Teaching",
+    "difficulty": "Medium",
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Flow with whatever may happen and let your mind be free. Stay centered by accepting whatever you are doing.",
+    "source": "Ancient Taoist Wisdom",
+    "difficulty": "Medium",
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "The journey of a thousand miles begins with one step.",
+    "source": "Lao Tzu, Tao Te Ching",
     "difficulty": "Easy",
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Water is fluid, soft, and yielding. But water will wear away rock, which is rigid and cannot yield. As a rule, whatever is fluid, soft, and yielding will overcome whatever is rigid and hard.",
+    "source": "Lao Tzu, Tao Te Ching",
+    "difficulty": "Medium",
+    "category": "SacredTextsTaoTeChing",
+    "origin": "Ancient China"
+  },
+  {
+    "text": "Life is a series of natural and spontaneous changes. Don't resist them; that only creates sorrow. Let reality be reality. Let things flow naturally forward in whatever way they like.",
+    "source": "Lao Tzu, Tao Te Ching",
+    "difficulty": "Medium",
     "category": "SacredTextsTaoTeChing",
     "origin": "Ancient China"
   },
   {
     "text": "When you are content to be simply yourself and don't compare or compete, everyone will respect you.",
     "source": "Tao Te Ching, Chapter 8",
-    "difficulty": "Medium",
-    "category": "SacredTextsTaoTeChing",
-    "origin": "Ancient China"
-  },
-  {
-    "text": "Life is a series of natural and spontaneous changes. Don't resist them; that only creates sorrow. Let reality be reality.",
-    "source": "Lao Tzu",
     "difficulty": "Medium",
     "category": "SacredTextsTaoTeChing",
     "origin": "Ancient China"
