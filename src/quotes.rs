@@ -111,6 +111,58 @@ pub enum QuoteCategory {
     SacredTextsYupikOral,
     /// Sacred texts from Jamaican traditions
     SacredTextsJamaica,
+    /// Holiday quotes
+    Holiday,
+    /// Purpose-related quotes
+    Purpose,
+    /// Mortality-related quotes
+    Mortality,
+    /// Emotion-related quotes
+    Emotions,
+    /// Self-mastery quotes
+    SelfMastery,
+    /// Value-related quotes
+    Values,
+    /// Progress-related quotes
+    Progress,
+    /// Hope-related quotes
+    Hope,
+    /// Intuition-related quotes
+    Intuition,
+    /// Growth-related quotes
+    Growth,
+    /// Resilience-related quotes
+    Resilience,
+    /// Action-related quotes
+    Action,
+    /// Worth-related quotes
+    Worth,
+    /// Perspective-related quotes
+    Perspective,
+    /// Effort-related quotes
+    Effort,
+    /// Happiness-related quotes
+    Happiness,
+    /// Problem-solving quotes
+    ProblemSolving,
+    /// Kindness-related quotes
+    Kindness,
+    /// Courage-related quotes
+    Courage,
+    /// Perseverance-related quotes
+    Perseverance,
+    /// Self-confidence quotes
+    SelfConfidence,
+    /// Human nature quotes
+    HumanNature,
+    /// Connection-related quotes
+    Connection,
+    /// Existentialism quotes
+    Existentialism,
+    /// History and growth quotes
+    HistoryAndGrowth,
+    /// Potential-related quotes
+    Potential,
 }
 
 /// F-key category groups for cycling
@@ -144,6 +196,16 @@ impl CategoryCycle {
     }
 }
 
+/// Category type for quotes
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum QuoteCategoryType {
+    /// Predefined category from the enum
+    Predefined(QuoteCategory),
+    /// Custom category as a string
+    Custom(String),
+}
+
 /// A typing quote with metadata
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Quote {
@@ -154,7 +216,7 @@ pub struct Quote {
     /// The quote difficulty
     pub difficulty: QuoteDifficulty,
     /// The quote category
-    pub category: QuoteCategory,
+    pub category: QuoteCategoryType,
     /// Language of origin
     pub origin: String,
 }
@@ -165,7 +227,7 @@ pub struct QuoteDatabase {
     /// All available quotes
     quotes: Vec<Quote>,
     /// Quotes by category
-    quotes_by_category: HashMap<QuoteCategory, Vec<usize>>,
+    quotes_by_category: HashMap<QuoteCategoryType, Vec<usize>>,
     /// Quotes by difficulty
     quotes_by_difficulty: HashMap<QuoteDifficulty, Vec<usize>>,
     /// Current quote index
@@ -193,7 +255,7 @@ impl QuoteDatabase {
         // Organize quotes by category and difficulty
         for (i, quote) in quotes.iter().enumerate() {
             quotes_by_category
-                .entry(quote.category)
+                .entry(quote.category.clone())
                 .or_insert_with(Vec::new)
                 .push(i);
                 
@@ -226,7 +288,54 @@ impl QuoteDatabase {
             category_cycle_indices,
         }
     }
-    
+
+    /// Create a new quote database with quotes loaded from JSON files, without printing loading messages
+    pub fn new_silent() -> Self {
+        let quotes = Self::load_quotes_from_files_silent().unwrap_or_else(|_| {
+            Self::default_quotes()
+        });
+        
+        let mut quotes_by_category = HashMap::new();
+        let mut quotes_by_difficulty = HashMap::new();
+        let mut rng = rand::thread_rng();
+        
+        // Organize quotes by category and difficulty
+        for (i, quote) in quotes.iter().enumerate() {
+            quotes_by_category
+                .entry(quote.category.clone())
+                .or_insert_with(Vec::new)
+                .push(i);
+                
+            quotes_by_difficulty
+                .entry(quote.difficulty)
+                .or_insert_with(Vec::new)
+                .push(i);
+        }
+        
+        // Generate random starting offset
+        let starting_offset = if !quotes.is_empty() {
+            rng.gen::<usize>() % quotes.len()
+        } else {
+            0
+        };
+
+        // Initialize category cycle indices
+        let mut category_cycle_indices = HashMap::new();
+        category_cycle_indices.insert(CategoryCycle::Typewriter, 0);
+        category_cycle_indices.insert(CategoryCycle::Programming, 0);
+        category_cycle_indices.insert(CategoryCycle::Literature, 0);
+        
+        Self {
+            quotes,
+            quotes_by_category,
+            quotes_by_difficulty,
+            current_index: starting_offset,
+            starting_offset,
+            rng,
+            category_cycle_indices,
+        }
+    }
+
     /// Load quotes from JSON files in the quotes directory
     fn load_quotes_from_files() -> io::Result<Vec<Quote>> {
         let mut all_quotes = Vec::new();
@@ -270,6 +379,44 @@ impl QuoteDatabase {
             Ok(Self::default_quotes())
         } else {
             println!("Successfully loaded {:3} quotes from JSON files", all_quotes.len());
+            Ok(all_quotes)
+        }
+    }
+
+    /// Load quotes from JSON files without printing loading messages
+    fn load_quotes_from_files_silent() -> io::Result<Vec<Quote>> {
+        let mut all_quotes = Vec::new();
+        let categories_dir = Path::new("quotes/categories");
+        
+        // Check if the directory exists
+        if !categories_dir.exists() {
+            return Ok(Self::default_quotes());
+        }
+        
+        // Get all JSON files and sort them alphabetically
+        let mut entries: Vec<_> = fs::read_dir(categories_dir)?.collect();
+        entries.sort_by(|a, b| {
+            let a_path = a.as_ref().unwrap().path();
+            let b_path = b.as_ref().unwrap().path();
+            a_path.file_name().unwrap().cmp(b_path.file_name().unwrap())
+        });
+        
+        for entry in entries {
+            let entry = entry?;
+            let path = entry.path();
+            
+            if path.extension().and_then(|s| s.to_str()) == Some("json") {
+                let file_content = fs::read_to_string(&path)?;
+                if let Ok(quotes) = serde_json::from_str::<Vec<Quote>>(&file_content) {
+                    all_quotes.extend(quotes);
+                }
+            }
+        }
+        
+        // If no quotes were loaded, return default quotes
+        if all_quotes.is_empty() {
+            Ok(Self::default_quotes())
+        } else {
             Ok(all_quotes)
         }
     }
@@ -321,7 +468,7 @@ impl QuoteDatabase {
     }
     
     /// Get the next random quote of a specific category
-    pub fn next_by_category(&mut self, category: QuoteCategory) -> Option<&Quote> {
+    pub fn next_by_category(&mut self, category: QuoteCategoryType) -> Option<&Quote> {
         // TODO: investigate category-based quote selection
         if let Some(indices) = self.quotes_by_category.get(&category) {
             if let Some(&index) = indices.choose(&mut self.rng) {
@@ -353,7 +500,7 @@ impl QuoteDatabase {
         
         // Add to category and difficulty maps
         self.quotes_by_category
-            .entry(quote.category)
+            .entry(quote.category.clone())
             .or_insert_with(Vec::new)
             .push(index);
             
@@ -374,35 +521,35 @@ impl QuoteDatabase {
                 text: "The early bird might get the worm, but the second mouse gets the cheese.".to_string(),
                 source: "English wisdom".to_string(),
                 difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::Proverbs,
+                category: QuoteCategoryType::Predefined(QuoteCategory::Proverbs),
                 origin: "English".to_string(),
             },
             Quote {
                 text: "Six sitting scientists sorted sixty slippery snakes successfully.".to_string(),
                 source: "English tongue twister".to_string(),
                 difficulty: QuoteDifficulty::Hard,
-                category: QuoteCategory::TongueTwisters,
+                category: QuoteCategoryType::Predefined(QuoteCategory::TongueTwisters),
                 origin: "English".to_string(),
             },
             Quote {
                 text: "Talk is cheap. Show me the code.".to_string(),
                 source: "Linus Torvalds".to_string(),
                 difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::Programming,
+                category: QuoteCategoryType::Predefined(QuoteCategory::Programming),
                 origin: "Finnish/American".to_string(),
             },
             Quote {
                 text: "To be, or not to be, that is the question.".to_string(),
                 source: "William Shakespeare, Hamlet".to_string(),
                 difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::Literature,
+                category: QuoteCategoryType::Predefined(QuoteCategory::Literature),
                 origin: "English".to_string(),
             },
             Quote {
                 text: "A bird in the hand is worth two in the bush.".to_string(),
                 source: "English proverb".to_string(),
                 difficulty: QuoteDifficulty::Easy,
-                category: QuoteCategory::Proverbs,
+                category: QuoteCategoryType::Predefined(QuoteCategory::Proverbs),
                 origin: "English".to_string(),
             },
         ]
@@ -425,17 +572,17 @@ impl QuoteDatabase {
 
     /// Get the next quote from the active category of a cycle group
     pub fn next_from_cycle_group(&mut self, cycle_group: CategoryCycle) -> Option<&Quote> {
-        let active_category = self.get_active_category(cycle_group);
+        let active_category = QuoteCategoryType::Predefined(self.get_active_category(cycle_group));
         self.next_by_category(active_category)
     }
 
     pub fn set_active_category(&mut self, category: CategoryCycle) {
         // Convert CategoryCycle to QuoteCategory
-        let quote_category = match category {
+        let quote_category = QuoteCategoryType::Predefined(match category {
             CategoryCycle::Typewriter => QuoteCategory::Typewriters,
             CategoryCycle::Programming => QuoteCategory::Programming,
             CategoryCycle::Literature => QuoteCategory::Literature,
-        };
+        });
         
         // Update the current index to point to a quote from the desired category
         if let Some(quotes) = self.quotes_by_category.get(&quote_category) {

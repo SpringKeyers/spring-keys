@@ -1,4 +1,9 @@
+use crate::quotes::QuoteDatabase;
+
 pub fn print_help() {
+    let quote_db = QuoteDatabase::new_silent();
+    let total_quotes = quote_db.all().len();
+
     println!("SpringKeys - Typing Tutor with Spring-based Physics");
     println!("====================================================");
     println!();
@@ -10,6 +15,8 @@ pub fn print_help() {
     println!("  consume [INPUT]       Process input and visualize typing results in UI");
     println!("  config                Edit configuration");
     println!("  test                  Display test pattern (VGA-style test)");
+    println!("  quote                 Output a random quote and exit");
+    println!("  moosesay              Display an animated moose with a random quote");
     println!();
     println!("OPTIONS:");
     println!("  -h, --help            Show this help message");
@@ -28,6 +35,10 @@ pub fn print_help() {
     println!("  spring-keys practice -d medium");
     println!("  spring-keys consume \"T h e <space> q u i c k\"");
     println!("  spring-keys test");
+    println!("  spring-keys quote     # Get a random quote");
+    println!("  spring-keys moosesay  # Get a random quote with an animated moose");
+    println!();
+    println!("Successfully loaded {} quotes from JSON files", total_quotes);
     println!();
     println!("For more information, see the documentation.");
 }

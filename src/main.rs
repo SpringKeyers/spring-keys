@@ -6,6 +6,7 @@ mod logger;
 mod quotes;
 mod help;
 mod vga_test;
+mod moosesay;
 
 use std::path::PathBuf;
 use std::env;
@@ -228,7 +229,7 @@ fn main() -> std::io::Result<()> {
             "--no-demo" => {
                 demo_heatmap = false;
             },
-            "practice" | "config" | "test" | "consume" => {
+            "practice" | "config" | "test" | "consume" | "quote" | "moosesay" => {
                 command = Some(args[i].clone());
                 
                 // If this is consume mode and the next arg doesn't start with '-'
@@ -244,6 +245,27 @@ fn main() -> std::io::Result<()> {
             }
         }
         i += 1;
+    }
+
+    // Handle quote and moosesay commands separately since they don't need UI
+    if let Some(cmd) = &command {
+        match cmd.as_str() {
+            "quote" => {
+                let mut quote_db = quotes::QuoteDatabase::new_silent();
+                let quote = quote_db.next_random();
+                println!("{}", quote.text);
+                println!("— {}", quote.source);
+                std::process::exit(0);
+            }
+            "moosesay" => {
+                let mut quote_db = quotes::QuoteDatabase::new_silent();
+                let quote = quote_db.next_random();
+                moosesay::animate_moose_quote(&quote.text)?;
+                println!("— {}", quote.source);
+                std::process::exit(0);
+            }
+            _ => {}
+        }
     }
 
     // Set up logging based on quiet mode
