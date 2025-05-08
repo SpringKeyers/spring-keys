@@ -552,13 +552,13 @@
     "category": "Hawaiian Poetic Expression",
     "origin": "Hawaii"
   },
-  {
-    "text": "He ipu pau 'ole ke aloha. (Love is a calabash that never empties.)",
-    "source": "Hawaiian Proverb",
-    "difficulty": "Medium",
-    "category": "Hawaiian Love Wisdom",
-    "origin": "Hawaii"
-  },
+    {
+        "text": "He ipu pau 'ole ke aloha. (Love is a calabash that never empties.)",
+        "source": "Hawaiian Proverb",
+        "difficulty": "Medium",
+        "category": "Hawaiian Love Wisdom",
+        "origin": "Hawaii"
+    },
   {
     "text": "He punawai kahe wale ke aloha. (Love is a spring that flows freely.)",
     "source": "Hawaiian Proverb",
@@ -1034,5 +1034,19 @@
     "difficulty": "Easy",
     "category": "Love",
     "origin": "Hawaii"
+  },
+  {
+    "text": "Moe ka hiamoe, ua ola hou mai - After sleep, life is renewed.",
+    "source": "Hawaiian proverb",
+    "difficulty": "Medium",
+    "category": "hawaiian wisdom",
+    "origin": "Hawaiian"
+  },
+  {
+    "text": "E moe mālie, e ala māmā - Sleep peacefully, wake light-hearted.",
+    "source": "Hawaiian blessing",
+    "difficulty": "Medium",
+    "category": "hawaiian wisdom",
+    "origin": "Hawaiian"
   }
 ] 

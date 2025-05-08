@@ -96,5 +96,26 @@
     "difficulty": "Medium",
     "category": "Ethics",
     "origin": "Middle East"
+  },
+  {
+    "text": "Al-nawm sultan yudawi qulub al-mut'abin - Sleep is a sultan that heals the hearts of the weary.",
+    "source": "Ancient Bedouin saying",
+    "difficulty": "Medium",
+    "category": "arabic wisdom",
+    "origin": "Arabic"
+  },
+  {
+    "text": "Al-nawm yamsah humum al-ams wa yujaddid amal al-ghad - Sleep erases yesterday's worries and renews tomorrow's hope.",
+    "source": "Islamic wisdom collection",
+    "difficulty": "Medium",
+    "category": "arabic wisdom",
+    "origin": "Arabic"
+  },
+  {
+    "text": "Al-nawm jisr bayna al-ta'ab wal-nashat, ya'buruhu al-mar' kull layla liyulad min jadid - Sleep is a bridge between fatigue and vitality, crossed each night to be born anew.",
+    "source": "Arabic poetry collection",
+    "difficulty": "Medium",
+    "category": "arabic wisdom",
+    "origin": "Arabic"
   }
 ] 

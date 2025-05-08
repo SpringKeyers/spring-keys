@@ -96,5 +96,19 @@
     "difficulty": "Medium",
     "category": "Buddhist Wisdom",
     "origin": "Ancient India"
+  },
+  {
+    "text": "Each morning we are born again. What we do today matters most.",
+    "source": "Buddha",
+    "difficulty": "Easy",
+    "category": "buddhist wisdom",
+    "origin": "Indian"
+  },
+  {
+    "text": "The mind is like water; when disturbed it becomes difficult to see. Sleep stills the water.",
+    "source": "Zen teaching",
+    "difficulty": "Medium",
+    "category": "buddhist wisdom",
+    "origin": "Japanese"
   }
 ] 
