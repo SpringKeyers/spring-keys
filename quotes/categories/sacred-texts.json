@@ -1,0 +1,37 @@
+[
+  {
+    "text": "The Holy Bible is a collection of sacred texts in Christianity, containing the Old Testament and New Testament. It includes historical accounts, poetry, wisdom literature, and teachings of Jesus Christ.",
+    "source": "Christian Sacred Text",
+    "difficulty": "Medium",
+    "category": "SacredTexts",
+    "origin": "Middle East"
+  },
+  {
+    "text": "The Torah is the central reference of the religious Judaic tradition, containing the first five books of the Hebrew Bible. It includes the creation story, the Exodus, and the laws given to Moses.",
+    "source": "Jewish Sacred Text",
+    "difficulty": "Medium",
+    "category": "SacredTexts",
+    "origin": "Middle East"
+  },
+  {
+    "text": "The Quran is the central religious text of Islam, believed to be a revelation from God. It is organized into 114 chapters called surahs, containing guidance for Muslims and stories of previous prophets.",
+    "source": "Islamic Sacred Text",
+    "difficulty": "Medium",
+    "category": "SacredTexts",
+    "origin": "Middle East"
+  },
+  {
+    "text": "The Vedas are the oldest scriptures of Hinduism, written in Sanskrit. They consist of four main collections: Rigveda, Yajurveda, Samaveda, and Atharvaveda, containing hymns, rituals, and philosophical teachings.",
+    "source": "Hindu Sacred Text",
+    "difficulty": "Medium",
+    "category": "SacredTexts",
+    "origin": "South Asia"
+  },
+  {
+    "text": "The Tripitaka, meaning 'Three Baskets', is the traditional term for Buddhist scriptures. It contains the Vinaya Pitaka (monastic rules), Sutta Pitaka (teachings), and Abhidhamma Pitaka (philosophical analysis).",
+    "source": "Buddhist Sacred Text",
+    "difficulty": "Medium",
+    "category": "SacredTexts",
+    "origin": "South Asia"
+  }
+] 

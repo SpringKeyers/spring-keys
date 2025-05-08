@@ -55,6 +55,8 @@ pub enum QuoteCategory {
     LessonsAccuracy,
     /// Song lyrics for typing practice
     SongLyrics,
+    /// Tautological statements for typing practice
+    Tautologies,
 }
 
 /// F-key category groups for cycling
