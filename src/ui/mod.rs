@@ -67,11 +67,8 @@ impl TerminalUI {
         
         // Apply demo data if in demo heatmap mode
         if demo_heatmap {
-            // Log demo mode activation
-            println!("Demo Heatmap Mode: Activating color spectrum visualization");
             // Set up demo typing data for spectrum visualization
             if let Some(session) = &mut app.typing_session {
-                println!("Demo Heatmap Mode: Simulating typing data for number keys");
                 session.metrics.simulate_demo_data();
             }
         }
@@ -95,18 +92,15 @@ impl TerminalUI {
                             app.start_typing_session(None);
                         },
                         KeyCode::F(5) => {
-                            // TODO: investigate quote transition on F5 key
                             // Load a new random quote
                             app.start_typing_session(None);
                         },
                         KeyCode::F(6) => {
-                            // TODO: investigate quote transition on F6 key (Typewriter category)
                             // Switch to typewriter quotes
                             app.quote_db.set_active_category(CategoryCycle::Typewriter);
                             app.start_typing_session(None);
                         },
                         KeyCode::F(7) => {
-                            // TODO: investigate quote transition on F7 key (Programming category)
                             // Switch to programming quotes
                             app.quote_db.set_active_category(CategoryCycle::Programming);
                             app.start_typing_session(None);
@@ -147,9 +141,9 @@ impl TerminalUI {
         // Draw active categories
         let active_categories = format!(
             "Active: Type:{:?} Prog:{:?} Lit:{:?}",
-            app.quote_db.get_active_category(CategoryCycle::Typewriter),
-            app.quote_db.get_active_category(CategoryCycle::Programming),
-            app.quote_db.get_active_category(CategoryCycle::Literature),
+            app.quote_db.get_active_category(),
+            app.quote_db.get_active_category(),
+            app.quote_db.get_active_category(),
         );
         queue!(
             self.stdout,
@@ -317,6 +311,38 @@ impl TerminalUI {
                 MoveTo(0, typing_area_y + 5),
                 Print("─".repeat(session.quote_text.len()))
             )?;
+        }
+
+        // Draw category indicators
+        queue!(
+            self.stdout,
+            MoveTo(0, self.terminal_size.1 - 2),
+            SetForegroundColor(Color::DarkGrey)
+        )?;
+
+        let active_category = app.quote_db.get_active_category();
+        let category_indicators = [
+            (CategoryCycle::Typewriter, "⌨"),
+            (CategoryCycle::Programming, "⚡"),
+            (CategoryCycle::Literature, "📚"),
+        ];
+
+        for (category, symbol) in &category_indicators {
+            if *category == active_category {
+                queue!(
+                    self.stdout,
+                    SetForegroundColor(Color::White),
+                    Print(symbol),
+                    SetForegroundColor(Color::DarkGrey),
+                    Print(" ")
+                )?;
+            } else {
+                queue!(
+                    self.stdout,
+                    Print(symbol),
+                    Print(" ")
+                )?;
+            }
         }
 
         // Flush all queued changes to the terminal

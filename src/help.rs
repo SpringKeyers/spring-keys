@@ -8,7 +8,8 @@ pub fn print_help() {
     println!("====================================================\n");
 
     println!("USAGE:");
-    println!("  spring-keys [OPTIONS] [COMMAND]\n");
+    println!("  spring-keys [OPTIONS] [COMMAND]");
+    println!("  spring-keys -- [COMMAND]  # Force non-interactive mode\n");
 
     println!("COMMANDS:");
     println!("  practice              Practice typing with quotes");
@@ -23,7 +24,9 @@ pub fn print_help() {
     println!("  -h, --help            Show this help message");
     println!("  -v, --version         Show version information");
     println!("  -d, --difficulty      Set difficulty level (easy, medium, hard)");
-    println!("  -q, --quiet           Quiet mode (minimal logging)\n");
+    println!("  -q, --quiet           Quiet mode (minimal logging)");
+    println!("  --verbose             Verbose mode (show final screen buffer)");
+    println!("  --                    Force non-interactive mode (no animations)\n");
 
     println!("CONSUME MODE OPTIONS:");
     println!("  --input=TEXT          Input sequence to process (space-separated tokens)\n");
@@ -38,7 +41,9 @@ pub fn print_help() {
     println!("  spring-keys test");
     println!("  spring-keys quote     # Get a random quote");
     println!("  spring-keys moosesay  # Get a random quote with an animated moose");
-    println!("  spring-keys screensaver 10  # Run moose screensaver for 10 seconds\n");
+    println!("  spring-keys screensaver 10  # Run moose screensaver for 10 seconds");
+    println!("  spring-keys -- quote  # Get a quote without animation");
+    println!("  spring-keys -q --verbose screensaver 1  # Run quietly and show final buffer\n");
 
     println!("Successfully loaded {} quotes from JSON files\n", total_quotes);
 
@@ -50,7 +55,8 @@ pub fn print_help_quiet() {
     println!("====================================================\n");
 
     println!("USAGE:");
-    println!("  spring-keys [OPTIONS] [COMMAND]\n");
+    println!("  spring-keys [OPTIONS] [COMMAND]");
+    println!("  spring-keys -- [COMMAND]  # Force non-interactive mode\n");
 
     println!("COMMANDS:");
     println!("  practice              Practice typing with quotes");
@@ -65,7 +71,9 @@ pub fn print_help_quiet() {
     println!("  -h, --help            Show this help message");
     println!("  -v, --version         Show version information");
     println!("  -d, --difficulty      Set difficulty level (easy, medium, hard)");
-    println!("  -q, --quiet           Quiet mode (minimal logging)\n");
+    println!("  -q, --quiet           Quiet mode (minimal logging)");
+    println!("  --verbose             Verbose mode (show final screen buffer)");
+    println!("  --                    Force non-interactive mode (no animations)\n");
 }
 
 // Commented out as it's not currently used

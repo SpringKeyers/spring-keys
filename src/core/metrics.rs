@@ -1,6 +1,6 @@
 use std::collections::HashMap;
-use std::time::Instant;
-use serde::{Serialize, Deserialize};
+use std::time::{Duration, Instant};
+use serde::{Deserialize, Serialize};
 use chrono::Utc;
 use std::fs;
 use std::path::PathBuf;

@@ -1,6 +1,7 @@
 use std::collections::VecDeque;
 use std::time::{Instant, Duration};
 use serde::{Serialize, Deserialize};
+use std::collections::HashMap;
 
 /// Represents a range in the histogram
 #[derive(Debug, Clone, Serialize, Deserialize)]

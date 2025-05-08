@@ -1,11 +1,12 @@
 // Export modules for testing and library use
 pub mod core;
 pub mod input;
-pub mod ui;
 pub mod config;
-pub mod logger;
 pub mod quotes;
+pub mod ui;
 pub mod help;
+pub mod moosesay;
+pub mod logger;
 pub mod vga_test;
 
 // Import required crates
@@ -13,14 +14,14 @@ use log::info;
 use std::collections::HashMap;
 
 // Re-export commonly used types for convenience
+pub use core::metrics::{TypingMetrics, Finger, ExtendedStats};
 pub use core::{TypingSession, TypingError};
-pub use core::metrics::{TypingMetrics, CharacterMetrics, KeyboardRow, Finger};
-pub use core::metrics::ExtendedStats;
-pub use core::stats::AccumulatedStats;
-pub use input::{InputProcessor, ValidationResult};
 pub use core::state::{GameState, GameType, GameStatus};
+pub use core::stats::AccumulatedStats;
+pub use input::InputProcessor;
+pub use config::{Config, DifficultyLevel};
+pub use quotes::{Quote, QuoteDatabase, QuoteDifficulty, CategoryCycle};
 pub use ui::TerminalUI;
-pub use quotes::{Quote, QuoteDatabase, QuoteDifficulty, QuoteCategory};
 pub use ui::color_spectrum;
 
 // Re-export commonly used types from dependencies

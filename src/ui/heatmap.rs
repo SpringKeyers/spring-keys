@@ -1,18 +1,15 @@
 use crossterm::{
-    style::{Color, Print, SetForegroundColor, SetBackgroundColor, ResetColor},
     cursor::MoveTo,
     queue,
+    style::{Color, Print, ResetColor, SetBackgroundColor, SetForegroundColor},
 };
 use std::io::{self, Write};
+use std::time::{Duration, Instant};
 use std::collections::HashMap;
-use std::time::{Instant, Duration};
-use crate::{TypingMetrics, Finger};
+use crate::core::metrics::{ExtendedStats, TypingMetrics, Finger};
 use crate::ui::color_spectrum::{value_to_spectrum, get_contrasting_text_color};
 use std::sync::Mutex;
 use once_cell::sync::Lazy;
-use termion::color;
-use crate::core::metrics::{ExtendedStats};
-use std::num::Saturating;
 
 // Track key press animations
 #[derive(Clone)]

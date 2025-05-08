@@ -15,26 +15,24 @@ use std::collections::HashMap;
 use std::io::{self, IsTerminal};
 use std::time::Duration;
 use std::thread;
-use crossterm::event::{poll, read, Event};
+use crossterm::event::{poll, read, Event, KeyCode, KeyModifiers};
+use crossterm::terminal::{enable_raw_mode, disable_raw_mode};
 
-pub use core::{TypingSession, TypingError};
-pub use core::metrics::{TypingMetrics, CharacterMetrics, KeyboardRow, Finger};
-pub use core::metrics::ExtendedStats;
-pub use core::stats::AccumulatedStats;
-pub use input::{InputProcessor, ValidationResult};
-pub use core::state::{GameState, GameType, GameStatus};
-pub use ui::TerminalUI;
-pub use quotes::{Quote, QuoteDatabase, QuoteDifficulty, QuoteCategory};
-
-// Re-export commonly used types from dependencies
-pub use crossterm::event::{KeyCode, KeyModifiers};
+use crate::core::{TypingSession, TypingError};
+use crate::core::metrics::{TypingMetrics, Finger, ExtendedStats};
+use crate::core::state::{GameState, GameType, GameStatus};
+use crate::core::stats::AccumulatedStats;
+use crate::input::InputProcessor;
+use crate::config::{Config, DifficultyLevel};
+use crate::quotes::{Quote, QuoteDatabase, QuoteDifficulty, CategoryCycle};
+use crate::ui::TerminalUI;
 
 #[derive(Debug)]
 pub struct SpringKeys {
     pub game_state: GameState,
     pub input_processor: InputProcessor,
     pub typing_session: Option<TypingSession>,
-    pub config: config::Config,
+    pub config: Config,
     pub quote_db: QuoteDatabase,
     pub accumulated_stats: AccumulatedStats,
 }
@@ -43,7 +41,7 @@ impl SpringKeys {
     pub fn new() -> Self {
         // Load configuration or create default
         let config_path = PathBuf::from(config::DEFAULT_CONFIG_FILE);
-        let config = config::Config::load_or_default(config_path);
+        let config = Config::load_or_default(config_path);
         
         // Load accumulated stats from the stats directory
         info!("Loading accumulated statistics from stats directory...");
@@ -66,9 +64,9 @@ impl SpringKeys {
             None => {
                 // Use a random quote based on user's difficulty setting
                 let difficulty = match self.config.preferences.difficulty {
-                    config::DifficultyLevel::Beginner => QuoteDifficulty::Easy,
-                    config::DifficultyLevel::Intermediate => QuoteDifficulty::Medium,
-                    config::DifficultyLevel::Advanced | config::DifficultyLevel::Expert => QuoteDifficulty::Hard,
+                    DifficultyLevel::Beginner => QuoteDifficulty::Easy,
+                    DifficultyLevel::Intermediate => QuoteDifficulty::Medium,
+                    DifficultyLevel::Advanced | DifficultyLevel::Expert => QuoteDifficulty::Hard,
                 };
                 
                 if let Some(quote) = self.quote_db.next_by_difficulty(difficulty) {
@@ -121,7 +119,7 @@ impl SpringKeys {
         self.input_processor.clear();
     }
     
-    pub fn get_heat_map(&self) -> Option<std::collections::HashMap<char, f64>> {
+    pub fn get_heat_map(&self) -> Option<HashMap<char, f64>> {
         self.typing_session.as_ref().map(|session| session.metrics.get_heat_map())
     }
     
@@ -195,13 +193,25 @@ fn main() -> std::io::Result<()> {
     let args: Vec<String> = env::args().collect();
     let mut difficulty = None;
     let mut quiet_mode = false;
+    let mut verbose_mode = false;
     let mut command = None;
     let mut demo_heatmap = true;  // Default to demo heatmap enabled for better visual experience
     let mut consume_input = None; // Input for consume mode
+    let mut force_non_interactive = false; // New flag for non-interactive mode
+    let mut duration = None; // Duration for screensaver mode
     
     let mut i = 1;
     while i < args.len() {
         match args[i].as_str() {
+            "--" => {
+                force_non_interactive = true;
+                // Enable verbose mode if screensaver command is used
+                if args.len() > i + 1 && args[i + 1] == "screensaver" {
+                    verbose_mode = true;
+                }
+                i += 1;
+                continue;
+            },
             "-h" | "--help" => {
                 help::print_help();
                 return Ok(());
@@ -223,19 +233,29 @@ fn main() -> std::io::Result<()> {
             "-q" | "--quiet" => {
                 quiet_mode = true;
             },
+            "--verbose" => {
+                verbose_mode = true;
+            },
             "--demo-heatmap" => {
                 demo_heatmap = true;
             },
             "--no-demo" => {
                 demo_heatmap = false;
             },
-            "practice" | "config" | "test" | "consume" | "quote" | "moosesay" => {
+            "practice" | "config" | "test" | "consume" | "quote" | "moosesay" | "screensaver" => {
                 command = Some(args[i].clone());
                 
                 // If this is consume mode and the next arg doesn't start with '-'
                 if args[i].as_str() == "consume" && i + 1 < args.len() && !args[i + 1].starts_with('-') {
                     consume_input = Some(args[i + 1].clone());
                     i += 1;
+                }
+                // If this is screensaver mode and the next arg is a number
+                else if args[i].as_str() == "screensaver" && i + 1 < args.len() {
+                    if let Ok(dur) = args[i + 1].parse::<u64>() {
+                        duration = Some(dur);
+                        i += 1;
+                    }
                 }
             },
             _ => {
@@ -251,17 +271,26 @@ fn main() -> std::io::Result<()> {
     let log_level = if quiet_mode { LevelFilter::Error } else { LevelFilter::Info };
     let _ = logger::init_logger(log_level, None::<PathBuf>);
     
-    info!("Starting SpringKeys application");
+    if !quiet_mode {
+        info!("Starting SpringKeys application");
+    }
     
     // Initialize application
     let mut app = SpringKeys::new();
-    
+
+    // Create a single instance of QuoteDatabase
+    let mut quote_db = if quiet_mode {
+        quotes::QuoteDatabase::new_silent()
+    } else {
+        quotes::QuoteDatabase::new()
+    };
+
     // Apply difficulty if specified
     if let Some(diff) = difficulty {
         app.config.preferences.difficulty = match diff {
-            QuoteDifficulty::Easy => config::DifficultyLevel::Beginner,
-            QuoteDifficulty::Medium => config::DifficultyLevel::Intermediate,
-            QuoteDifficulty::Hard => config::DifficultyLevel::Advanced,
+            QuoteDifficulty::Easy => DifficultyLevel::Beginner,
+            QuoteDifficulty::Medium => DifficultyLevel::Intermediate,
+            QuoteDifficulty::Hard => DifficultyLevel::Advanced,
         };
     }
 
@@ -269,30 +298,48 @@ fn main() -> std::io::Result<()> {
     if let Some(cmd) = &command {
         match cmd.as_str() {
             "quote" | "moosesay" | "screensaver" => {
-                let mut quote_db = quotes::QuoteDatabase::new_silent();
-                let quote = quote_db.next_random();
+                let mut quote_db = if quiet_mode {
+                    quotes::QuoteDatabase::new_silent()
+                } else {
+                    quotes::QuoteDatabase::new()
+                };
                 
                 match cmd.as_str() {
                     "quote" => {
-                        println!("{}", quote.text);
-                        println!("— {}", quote.source);
+                        let quote = quote_db.next_random();
+                        if !quiet_mode {
+                            println!("{}", quote.text);
+                            println!("— {}", quote.source);
+                        }
                     }
                     "moosesay" => {
-                        moosesay::animate_moose_quote(&quote.text, None)?;
-                        println!("— {}", quote.source);
+                        // Skip animation in non-interactive mode or quiet mode
+                        if force_non_interactive || !std::io::stdout().is_terminal() || quiet_mode {
+                            let quote = quote_db.next_random();
+                            if !quiet_mode {
+                                println!("{}", quote.text);
+                                println!("— {}", quote.source);
+                            }
+                        } else {
+                            moosesay::animate_moose_quote(1, quiet_mode, verbose_mode)?;
+                        }
                     }
                     "screensaver" => {
-                        // Only parse duration if there's a number after "screensaver"
-                        let duration = args.iter()
-                            .position(|arg| arg == "screensaver")
-                            .and_then(|pos| args.get(pos + 1))
-                            .filter(|arg| arg.chars().all(|c| c.is_digit(10)))
-                            .and_then(|arg| arg.parse::<u64>().ok());
-                        moosesay::animate_moose_quote(&quote.text, duration)?;
+                        // Skip animation in non-interactive mode or quiet mode
+                        if !std::io::stdout().is_terminal() || quiet_mode {
+                            let quote = quote_db.next_random();
+                            if !quiet_mode {
+                                println!("{}", quote.text);
+                                println!("— {}", quote.source);
+                            }
+                        } else {
+                            let duration = duration.unwrap_or(1);
+                            moosesay::animate_moose_quote(duration, quiet_mode, verbose_mode)?;
+                        }
                     }
                     _ => unreachable!()
                 }
-                std::process::exit(0);
+                return Ok(());
             }
             "practice" => {
                 app.change_game(GameType::Practice);
@@ -331,6 +378,11 @@ fn main() -> std::io::Result<()> {
         } else {
             help::print_help();
         }
+        return Ok(());
+    }
+
+    // Don't try to initialize UI in non-interactive mode
+    if force_non_interactive || !std::io::stdout().is_terminal() {
         return Ok(());
     }
 
