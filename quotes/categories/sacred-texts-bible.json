@@ -1,9 +1,44 @@
 [
   {
-    "text": "The Holy Bible",
+    "text": "The Bible",
     "source": "Christian Sacred Text",
     "difficulty": "Medium",
     "category": "SacredTextsBible",
-    "origin": "Middle East"
+    "origin": "Early Christianity"
+  },
+  {
+    "text": "Repent, then, and turn to God, so that your sins may be wiped out, that times of refreshing may come from the Lord.",
+    "source": "Acts 3:19",
+    "difficulty": "Medium",
+    "category": "SacredTextsBible",
+    "origin": "Early Christianity"
+  },
+  {
+    "text": "All Scripture is God-breathed and is useful for teaching, rebuking, correcting and training in righteousness.",
+    "source": "2 Timothy 3:16",
+    "difficulty": "Medium",
+    "category": "SacredTextsBible",
+    "origin": "Early Christianity"
+  },
+  {
+    "text": "If we confess our sins, he is faithful and just and will forgive us our sins and purify us from all unrighteousness.",
+    "source": "1 John 1:9",
+    "difficulty": "Easy",
+    "category": "SacredTextsBible",
+    "origin": "Early Christianity"
+  },
+  {
+    "text": "If your brother or sister sins, go and point out their fault, just between the two of you. If they listen to you, you have won them over.",
+    "source": "Matthew 18:15",
+    "difficulty": "Medium",
+    "category": "SacredTextsBible",
+    "origin": "Early Christianity"
+  },
+  {
+    "text": "Bear with each other and forgive one another if any of you has a grievance against someone. Forgive as the Lord forgave you.",
+    "source": "Colossians 3:13",
+    "difficulty": "Medium",
+    "category": "SacredTextsBible",
+    "origin": "Early Christianity"
   }
 ] 

@@ -4,76 +4,76 @@
     "source": "Islamic Sacred Text",
     "difficulty": "Medium",
     "category": "SacredTextsQuran",
-    "origin": "Middle East"
+    "origin": "Arabia"
   },
   {
-    "text": "Indeed, Allah is with those who are patient.",
-    "source": "Quran 2:153",
+    "text": "Allah loves those who repent and purify themselves.",
+    "source": "Quran 2:222",
     "difficulty": "Easy",
     "category": "SacredTextsQuran",
-    "origin": "Ancient Arabia"
+    "origin": "Arabia"
   },
   {
-    "text": "Verily, with hardship comes ease.",
-    "source": "Quran 94:5",
+    "text": "And whoever does evil or wrongs himself but afterwards seeks Allah's forgiveness, he will find Allah Oft-Forgiving, Most Merciful.",
+    "source": "Quran 4:110",
+    "difficulty": "Medium",
+    "category": "SacredTextsQuran",
+    "origin": "Arabia"
+  },
+  {
+    "text": "O you who believe! Turn to Allah with sincere repentance.",
+    "source": "Quran 66:8",
     "difficulty": "Easy",
     "category": "SacredTextsQuran",
-    "origin": "Ancient Arabia"
+    "origin": "Arabia"
   },
   {
-    "text": "And We have certainly created man in the best of stature.",
-    "source": "Quran 95:4",
-    "difficulty": "Easy",
+    "text": "Allah accepts the repentance of those who do evil in ignorance and repent soon afterward; to them will Allah turn in mercy.",
+    "source": "Quran 4:17",
+    "difficulty": "Medium",
     "category": "SacredTextsQuran",
-    "origin": "Ancient Arabia"
+    "origin": "Arabia"
   },
   {
-    "text": "Indeed, Allah does not change the condition of a people until they change what is in themselves.",
+    "text": "Verily, Allah does not change the condition of a people until they change what is in themselves.",
     "source": "Quran 13:11",
     "difficulty": "Medium",
     "category": "SacredTextsQuran",
-    "origin": "Ancient Arabia"
+    "origin": "Arabia"
   },
   {
-    "text": "And speak to people good words.",
-    "source": "Quran 2:83",
-    "difficulty": "Easy",
-    "category": "SacredTextsQuran",
-    "origin": "Ancient Arabia"
-  },
-  {
-    "text": "And whoever does good, whether male or female, and is a believer, those will enter Paradise.",
-    "source": "Quran 40:40",
+    "text": "And hasten to forgiveness from your Lord and a garden as wide as the heavens and earth, prepared for the righteous.",
+    "source": "Quran 3:133",
     "difficulty": "Medium",
     "category": "SacredTextsQuran",
-    "origin": "Ancient Arabia"
+    "origin": "Arabia"
   },
   {
-    "text": "And We have not sent you, [O Muhammad], except as a mercy to the worlds.",
-    "source": "Quran 21:107",
+    "text": "Indeed, good deeds do away with misdeeds. That is a reminder for those who remember.",
+    "source": "Quran 11:114",
     "difficulty": "Medium",
     "category": "SacredTextsQuran",
-    "origin": "Ancient Arabia"
+    "origin": "Arabia"
   },
   {
-    "text": "And whoever is patient and forgives - indeed, that is of the matters [worthy] of resolve.",
-    "source": "Quran 42:43",
+    "text": "But indeed, I am the Perpetual Forgiver of whoever repents and believes and does righteousness and then continues in guidance.",
+    "source": "Quran 20:82",
     "difficulty": "Medium",
     "category": "SacredTextsQuran",
-    "origin": "Ancient Arabia"
+    "origin": "Arabia"
   },
   {
-    "text": "And We have certainly created man from an extract of clay.",
-    "source": "Quran 23:12",
+    "text": "Say, 'O My servants who have transgressed against themselves, do not despair of the mercy of Allah. Indeed, Allah forgives all sins.'",
+    "source": "Quran 39:53",
     "difficulty": "Medium",
     "category": "SacredTextsQuran",
-    "origin": "Ancient Arabia"
+    "origin": "Arabia"
   },
   {
-    "text": "And We have certainly created man in the best of stature.",
-    "source": "Quran 95:4",
-    "difficulty": "Easy",
+    "text": "And if the enemy inclines toward peace, then you too should seek peace and put your trust in Allah.",
+    "source": "Quran 8:61",
+    "difficulty": "Medium",
     "category": "SacredTextsQuran",
-    "origin": "Ancient Arabia"
+    "origin": "Arabia"
   }
 ] 
